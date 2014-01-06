@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/e-dcat-api.iml" filepath="$PROJECT_DIR$/e-dcat-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../jsonld-java/core/jsonld-java.iml" filepath="$PROJECT_DIR$/../jsonld-java/core/jsonld-java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../jsonld-java/integration/clerezza/jsonld-java-clerezza.iml" filepath="$PROJECT_DIR$/../jsonld-java/integration/clerezza/jsonld-java-clerezza.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../jsonld-java/integration/jsonld-java-integration.iml" filepath="$PROJECT_DIR$/../jsonld-java/integration/jsonld-java-integration.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../jsonld-java/integration/jena/jsonld-java-jena.iml" filepath="$PROJECT_DIR$/../jsonld-java/integration/jena/jsonld-java-jena.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../jsonld-java/jsonld-java-parent.iml" filepath="$PROJECT_DIR$/../jsonld-java/jsonld-java-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../jsonld-java/integration/sesame/jsonld-java-sesame.iml" filepath="$PROJECT_DIR$/../jsonld-java/integration/sesame/jsonld-java-sesame.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../jsonld-java/tools/jsonld-java-tools.iml" filepath="$PROJECT_DIR$/../jsonld-java/tools/jsonld-java-tools.iml" />
+    </modules>
+  </component>
+</project>
+

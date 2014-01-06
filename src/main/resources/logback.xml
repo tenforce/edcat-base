@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true" scan="true">
+
+    <property name="LOG_FOLDER" value="../logs"/>
+    <property name="APPLICATION_NAME" value="e-dcat"/>
+
+    <property name="LOGGING_PATTERN" value="%d{HH:mm:ss.SSS} %-5level %20.20thread - %35.35logger  %m%n"/>
+    <property name="LOGGING_NAMED_PATTERN" value="%d{HH:mm:ss.SSS} %-5level %20.20thread - %m%n"/>
+    <property name="LOGGING_NAMED_DATE_PATTERN" value="%d{YYYY-MM-DD HH:mm:ss.SSS} %-5level %20.20thread - %m%n"/>
+
+    <logger additivity="true" name="eu.lod2">
+        <level value="${logback.tenforceLevel:-INFO}"/>
+    </logger>
+
+    <appender class="ch.qos.logback.core.rolling.RollingFileAppender" name="FILE">
+        <file>${LOG_FOLDER}/${APPLICATION_NAME}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_FOLDER}/archive/${APPLICATION_NAME}.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <MaxHistory>5</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>${LOGGING_PATTERN}</pattern>
+            </layout>
+        </encoder>
+    </appender>
+
+    <appender class="ch.qos.logback.core.ConsoleAppender" name="CONSOLE">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>${LOGGING_PATTERN}</pattern>
+            </layout>
+        </encoder>
+    </appender>
+
+    <root level="${logback.rootLevel:-INFO}">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>
