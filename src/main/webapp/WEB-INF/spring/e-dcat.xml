@@ -10,4 +10,9 @@
   <context:component-scan base-package="eu.lod2.edcat.controller"/>
   <mvc:annotation-driven>
   </mvc:annotation-driven>
+
+  <bean id="hookHandlers" class="org.springframework.beans.factory.serviceloader.ServiceListFactoryBean">
+    <property name="serviceType" value="eu.lod2.edcat.handler.OptionalHookHandler"/>
+  </bean>
+
 </beans>

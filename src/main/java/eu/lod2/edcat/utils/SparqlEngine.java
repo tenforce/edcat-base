@@ -258,7 +258,7 @@ public class SparqlEngine {
   public void insertConstruct(String sparqlConstruct, String graphURI) throws Exception {
     sparqlConstruct = sparqlConstruct.trim();
     if (!sparqlConstruct.toLowerCase().startsWith("construct")) {
-      throw new IllegalArgumentException("Could not handle query, not a construct query: " + sparqlConstruct);
+      throw new IllegalArgumentException("Could not handlePreCreate query, not a construct query: " + sparqlConstruct);
     }
     int firstWhere = sparqlConstruct.toLowerCase().indexOf("where");
     String sparqlInsert = "INSERT { GRAPH <" + graphURI + "> " + sparqlConstruct.substring(9, firstWhere) + " } " + sparqlConstruct.substring(firstWhere);
