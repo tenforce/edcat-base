@@ -1,16 +1,20 @@
 package eu.lod2.edcat.controller;
 
-import com.github.jsonldjava.sesame.DcatSesameJSONLDParserFactory;
+import com.github.jsonldjava.core.JsonLdProcessor;
+import com.github.jsonldjava.sesame.DcatRDFHandler;
+import com.github.jsonldjava.sesame.SesameTripleCallback;
+import com.github.jsonldjava.utils.JSONUtils;
 import eu.lod2.edcat.handler.PreCreateHandler;
 import eu.lod2.edcat.utils.Constants;
 import eu.lod2.edcat.utils.SparqlEngine;
 import org.openrdf.model.Literal;
 import org.openrdf.model.URI;
+import org.openrdf.model.impl.LinkedHashModel;
 import org.openrdf.model.impl.StatementImpl;
 import org.openrdf.model.impl.URIImpl;
 import org.openrdf.model.impl.ValueFactoryImpl;
 import org.openrdf.model.vocabulary.DCTERMS;
-import org.openrdf.rio.Rio;
+import org.openrdf.rio.ParserConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -30,7 +35,7 @@ public class DatasetController {
   protected static final String ROUTE = "datasets";
   protected static final String OBJECT_ROUTE = ROUTE + "/{datasetId}";
   @Autowired(required=false)
-  protected List<PreCreateHandler> preCreateHandlers;
+  protected List<PreCreateHandler> preCreateHandlers = Collections.emptyList();
 
   //* Returns default headers for the application. These headers should always be present
   protected HttpHeaders getHeaders() throws Exception {
@@ -44,11 +49,15 @@ public class DatasetController {
     public ResponseEntity<Object> create(HttpServletRequest request) throws Exception {
     SparqlEngine engine = new SparqlEngine();
     InputStream inputStream = request.getInputStream();
+    Object json = JSONUtils.fromInputStream(inputStream);
+    DcatRDFHandler rdfHandler = new DcatRDFHandler();
+    final SesameTripleCallback callback = new SesameTripleCallback(rdfHandler,ValueFactoryImpl.getInstance(), new ParserConfig(), null);
+    JsonLdProcessor.toRDF(json, callback);
     String datasetId =  UUID.randomUUID().toString();
     String uri = buildDatasetURI(datasetId);
     URI graph = new URIImpl(uri);
     URI resource = new URIImpl(uri);
-    org.openrdf.model.Model statements = Rio.parse(inputStream, Constants.getURIBase(), DcatSesameJSONLDParserFactory.DCATJSONLD);
+    LinkedHashModel statements = new LinkedHashModel(rdfHandler.getStatements());
     URI record = new URIImpl(buildRecordURI(datasetId));
 //    for (PreCreateHandler h : preCreateHandlers) {
 //      h.handle(engine,graph,resource);
