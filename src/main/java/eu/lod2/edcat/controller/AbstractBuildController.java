@@ -16,21 +16,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
-@Controller
-public class DatasetController {
-  protected static final String ROUTE = "datasets";
-  protected static final String OBJECT_ROUTE = ROUTE + "/{datasetId}";
+public abstract class AbstractBuildController {
   @Autowired(required = false)
   protected List<PreCreateHandler> preCreateHandlers = Collections.emptyList();
 
@@ -41,9 +34,8 @@ public class DatasetController {
   }
 
 
-  // POST /datasets
-  @RequestMapping(value = ROUTE, method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-  public ResponseEntity<Object> create(HttpServletRequest request) throws Exception {
+
+  public ResponseEntity<Object> build(HttpServletRequest request) throws Exception {
     SparqlEngine engine = new SparqlEngine();
     preCreateHook(engine);
     Model statements = buildModel(request);
@@ -53,13 +45,17 @@ public class DatasetController {
     return new ResponseEntity<Object>(null, getHeaders(), HttpStatus.OK);
   }
 
+  abstract public String getId();
+  abstract public String getContext();
+
   private Model buildModel(HttpServletRequest request) throws Exception{
     InputStream in = request.getInputStream();
-    Model statements = DcatJsonParser.parse(in,"mycontext");
+    String datasetId = getId();
+    URI uri = buildDatasetURI(datasetId);
+    Model statements = DcatJsonParser.parse(in, getContext(),uri);
     in.close();
-    String datasetId = UUID.randomUUID().toString();
-    String uri = buildDatasetURI(datasetId);
-    URI record = new URIImpl(buildRecordURI(datasetId));
+
+    URI record = buildRecordURI(datasetId);
     Literal now = ValueFactoryImpl.getInstance().createLiteral(new Date());
     statements.add(new StatementImpl(record, DCTERMS.ISSUED, now));
     statements.add(record, DCTERMS.MODIFIED, now);
@@ -84,42 +80,15 @@ public class DatasetController {
 //     }
   }
 
-  // GET /datasets/{id}
-  // TODO: this is a stub
-  @RequestMapping(value = OBJECT_ROUTE, method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
-  public ResponseEntity<Object> show(HttpServletRequest request) throws Exception {
-    SparqlEngine engine = new SparqlEngine();
-    return new ResponseEntity<Object>(null, getHeaders(), HttpStatus.OK);
-  }
-
-
-  // PUT /datasets/{id}
-  // TODO: this is a stub
-  @RequestMapping(value = OBJECT_ROUTE, method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
-  public ResponseEntity<Object> update(HttpServletRequest request)
-          throws Exception {
-    SparqlEngine engine = new SparqlEngine();
-    return new ResponseEntity<Object>(null, getHeaders(), HttpStatus.OK);
-  }
-
-  // DELETE /datasets/{id}
-  // TODO: this is a stub
-  @RequestMapping(value = OBJECT_ROUTE, method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
-  public ResponseEntity<Object> destroy(HttpServletRequest request) throws Exception {
-    SparqlEngine engine = new SparqlEngine();
-    return new ResponseEntity<Object>(null, getHeaders(), HttpStatus.OK);
-  }
-
-
-  private String buildDatasetURI(String datasetId) {
+  private URI buildDatasetURI(String datasetId) {
     StringBuilder builder = new StringBuilder();
     builder.append(Constants.getURIBase()).append(Constants.datasetURIType).append("/").append(datasetId);
-    return builder.toString();
+    return new URIImpl(builder.toString());
   }
 
-  private String buildRecordURI(String datasetId) {
+  private URI buildRecordURI(String datasetId) {
     StringBuilder builder = new StringBuilder();
     builder.append(Constants.getURIBase()).append("records").append("/").append(datasetId);
-    return builder.toString();
+    return new URIImpl(builder.toString());
   }
 }
