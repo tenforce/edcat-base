@@ -16,14 +16,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.InputStream;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,7 +41,7 @@ public class DatasetController {
 
   // POST /datasets
   @RequestMapping(value = ROUTE, method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public ResponseEntity<Object> create(HttpServletRequest request, @RequestBody HashMap<String,Object> details) throws Exception {
+    public ResponseEntity<Object> create(HttpServletRequest request) throws Exception {
     SparqlEngine engine = new SparqlEngine();
     InputStream inputStream = request.getInputStream();
     String datasetId =  UUID.randomUUID().toString();
@@ -52,9 +50,9 @@ public class DatasetController {
     URI resource = new URIImpl(uri);
     org.openrdf.model.Model statements = Rio.parse(inputStream, Constants.getURIBase(), DcatSesameJSONLDParserFactory.DCATJSONLD);
     URI record = new URIImpl(buildRecordURI(datasetId));
-    for (PreCreateHandler h : preCreateHandlers) {
-      h.handle(engine,graph,resource);
-    }
+//    for (PreCreateHandler h : preCreateHandlers) {
+//      h.handle(engine,graph,resource);
+//    }
     Literal now = ValueFactoryImpl.getInstance().createLiteral(new Date());
     statements.add(new StatementImpl(record, DCTERMS.ISSUED, now));
     statements.add(record,DCTERMS.MODIFIED, now);

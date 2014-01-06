@@ -2,13 +2,13 @@ package com.github.jsonldjava.sesame;
 
 import com.github.jsonldjava.core.JsonLdError;
 import com.github.jsonldjava.core.JsonLdProcessor;
+import com.github.jsonldjava.utils.JSONUtils;
 import org.openrdf.rio.RDFFormat;
 import org.openrdf.rio.RDFHandlerException;
 import org.openrdf.rio.RDFParseException;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+import java.io.InputStream;
 
 public class DcatSesameJSONLDParser extends SesameJSONLDParser {
 
@@ -21,13 +21,11 @@ public class DcatSesameJSONLDParser extends SesameJSONLDParser {
     return DcatSesameJSONLDParserFactory.DCATJSONLD;
   }
 
-  private void dcatParse(final Object o, final String baseURI) throws IOException,
-          RDFParseException, RDFHandlerException {
+  private void generalizedParse(final Object json, final String baseURI) throws IOException, RDFParseException, RDFHandlerException {
     final SesameTripleCallback callback = new SesameTripleCallback(getRDFHandler(),
             valueFactory, getParserConfig(), getParseErrorListener());
-
     try {
-      JsonLdProcessor.toRDF(o, callback);
+      JsonLdProcessor.toRDF(json, callback);
     } catch (final JsonLdError e) {
       throw new RDFParseException("Could not parse JSONLD", e);
     } catch (final RuntimeException e) {
@@ -38,13 +36,8 @@ public class DcatSesameJSONLDParser extends SesameJSONLDParser {
     }
   }
 
-  public void parse(final List o, final String baseURI) throws IOException,
-          RDFParseException, RDFHandlerException {
-    dcatParse(o,baseURI);
+  public void parse(final InputStream in, final String baseURI) throws IOException, RDFParseException, RDFHandlerException {
+    Object json = JSONUtils.fromInputStream(in);
+    generalizedParse(json, baseURI);
   }
-  public void parse(final Map o, final String baseURI) throws IOException,
-          RDFParseException, RDFHandlerException {
-    dcatParse(o,baseURI);
-  }
-
 }

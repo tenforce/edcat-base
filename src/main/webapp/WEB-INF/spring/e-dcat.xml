@@ -9,14 +9,5 @@
 
   <context:component-scan base-package="eu.lod2.edcat.controller"/>
   <mvc:annotation-driven>
-    <mvc:message-converters>
-      <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
-      <property name="objectMapper">
-      <bean class="org.codehaus.jackson.map.ObjectMapper">
-          <!--<property name="serializationInclusion" value="NON_NULL"/>-->
-        </bean>
-      </property>
-      </bean>
-    </mvc:message-converters>
   </mvc:annotation-driven>
 </beans>
