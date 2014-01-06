@@ -1,11 +1,4 @@
 package eu.lod2.edcat.handler;
 
-/**
- * Created with IntelliJ IDEA.
- * User: nielsv
- * Date: 1/6/14
- * Time: 5:01 PM
- * To change this template use File | Settings | File Templates.
- */
-public interface PostReadHandler {
+public interface PostReadHandler extends HookHandler {
 }
