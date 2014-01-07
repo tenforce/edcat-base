@@ -81,6 +81,8 @@
     <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-sail-nativerdf:2.7.9" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.13" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.13" level="project" />
+    <orderEntry type="module" module-name="loging-plugin" />
+    <orderEntry type="module" module-name="auth-plugin" />
   </component>
 </module>
 

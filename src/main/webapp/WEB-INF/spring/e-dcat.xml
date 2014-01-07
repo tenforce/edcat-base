@@ -7,12 +7,10 @@
   http://www.springframework.org/schema/mvc    http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
   http://www.springframework.org/schema/context    http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
-  <context:component-scan base-package="eu.lod2.edcat.controller"/>
+  <context:component-scan base-package="eu.lod2"/>
   <mvc:annotation-driven>
   </mvc:annotation-driven>
-
-  <bean id="hookHandlers" class="org.springframework.beans.factory.serviceloader.ServiceListFactoryBean">
-    <property name="serviceType" value="eu.lod2.edcat.handler.OptionalHookHandler"/>
+  <bean id="handlers" class="org.springframework.beans.factory.serviceloader.ServiceListFactoryBean">
+    <property name="serviceType" value="eu.lod2.edcat.handler.HookHandler"/>
   </bean>
-
 </beans>

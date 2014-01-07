@@ -1,5 +1,6 @@
 package eu.lod2.edcat.handler;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ClassUtils;
 
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.List;
 
 public class HookManager {
 
-  //  @Autowired
+  @Autowired
   static List<HookHandler> handlers = new ArrayList<HookHandler>();
 
   private static List<HookHandler> getHandlerFor(Class<?> hookInterface) {
