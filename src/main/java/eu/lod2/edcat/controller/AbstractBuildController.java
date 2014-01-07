@@ -1,10 +1,10 @@
 package eu.lod2.edcat.controller;
 
-import eu.lod2.edcat.handler.ActionAbortException;
-import eu.lod2.edcat.handler.HookHandler;
-import eu.lod2.edcat.handler.HookManager;
-import eu.lod2.edcat.handler.OptionalHookHandler;
-import eu.lod2.edcat.handler.PreCreateHandler;
+import eu.lod2.edcat.hooks.util.ActionAbortException;
+import eu.lod2.edcat.hooks.handlers.HookHandler;
+import eu.lod2.edcat.hooks.util.HookManager;
+import eu.lod2.edcat.hooks.handlers.OptionalHookHandler;
+import eu.lod2.edcat.hooks.handlers.dcat.PreCreateHandler;
 import eu.lod2.edcat.utils.Constants;
 import eu.lod2.edcat.utils.DcatJsonParser;
 import eu.lod2.edcat.utils.SparqlEngine;

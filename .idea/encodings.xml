@@ -3,13 +3,6 @@
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/webapp" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../jsonld-java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../jsonld-java/core" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../jsonld-java/integration" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../jsonld-java/integration/clerezza" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../jsonld-java/integration/jena" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../jsonld-java/integration/sesame" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../jsonld-java/tools" charset="UTF-8" />
   </component>
 </project>
 
