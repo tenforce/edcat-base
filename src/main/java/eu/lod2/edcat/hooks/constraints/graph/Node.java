@@ -8,7 +8,7 @@ import java.util.*;
  * A node abstracts out information regarding the ordering of HookHandlers.  It is used
  * by the NodeSet to cleanly access the ordering information.
  */
-public class Node {
+public class Node<HookHandler> {
 
     /** The hook we are abstracting */
     private HookHandler handler;
@@ -43,6 +43,12 @@ public class Node {
         this.handler = handler;
     }
 
+    /**
+     * Retrieves the handler which this Node describes
+     */
+    public HookHandler getHandler() {
+        return this.handler;
+    }
 
     /**
      * Indicate that this node should be executed after attachment.
