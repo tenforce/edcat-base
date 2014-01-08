@@ -34,7 +34,7 @@ public abstract class AbstractBuildController {
 
   public ResponseEntity<Object> build(HttpServletRequest request) throws Exception {
     SparqlEngine engine = new SparqlEngine();
-    preCreateHook(engine, null);
+    preCreateHook(engine, request);
     Model statements = buildModel(request);
     atCreateHook(statements);
     engine.addStatements(statements);
