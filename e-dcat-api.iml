@@ -47,7 +47,7 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.2.3" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.2.3" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.2.3" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.6.1" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.2.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.2.4" level="project" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.6" level="project" />
@@ -55,6 +55,12 @@
     <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-model:2.7.9" level="project" />
     <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-util:2.7.9" level="project" />
     <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-rio-api:2.7.9" level="project" />
+    <orderEntry type="library" name="Maven: commons-io:commons-io:2.4" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.13" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.13" level="project" />
+    <orderEntry type="module" module-name="logging-plugin" />
+    <orderEntry type="module" module-name="core-hooks" />
+    <orderEntry type="module" module-name="hooks" />
     <orderEntry type="library" name="Maven: virtuoso.sesame2:driver:2.7.3-build1.12" level="project" />
     <orderEntry type="library" name="Maven: virtuoso:jdbc-driver:4.0" level="project" />
     <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-repository-api:2.7.9" level="project" />
@@ -72,16 +78,12 @@
     <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-rio-ntriples:2.7.9" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.openrdf.sesame:sesame-rio-datatypes:2.7.9" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.openrdf.sesame:sesame-rio-languages:2.7.9" level="project" />
-    <orderEntry type="library" name="Maven: commons-io:commons-io:2.4" level="project" />
     <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-queryresultio-api:2.7.9" level="project" />
     <orderEntry type="library" name="Maven: commons-httpclient:commons-httpclient:3.1" level="project" />
     <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-queryparser-sparql:2.7.9" level="project" />
     <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-queryresultio-sparqlxml:2.7.9" level="project" />
     <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-repository-sail:2.7.9" level="project" />
     <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-sail-nativerdf:2.7.9" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.13" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.13" level="project" />
-    <orderEntry type="module" module-name="logging-plugin" />
     <orderEntry type="module" module-name="auth-plugin" />
   </component>
 </module>
