@@ -11,6 +11,6 @@
   <mvc:annotation-driven>
   </mvc:annotation-driven>
   <bean id="handlers" class="org.springframework.beans.factory.serviceloader.ServiceListFactoryBean">
-    <property name="serviceType" value="eu.lod2.edcat.hooks.handlers.HookHandler"/>
+    <property name="serviceType" value="eu.lod2.hooks.handlers.HookHandler"/>
   </bean>
 </beans>
