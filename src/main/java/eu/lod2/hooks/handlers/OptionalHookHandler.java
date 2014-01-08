@@ -1,4 +1,4 @@
-package eu.lod2.edcat.hooks.handlers;
+package eu.lod2.hooks.handlers;
 
 import java.util.Map;
 

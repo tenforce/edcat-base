@@ -1,4 +1,4 @@
-package eu.lod2.edcat.hooks.constraints;
+package eu.lod2.hooks.constraints;
 
 public class BroadPriority extends Priority {
   public static final boolean EARLY = true;
