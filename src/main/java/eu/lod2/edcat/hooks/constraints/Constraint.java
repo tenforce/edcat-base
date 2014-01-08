@@ -1,6 +1,7 @@
 package eu.lod2.edcat.hooks.constraints;
 
 public class Constraint {
+
   public static Priority EARLY = new BroadPriority(BroadPriority.EARLY);
   public static Priority LATE = new BroadPriority(BroadPriority.LATE);
 
@@ -19,4 +20,5 @@ public class Constraint {
   public static Priority before(Class plugin) {
     return before(plugin.getCanonicalName());
   }
+
 }

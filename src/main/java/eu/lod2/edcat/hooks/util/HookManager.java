@@ -23,7 +23,7 @@ public class HookManager {
     return filteredHandlers;
   }
 
-  private static List<HookHandler> prioritySort(List<HookHandler> hookHandlers,String hook) {
+  private static List<HookHandler> prioritySort(List<HookHandler> hookHandlers, String hook) {
     // TODO: actually sort it
     return hookHandlers;
   }

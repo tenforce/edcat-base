@@ -1,5 +1,6 @@
 package eu.lod2.edcat.hooks.constraints.graph;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -42,8 +43,6 @@ public abstract class NodeSet<HookHandler> {
     private enum State {
         ADDING, RETRIEVING
     }
-
-    ;
 
     /** The current state of the NedSet. */
     private State currentState = State.ADDING;
@@ -94,6 +93,28 @@ public abstract class NodeSet<HookHandler> {
     public void add(HookHandler handler) {
         inAddingState();
         handlers.add(handler);
+    }
+
+    /**
+     * Discovers an order in which the handlers can be executed.
+     *
+     * @return Ordered list of HookHandlers.  The first handler in the list should be executed first.
+     */
+    public List<HookHandler> handlersExecutionList() {
+        Set<ConnectedGraph<HookHandler>> nodeSets = ConnectedGraph.discoverNodeSets(nodes);
+        return unpackNodes(orderedExecutionPath(nodeSets));
+    }
+
+    /**
+     * Checks if there is a cycle in the current set of hooks.
+     *
+     * @return true if a cycle could be found, false otherwise.
+     */
+    public boolean hasCycleP() {
+        for (ConnectedGraph<HookHandler> graph : ConnectedGraph.discoverNodeSets(nodes))
+            if (graph.cycleP())
+                return true;
+        return false;
     }
 
 
@@ -165,7 +186,7 @@ public abstract class NodeSet<HookHandler> {
      * <p/>
      * /@atStateChange: used during State change
      *
-     * @param handler the hookhandler which the Node describes
+     * @param handler the HookHandler which the Node describes
      * @return Node which has HookHandler
      */
     private Node<HookHandler> findNodeByHandler(HookHandler handler) {
@@ -173,6 +194,74 @@ public abstract class NodeSet<HookHandler> {
             if (node.getHandler() == handler)
                 return node;
         return null;
+    }
+
+    //-----------------------------
+    //-- finding the execution path
+    //-----------------------------
+
+    /**
+     * Returns the execution path for a set of ConnectedGraphs.
+     *
+     * @param graphs The ConnectedGraphs which contain all nodes to be executed.
+     * @return List of HookHandlers contained in the graphs, in the order in which they should be executed.
+     */
+    private List<Node<HookHandler>> orderedExecutionPath(Set<ConnectedGraph<HookHandler>> graphs) {
+        // In order to sort the complete graphs, we request the earliest unconstrained node and
+        // the last unconstrained node.  We check their SchedulingPreference and sort as good as we can on that.
+        Set<List<Node<HookHandler>>> fromEarlyToEarly = new HashSet<List<Node<HookHandler>>>();
+        Set<List<Node<HookHandler>>> fromEarlyToLate = new HashSet<List<Node<HookHandler>>>();
+        Set<List<Node<HookHandler>>> fromLateToEarly = new HashSet<List<Node<HookHandler>>>();
+        Set<List<Node<HookHandler>>> fromLateToLate = new HashSet<List<Node<HookHandler>>>();
+
+        for (ConnectedGraph<HookHandler> graph : graphs) {
+            switch (graph.earliestUnconstrainedNode().getSchedulingPreference()) {
+                case EARLY:
+                    switch (graph.lastUnconstrainedNode().getSchedulingPreference()) {
+                        case EARLY:
+                            fromEarlyToEarly.add(graph.executionOrder());
+                            break;
+                        case LATE:
+                            fromEarlyToLate.add(graph.executionOrder());
+                            break;
+                    }
+                    break;
+                case LATE:
+                    switch (graph.lastUnconstrainedNode().getSchedulingPreference()) {
+                        case EARLY:
+                            fromLateToEarly.add(graph.executionOrder());
+                            break;
+                        case LATE:
+                            fromLateToLate.add(graph.executionOrder());
+                            break;
+                    }
+            }
+        }
+
+        List<Node<HookHandler>> orderedNodes = new ArrayList<Node<HookHandler>>();
+
+        for (List<Node<HookHandler>> nodes : fromEarlyToEarly)
+            orderedNodes.addAll(nodes);
+        for (List<Node<HookHandler>> nodes : fromEarlyToLate)
+            orderedNodes.addAll(nodes);
+        for (List<Node<HookHandler>> nodes : fromLateToEarly)
+            orderedNodes.addAll(nodes);
+        for (List<Node<HookHandler>> nodes : fromLateToLate)
+            orderedNodes.addAll(nodes);
+        return orderedNodes;
+    }
+
+    /**
+     * Unpacks the supplied list of nodes and returns a list of their payload.
+     *
+     * @param nodes Nodes which will be unpacked.
+     * @return List containing the payload of the supplied nodes in the same order as their corresponding nodes.
+     */
+    private <HookHandler> List<HookHandler> unpackNodes(List<Node<HookHandler>> nodes) {
+        List<HookHandler> handlers = new ArrayList<HookHandler>();
+        for (Node<HookHandler> node : nodes)
+            handlers.add(node.getHandler());
+        return handlers;
     }
 
 }

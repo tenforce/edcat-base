@@ -1,7 +1,5 @@
 package eu.lod2.edcat.hooks.constraints.graph;
 
-import eu.lod2.edcat.hooks.handlers.HookHandler;
-
 import java.util.*;
 
 /**
@@ -13,11 +11,19 @@ public class Node<HookHandler> {
     /** The hook we are abstracting */
     private HookHandler handler;
 
-    /** Nodes which have explicitly been specified to be executed after this node */
-    private Set<Node> directlyAfterSelf = new HashSet<Node>();
+    /** Hooks have a broad scheduling preference which is indicated by these keywords */
+    public enum SchedulingPreference {
+        EARLY, LATE
+    }
 
-    /** Nodes which have explicitly been specified to be executed before this node */
-    private Set<Node> directlyBeforeSelf = new HashSet<Node>();
+    /** Contains the current schedulingPreference, defaulting to LATE */
+    private SchedulingPreference schedulingPreference = SchedulingPreference.LATE;
+
+    /** Contains the nodes of which I specified that I would run before them */
+    private Set<Node> thisExplicitlyRunsBefore = new HashSet<Node>();
+
+    /** Contains the nodes of which I specified that I would run after them */
+    private Set<Node> thisExplicitlyRunsAfter = new HashSet<Node>();
 
     /** Nodes which have implicitly been specified to be executed after this node (in a single step) */
     private Set<Node> singleStepAfterSelf = new HashSet<Node>();
@@ -51,16 +57,106 @@ public class Node<HookHandler> {
     }
 
     /**
+     * Sets the broad scheduling preference of this Node.
+     * <p/>
+     * If a Node is the first node in a graph to be executed, setting its scheduling preference to
+     * EARLY will put it in front of the list of executed preference.  Choosing LATE will plate the node more
+     * near the back of the execution stack.
+     * <p/>
+     * The priority should be seen as a solid hint towards the scheduling system.  If a node has both dependencies
+     * and a priority, the dependencies MAY overrule the scheduling preference.
+     *
+     * @param preference The new preference
+     */
+    public void setSchedulingPreference(SchedulingPreference preference) {
+        this.schedulingPreference = preference;
+    }
+
+    /**
+     * Returns the scheduling preference of self.
+     *
+     * @return The scheduling preference of this Node
+     */
+    public SchedulingPreference getSchedulingPreference() {
+        return this.schedulingPreference;
+    }
+
+    /**
+     * Return the nodes of which we have explicitly said that we must run after them (no inference).
+     *
+     * @return nodes of which we have explicitly said that we must run after them.
+     */
+    public Set<Node> explicitlyRunsAfter() {
+        return new HashSet<Node>(thisExplicitlyRunsAfter);
+    }
+
+    /**
+     * Return the nodes of which we have explicitly been that we must run before them (without inference).
+     *
+     * @return nodes of which we have explicitly said that we must run before them.
+     */
+    public Set<Node> explicitlyRunsBefore() {
+        return new HashSet<Node>(thisExplicitlyRunsBefore);
+    }
+
+    /**
+     * Returns all nodes which are accessible by taking a single step from the current node
+     *
+     * @return Directly accessible nodes from this node.
+     */
+    public Set<Node> getSingleStepAfterSelf() {
+        return singleStepAfterSelf;
+    }
+
+    /**
+     * Returns all nodes which are accessible by taking a single step from the current node
+     *
+     * @return Directly accessible nodes from this node.
+     */
+    public Set<Node> getSingleStepBeforeSelf() {
+        return singleStepBeforeSelf;
+    }
+
+    /**
+     * Retrieves all accessible nodes from this node (including the current node)
+     */
+    public Set<Node<HookHandler>> getAccessibleNodes() {
+        Set<Node<HookHandler>> accessibleNodes = new HashSet<Node<HookHandler>>();
+        accessibleNodes.addAll(implicitAfterSelf);
+        accessibleNodes.addAll(implicitBeforeSelf);
+        accessibleNodes.add(this);
+        return accessibleNodes;
+    }
+
+    /**
+     * Returns all nodes which should be executed before self.
+     *
+     * @return All nodes which ought to be executed before this node.
+     */
+    public Set<Node<HookHandler>> getAllImplicitBeforeMe() {
+        return new HashSet<Node<HookHandler>>(implicitBeforeSelf);
+    }
+
+    /**
+     * Returns all nodes which should be executed after self.
+     *
+     * @return All nodes which ought to be executed after this node.
+     */
+    public Set<Node<HookHandler>> getAllImplicitAfterMe() {
+        return new HashSet<Node<HookHandler>>(implicitAfterSelf);
+    }
+
+    /**
      * Indicate that this node should be executed after attachment.
      * <p/>
      * The syntax node.after(attachment) essentially says that node should be executed *after*
      * the supplied attachment. Hence, internally, it adds itself to the internal variable
-     * #directlyBeforeSelf and related variables of attachment.
+     * #explicitBeforeSelf and related variables of attachment.
      *
      * @param attachment Node after which we should execute.
      */
     public void after(Node attachment) {
-        attachment.addDirectlyAfter(this);
+        thisExplicitlyRunsAfter(attachment);
         attachment.addSingleStepAfter(this);
         attachment.addImplicitAfter(this);
     }
@@ -70,37 +166,32 @@ public class Node<HookHandler> {
      * <p/>
      * The syntax node.after(attachment) essentially says that node should be executed *before*
      * the supplied attachment. Hence, internally, it adds itself to the internal variable
-     * #directlyAfterSelf and related variables of attachment.
+     * #explicitAfterSelf and related variables of attachment.
      *
      * @param attachment Node before which we should execute.
      */
     public void before(Node attachment) {
-        attachment.addDirectlyBefore(this);
+        thisExplicitlyRunsBefore(attachment);
+        attachment.addSingleStepBefore(this);
+        attachment.addImplicitBefore(this);
     }
 
     /**
-     * Indicate that *other* should be executed directly after *this*.
-     * <p/>
-     * This is the inverse syntax of what #after offers you, however it keeps the external
-     * API easier to understand.
+     * Indicates that self explicitly said that it should run after the supplied node.
      *
-     * @param other Node which should be executed after this.
+     * @param node Node which must be ran before we are ran.
      */
-    private void addDirectlyAfter(Node other) {
-        directlyAfterSelf.add(other);
+    private void thisExplicitlyRunsAfter(Node<HookHandler> node){
+        thisExplicitlyRunsAfter.add(node);
     }
 
     /**
-     * Indicate that *other* should be executed directly before *this*.
-     * <p/>
-     * This is the inverse syntax of what #before offers you, however it keeps the external
-     * API easier to understand.
+     * Indicates that self explicitly said that it should be ran before the supplied node.
      *
-     * @param other Node which should be executed before this.
+     * @param node Node before which we must have ran.
      */
-    private void addDirectlyBefore(Node other) {
-        directlyBeforeSelf.add(other);
-
+    private void thisExplicitlyRunsBefore(Node<HookHandler> node){
+        thisExplicitlyRunsBefore.add(node);
     }
 
     /**
