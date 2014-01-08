@@ -17,6 +17,8 @@
         <option value="$PROJECT_DIR$/../jsonld-java/pom.xml" />
         <option value="$PROJECT_DIR$/../auth-plugin/pom.xml" />
         <option value="$PROJECT_DIR$/../loging-plugin/pom.xml" />
+        <option value="$PROJECT_DIR$/../hooks/pom.xml" />
+        <option value="$PROJECT_DIR$/../core-hooks/pom.xml" />
       </list>
     </option>
   </component>

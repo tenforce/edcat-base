@@ -24,6 +24,8 @@
         <processorPath useClasspath="true" />
         <module name="auth-plugin" />
         <module name="e-dcat-api" />
+        <module name="e-dcat-api-hooks" />
+        <module name="hooks" />
         <module name="logging-plugin" />
       </profile>
     </annotationProcessing>
