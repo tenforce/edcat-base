@@ -1,4 +1,4 @@
-package eu.lod2.edcat.hooks.constraints;
+package eu.lod2.hooks.constraints;
 
 public class RelativePriority extends Priority {
   public static final boolean BEFORE = true;
