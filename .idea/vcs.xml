@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="VcsDirectoryMappings">
-    <mapping directory="" vcs="svn" />
-    <mapping directory="$PROJECT_DIR$/../jsonld-java/core" vcs="svn" />
-    <mapping directory="$PROJECT_DIR$/../jsonld-java/integration" vcs="svn" />
-    <mapping directory="$PROJECT_DIR$/../jsonld-java/integration/clerezza" vcs="svn" />
-    <mapping directory="$PROJECT_DIR$/../jsonld-java/integration/jena" vcs="svn" />
-    <mapping directory="$PROJECT_DIR$/../jsonld-java/integration/sesame" vcs="svn" />
-    <mapping directory="$PROJECT_DIR$/../jsonld-java/tools" vcs="svn" />
+    <mapping directory="" vcs="" />
+    <mapping directory="$PROJECT_DIR$/../.." vcs="Git" />
   </component>
 </project>
 

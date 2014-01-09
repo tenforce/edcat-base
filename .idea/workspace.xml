@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" readonly="true" id="8c2c1941-f7d0-4054-893e-c5ef52bf3ed3" name="Default" comment="" />
+    <list default="true" readonly="true" id="9f1969a0-7d94-46d7-a152-3662fe4a467c" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/constraints/graph/ConnectedGraph.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/constraints/graph/HookHandlerNodeSet.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/constraints/graph/Node.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/constraints/graph/NodeSet.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../auth-plugin/src/main/java/eu/lod2/edcat/auth/AuthenticationProvider.java" afterPath="$PROJECT_DIR$/../auth-plugin/src/main/java/eu/lod2/edcat/auth/AuthenticationProvider.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/constraints/BroadPriority.java" afterPath="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/constraints/BroadPriority.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/constraints/Constraint.java" afterPath="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/constraints/Constraint.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/handlers/HookHandler.java" afterPath="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/handlers/HookHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/util/HookManager.java" afterPath="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/util/HookManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../loging-plugin/src/main/java/eu/lod2/edcat/logger/Logger.java" afterPath="$PROJECT_DIR$/../loging-plugin/src/main/java/eu/lod2/edcat/logger/Logger.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/handlers/OptionalHookHandler.java" afterPath="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/handlers/OptionalHookHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/constraints/Priority.java" afterPath="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/constraints/Priority.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/constraints/RelativePriority.java" afterPath="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/constraints/RelativePriority.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../auth-plugin/auth-plugin.iml" afterPath="$PROJECT_DIR$/../auth-plugin/auth-plugin.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../core-hooks/e-dcat-api-hooks.iml" afterPath="$PROJECT_DIR$/../core-hooks/e-dcat-api-hooks.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/e-dcat-api.iml" afterPath="$PROJECT_DIR$/e-dcat-api.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../loging-plugin/logging-plugin.iml" afterPath="$PROJECT_DIR$/../loging-plugin/logging-plugin.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/madnificent.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/madnificent.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="e-dcat-api.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,7 +41,7 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
+    <breakpoint_any>
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
         <option name="NOTIFY_UNCAUGHT" value="true" />
@@ -54,7 +77,6 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -64,85 +86,39 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Node.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/constraints/graph/Node.java">
+      <file leaf-file-name="RelativePriority.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/constraints/RelativePriority.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="0" selection-start="333" selection-end="333" vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="3945">
-              <folding>
-                <element signature="e#786#792#0" expanded="true" />
-                <element signature="e#935#941#0" expanded="true" />
-                <element signature="e#1105#1111#0" expanded="true" />
-                <element signature="e#1277#1283#0" expanded="true" />
-                <element signature="e#1448#1454#0" expanded="true" />
-                <element signature="e#1621#1627#0" expanded="true" />
-                <element signature="method#Node#0;class#Node#0" expanded="true" />
-                <element signature="e#2003#2004#0" expanded="true" />
-                <element signature="e#2038#2039#0" expanded="true" />
-                <element signature="e#2712#2713#0" expanded="true" />
-                <element signature="e#2766#2767#0" expanded="true" />
-                <element signature="e#2954#2955#0" expanded="true" />
-                <element signature="e#3002#3003#0" expanded="true" />
-                <element signature="method#explicitlyRunsAfter#0;class#Node#0" expanded="true" />
-                <element signature="method#explicitlyRunsBefore#0;class#Node#0" expanded="true" />
-                <element signature="e#3868#3869#0" expanded="true" />
-                <element signature="e#3910#3911#0" expanded="true" />
-                <element signature="e#4132#4133#0" expanded="true" />
-                <element signature="e#4175#4176#0" expanded="true" />
-                <element signature="method#getAccessibleNodes#0;class#Node#0" expanded="true" />
-                <element signature="e#4393#4412#0" expanded="true" />
-                <element signature="method#getAllImplicitBeforeMe#0;class#Node#0" expanded="true" />
-                <element signature="method#getAllImplicitAfterMe#0;class#Node#0" expanded="true" />
-                <element signature="method#after#0;class#Node#0" expanded="true" />
-                <element signature="method#before#0;class#Node#0" expanded="true" />
-                <element signature="method#thisExplicitlyRunsAfter#0;class#Node#0" expanded="true" />
-                <element signature="method#thisExplicitlyRunsBefore#0;class#Node#0" expanded="true" />
-                <element signature="method#addSingleStepAfter#0;class#Node#0" expanded="true" />
-                <element signature="method#addSingleStepBefore#0;class#Node#0" expanded="true" />
-                <element signature="method#addImplicitAfter#0;class#Node#0" expanded="true" />
-                <element signature="method#addImplicitBefore#0;class#Node#0" expanded="true" />
-                <element signature="method#addImplicitAfterDirectional#0;class#Node#0" expanded="true" />
-                <element signature="method#addImplicitBeforeDirectional#0;class#Node#0" expanded="true" />
-              </folding>
+            <state line="16" column="27" selection-start="377" selection-end="377" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="780">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NodeSet.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/constraints/graph/NodeSet.java">
+      <file leaf-file-name="HookManager.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/util/HookManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="22" selection-start="806" selection-end="806" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4095">
+            <state line="25" column="84" selection-start="1034" selection-end="1034" vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="1440">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1017#1030#0" expanded="true" />
-                <element signature="e#1136#1155#0" expanded="true" />
-                <element signature="method#inAddingState#0;class#NodeSet#0" expanded="true" />
-                <element signature="method#inRetrievingState#0;class#NodeSet#0" expanded="true" />
-                <element signature="method#add#0;class#NodeSet#0" expanded="true" />
-                <element signature="method#handlersExecutionList#0;class#NodeSet#0" expanded="true" />
-                <element signature="method#hasCycleP#0;class#NodeSet#0" expanded="true" />
-                <element signature="method#clearNodes#0;class#NodeSet#0" expanded="true" />
-                <element signature="method#constructNodes#0;class#NodeSet#0" expanded="true" />
-                <element signature="method#constructNodeReferences#0;class#NodeSet#0" expanded="true" />
-                <element signature="method#findNodeByHandler#0;class#NodeSet#0" expanded="true" />
-                <element signature="method#orderedExecutionPath#0;class#NodeSet#0" expanded="true" />
-                <element signature="e#7353#7378#0" expanded="true" />
-                <element signature="e#7448#7473#0" expanded="true" />
-                <element signature="e#7543#7568#0" expanded="true" />
-                <element signature="e#7637#7662#0" expanded="true" />
-                <element signature="e#8768#8787#0" expanded="true" />
-                <element signature="method#unpackNodes#0;class#NodeSet#0" expanded="true" />
-                <element signature="e#9640#9653#0" expanded="true" />
+                <element signature="method#getHandlerFor#0;class#HookManager#0" expanded="true" />
+                <element signature="e#504#517#0" expanded="true" />
+                <element signature="method#optionalHookHandlerImplements#0;class#HookManager#0" expanded="true" />
+                <element signature="method#orderedHandlers#0;class#HookManager#0" expanded="true" />
+                <element signature="method#getAllInterfaces#0;class#HookManager#0" expanded="true" />
+                <element signature="e#2490#2500#0" expanded="true" />
+                <element signature="method#getAllInterfaces#1;class#HookManager#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="HookHandlerNodeSet.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/constraints/graph/HookHandlerNodeSet.java">
+        <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/constraints/graph/HookHandlerNodeSet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="0" selection-start="301" selection-end="301" vertical-scroll-proportion="0.3119584" vertical-offset="0" max-vertical-offset="577">
+            <state line="37" column="30" selection-start="1087" selection-end="1087" vertical-scroll-proportion="0.68456376" vertical-offset="0" max-vertical-offset="745">
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="method#HookHandlerNodeSet#0;class#HookHandlerNodeSet#0" expanded="true" />
                 <element signature="method#hookExecutesBefore#0;class#HookHandlerNodeSet#0" expanded="true" />
                 <element signature="method#hookExecutesAfter#0;class#HookHandlerNodeSet#0" expanded="true" />
               </folding>
@@ -150,54 +126,72 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HookHandler.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/handlers/HookHandler.java">
+      <file leaf-file-name="ActionAbortException.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/util/ActionAbortException.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="0" selection-start="70" selection-end="70" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="165">
+            <state line="2" column="13" selection-start="42" selection-end="42" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="165">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Constraint.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/constraints/Constraint.java">
+      <file leaf-file-name="OptionalHookHandler.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/handlers/OptionalHookHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="67" selection-start="333" selection-end="333" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
+            <state line="1" column="0" selection-start="0" selection-end="32" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="555">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Logger.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../loging-plugin/src/main/java/eu/lod2/edcat/logger/Logger.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="21" column="1" selection-start="665" selection-end="665" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
               <folding>
-                <element signature="method#before#0;class#Constraint#0" expanded="true" />
-                <element signature="method#after#1;class#Constraint#0" expanded="true" />
-                <element signature="method#before#1;class#Constraint#0" expanded="true" />
+                <element signature="method#handlePreCreate#0;class#Logger#0" expanded="true" />
+                <element signature="method#getConstraints#0;class#Logger#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ConnectedGraph.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/constraints/graph/ConnectedGraph.java">
+      <file leaf-file-name="AuthenticationProvider.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../auth-plugin/src/main/java/eu/lod2/edcat/auth/AuthenticationProvider.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="17" selection-start="1307" selection-end="1313" vertical-scroll-proportion="-4.703704" vertical-offset="473" max-vertical-offset="2625">
+            <state line="40" column="0" selection-start="1377" selection-end="1377" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
+              <folding>
+                <element signature="method#getConstraints#0;class#AuthenticationProvider#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HookHandler.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/handlers/HookHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="22" column="3" selection-start="1057" selection-end="1057" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="660">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#ConnectedGraph#0;class#ConnectedGraph#0" expanded="true" />
-                <element signature="method#discoverNodeSets#0;class#ConnectedGraph#0" expanded="true" />
-                <element signature="e#1471#1490#0" expanded="true" />
-                <element signature="e#1570#1599#0" expanded="true" />
-                <element signature="method#cycleP#0;class#ConnectedGraph#0" expanded="true" />
-                <element signature="method#firstNode#0;class#ConnectedGraph#0" expanded="true" />
-                <element signature="e#3099#3118#0" expanded="true" />
-                <element signature="e#3181#3473#0" expanded="true" />
-                <element signature="e#3454#3455#0" expanded="true" />
-                <element signature="method#lastNode#0;class#ConnectedGraph#0" expanded="true" />
-                <element signature="e#3771#3790#0" expanded="true" />
-                <element signature="e#3853#4143#0" expanded="true" />
-                <element signature="e#4124#4125#0" expanded="true" />
-                <element signature="method#executionOrder#0;class#ConnectedGraph#0" expanded="true" />
-                <element signature="e#4803#4822#0" expanded="true" />
-                <element signature="e#4893#4912#0" expanded="true" />
-                <element signature="method#earliestUnconstrainedNode#0;class#ConnectedGraph#0" expanded="true" />
-                <element signature="method#lastUnconstrainedNode#0;class#ConnectedGraph#0" expanded="true" />
-                <element signature="method#allDirectNodeRequirementsInCollection#0;class#ConnectedGraph#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NodeSet.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/constraints/graph/NodeSet.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="134" column="7" selection-start="4512" selection-end="4512" vertical-scroll-proportion="0.0" vertical-offset="1545" max-vertical-offset="2880">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Node.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/constraints/graph/Node.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="8" column="13" selection-start="234" selection-end="234" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3075">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -209,57 +203,20 @@
       <setting name="OPEN_NEW_TAB" value="false" />
     </FindUsagesManager>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/docs/json-ld.org" />
-        <option value="$PROJECT_DIR$/src/main/java/eu/lod2/edcat/handler/ActionHandler.java" />
-        <option value="$PROJECT_DIR$/src/main/java/eu/lod2/edcat/handler/PreReadHandler.java" />
-        <option value="$PROJECT_DIR$/src/main/java/eu/lod2/edcat/handler/PreUpdateHandler.java" />
-        <option value="$PROJECT_DIR$/src/main/java/eu/lod2/edcat/handler/PostUpdateHandler.java" />
-        <option value="$PROJECT_DIR$/src/main/java/eu/lod2/edcat/utils/Constants.java" />
-        <option value="$PROJECT_DIR$/src/main/java/eu/lod2/edcat/utils/SparqlEngine.java" />
-        <option value="$PROJECT_DIR$/src/main/java/eu/lod2/edcat/handler/PreCreateHandler.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/e-dcat.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/github/jsonldjava/sesame/DcatSesameJSONLDParser.java" />
-        <option value="$PROJECT_DIR$/../jsonld-java/integration/sesame/src/main/java/com/github/jsonldjava/sesame/SesameJSONLDParserFactory.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/github/jsonldjava/sesame/DcatSesameJSONLDParserFactory.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/META-INF.services/org.openrdf.rio.RDFParserFactory" />
-        <option value="$PROJECT_DIR$/src/main/java/eu/lod2/edcat/controller/DatasetController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/eu/lod2/edcat/handler/ActionAbortException.java" />
-        <option value="$PROJECT_DIR$/src/main/java/eu/lod2/edcat/hooks/handler/ActionAbortException.java" />
-        <option value="$PROJECT_DIR$/src/main/java/eu/lod2/edcat/hooks/util/ActionAbortException.java" />
-        <option value="$PROJECT_DIR$/src/main/java/eu/lod2/edcat/hooks/util/HookManager.java" />
-        <option value="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/util/HookManager.java" />
-        <option value="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/constraints/graph/Node.java" />
-        <option value="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/constraints/graph/ConnectedGraph.java" />
-        <option value="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/constraints/graph/NodeSet.java" />
-        <option value="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/handlers/HookHandler.java" />
-        <option value="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/constraints/Constraint.java" />
-        <option value="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/constraints/graph/HookHandlerNodeSet.java" />
+        <option value="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/constraints/RelativePriority.java" />
+        <option value="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/handlers/HookHandler.java" />
+        <option value="$PROJECT_DIR$/../loging-plugin/src/main/java/eu/lod2/edcat/logger/Logger.java" />
+        <option value="$PROJECT_DIR$/../auth-plugin/src/main/java/eu/lod2/edcat/auth/AuthenticationProvider.java" />
+        <option value="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/util/HookManager.java" />
+        <option value="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/constraints/graph/NodeSet.java" />
+        <option value="$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/constraints/graph/HookHandlerNodeSet.java" />
       </list>
-    </option>
-  </component>
-  <component name="LogFilters">
-    <option name="FILTER_ERRORS" value="false" />
-    <option name="FILTER_WARNINGS" value="false" />
-    <option name="FILTER_INFO" value="true" />
-    <option name="FILTER_DEBUG" value="true" />
-    <option name="CUSTOM_FILTER" />
-  </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHome" value="/usr/share/maven" />
-      </MavenGeneralSettings>
-    </option>
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="importAutomatically" value="true" />
-        <option name="keepSourceFolders" value="false" />
-        <option name="lookForNested" value="true" />
-      </MavenImportingSettings>
     </option>
   </component>
   <component name="MavenProjectNavigator">
@@ -270,65 +227,20 @@
           <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
         </PATH_ELEMENT>
       </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="LOD2 Wp8 DCAT" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="LOD2 Wp8 DCAT" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Plugins" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$PluginsNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="LOD2 Wp8 DCAT" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Plugins" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$PluginsNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="compiler" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$PluginNode" />
-        </PATH_ELEMENT>
-      </PATH>
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-5" />
-    <option name="y" value="-11" />
-    <option name="width" value="1608" />
-    <option name="height" value="914" />
+    <option name="y" value="14" />
+    <option name="width" value="1598" />
+    <option name="height" value="884" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
     <OptionsSetting value="true" id="Checkout" />
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <OptionsSetting value="true" id="Undo Check Out" />
-    <OptionsSetting value="true" id="Get Latest Version" />
     <ConfirmationsSetting value="0" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
@@ -348,6 +260,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -381,6 +294,14 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="services" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -544,119 +465,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="e-dcat-api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core-hooks" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="e-dcat-api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core-hooks" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="edcat" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="e-dcat-api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="e-dcat-api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="auth-plugin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="e-dcat-api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="MemberChooser.sorted" value="false" />
-    <property name="recentsLimit" value="5" />
-    <property name="options.lastSelected" value="preferences.sourceCode.Java" />
-    <property name="project.structure.side.proportion" value="0.0" />
-    <property name="MemberChooser.copyJavadoc" value="false" />
-    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="options.searchVisible" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../core-hooks/pom.xml" />
-    <property name="FullScreen" value="false" />
-    <property name="SearchEverywhereHistory" value="/" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="eu.lod2.edcat.utils" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources" />
-      <recent name="$PROJECT_DIR$/src/main" />
-    </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="eu.lod2.edcat.handler" />
-    </key>
+    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin" singleton="true">
@@ -685,47 +511,12 @@
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
       <method />
     </configuration>
-    <configuration default="true" type="MavenRunConfiguration" factoryName="Maven">
-      <MavenSettings>
-        <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="profiles">
-              <set />
-            </option>
-            <option name="goals">
-              <list />
-            </option>
-            <option name="profilesMap">
-              <map />
-            </option>
-            <option name="resolveToWorkspace" value="false" />
-            <option name="workingDirPath" value="" />
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
-      <method />
-    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
@@ -754,6 +545,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -811,147 +615,6 @@
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
       <method />
     </configuration>
-    <configuration default="false" name="tomcat dcat" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat ">
-      <option name="UPDATING_POLICY" value="restart-server" />
-      <deployment>
-        <artifact name="e-dcat-api:war exploded">
-          <settings>
-            <option name="CONTEXT_PATH" value="/" />
-          </settings>
-        </artifact>
-      </deployment>
-      <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="Unnamed_e-dcat-api" />
-        <option name="HTTP_PORT" value="9090" />
-      </server-settings>
-      <predefined_log_file id="TOMCAT_LOCALHOST_LOG_ID" enabled="true" />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <RunnerSettings RunnerId="Cover" />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="54504" />
-        <option name="TRANSPORT" value="0" />
-        <option name="LOCAL" value="true" />
-      </RunnerSettings>
-      <RunnerSettings RunnerId="Debug with VisualVM">
-        <option name="DEBUG_PORT" value="35326" />
-        <option name="TRANSPORT" value="0" />
-        <option name="LOCAL" value="true" />
-      </RunnerSettings>
-      <RunnerSettings RunnerId="JRebel Debug">
-        <option name="DEBUG_PORT" value="44012" />
-        <option name="TRANSPORT" value="0" />
-        <option name="LOCAL" value="true" />
-      </RunnerSettings>
-      <RunnerSettings RunnerId="JRebel Executor" />
-      <RunnerSettings RunnerId="Run" />
-      <RunnerSettings RunnerId="Run with VisualVM" />
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug with VisualVM">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="JRebel Debug">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="JRebel Executor">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run with VisualVM">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <method />
-    </configuration>
     <list size="0" />
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -980,53 +643,37 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="8c2c1941-f7d0-4054-893e-c5ef52bf3ed3" name="Default" comment="" />
-      <created>1387823252567</created>
-      <updated>1387823252567</updated>
+      <changelist id="9f1969a0-7d94-46d7-a152-3662fe4a467c" name="Default" comment="" />
+      <created>1389233231093</created>
+      <updated>1389233231093</updated>
     </task>
-    <task id="LOCAL-00001" summary="added jsonld pitfall to docs">
-      <created>1389022434123</created>
-      <updated>1389022434123</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-5" y="-11" width="1608" height="914" extended-state="0" />
+    <frame x="0" y="14" width="1598" height="884" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25980392" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3997996" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36887255" sideWeight="0.50470394" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32771084" sideWeight="0.5898286" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19274093" sideWeight="0.62998104" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16332915" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24906133" sideWeight="0.62998104" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.370019" sideWeight="0.49142224" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="JRebel Executor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="SVN Repositories" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31214422" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25406757" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="JRebel Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1042,468 +689,108 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="false" />
-    <MESSAGE value="added jsonld pitfall to docs" />
-    <option name="LAST_COMMIT_MESSAGE" value="added jsonld pitfall to docs" />
-  </component>
-  <component name="VssConfiguration">
-    <option name="CLIENT_PATH" value="" />
-    <option name="SRCSAFEINI_PATH" value="" />
-    <option name="USER_NAME" value="" />
-    <option name="PWD" value="" />
-    <CheckoutOptions>
-      <option name="COMMENT" value="" />
-      <option name="DO_NOT_GET_LATEST_VERSION" value="false" />
-      <option name="REPLACE_WRITABLE" value="false" />
-      <option name="RECURSIVE" value="false" />
-    </CheckoutOptions>
-    <CheckinOptions>
-      <option name="COMMENT" value="" />
-      <option name="KEEP_CHECKED_OUT" value="false" />
-      <option name="RECURSIVE" value="false" />
-    </CheckinOptions>
-    <AddOptions>
-      <option name="STORE_ONLY_LATEST_VERSION" value="false" />
-      <option name="CHECK_OUT_IMMEDIATELY" value="false" />
-    </AddOptions>
-    <UndocheckoutOptions>
-      <option name="MAKE_WRITABLE" value="false" />
-      <option name="REPLACE_LOCAL_COPY" value="2" />
-      <option name="RECURSIVE" value="false" />
-    </UndocheckoutOptions>
-    <GetOptions>
-      <option name="REPLACE_WRITABLE" value="0" />
-      <option name="MAKE_WRITABLE" value="false" />
-      <option name="ANSWER_NEGATIVELY" value="false" />
-      <option name="ANSWER_POSITIVELY" value="false" />
-      <option name="RECURSIVE" value="false" />
-      <option name="VERSION" />
-    </GetOptions>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
-  <component name="antWorkspaceConfiguration">
-    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
-    <option name="FILTER_TARGETS" value="false" />
-  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/META-INF/services/org.openrdf.rio.RDFParserFactory">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="105">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="88" column="37" selection-start="2748" selection-end="2748" vertical-scroll-proportion="0.0" vertical-offset="1320" max-vertical-offset="2580">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1920">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/e-dcat.xml">
+    <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/constraints/RelativePriority.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="8" selection-start="967" selection-end="967" vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="315">
+        <state line="16" column="27" selection-start="377" selection-end="377" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="780">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/jsonldjava/sesame/DcatRDFHandler.java">
+    <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/util/ActionAbortException.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="13" selection-start="232" selection-end="232" vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="285">
+        <state line="2" column="13" selection-start="42" selection-end="42" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="165">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/eu/lod2/edcat/controller/AbstractBuildController.java">
+    <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/handlers/OptionalHookHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="22" selection-start="952" selection-end="952" vertical-scroll-proportion="0.0" vertical-offset="375" max-vertical-offset="1515">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/eu/lod2/edcat/utils/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="0" selection-start="1351" selection-end="1351" vertical-scroll-proportion="0.0" vertical-offset="570" max-vertical-offset="2400">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/e-dcat-api.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="244" selection-end="244" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/3.2.4.RELEASE/spring-web-3.2.4.RELEASE.jar!/org/springframework/http/converter/json/MappingJacksonHttpMessageConverter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="13" selection-start="177" selection-end="177" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/openrdf/sesame/sesame-rio-api/2.7.9/sesame-rio-api-2.7.9.jar!/org/openrdf/rio/RDFFormat.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="2" selection-start="2373" selection-end="2583" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/3.2.4.RELEASE/spring-beans-3.2.4.RELEASE.jar!/org/springframework/beans/factory/annotation/Autowired.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="18" selection-start="506" selection-end="506" vertical-scroll-proportion="0.16853933" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/META-INF/services/org.openrdf.rio.RDFParserFactory">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/e-dcat.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="8" selection-start="967" selection-end="967" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/eu/lod2/edcat/controller/AbstractBuildController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="22" selection-start="952" selection-end="952" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1200">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/eu/lod2/edcat/utils/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="0" selection-start="1351" selection-end="1351" vertical-scroll-proportion="0.0" vertical-offset="273" max-vertical-offset="1050">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/constraints/BroadPriority.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="13" selection-start="55" selection-end="55" vertical-scroll-proportion="0.040268455" vertical-offset="0" max-vertical-offset="745">
+        <state line="1" column="0" selection-start="0" selection-end="32" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="555">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../loging-plugin/src/main/java/eu/lod2/edcat/logger/Logger.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="33" selection-start="266" selection-end="266" vertical-scroll-proportion="0.08196721" vertical-offset="0" max-vertical-offset="732">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/jsonldjava/sesame/DcatRDFHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="37" selection-start="0" selection-end="38" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="789">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="37" selection-start="2655" selection-end="2655" vertical-scroll-proportion="0.18814433" vertical-offset="1144" max-vertical-offset="1920">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///opt/java/src.zip!/java/util/ArrayList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="101" column="13" selection-start="4129" selection-end="4129" vertical-scroll-proportion="0.33290654" vertical-offset="910" max-vertical-offset="9285">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/handlers/OptionalHookHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="17" selection-start="79" selection-end="79" vertical-scroll-proportion="0.11299435" vertical-offset="0" max-vertical-offset="531">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///opt/java/src.zip!/java/lang/SuppressWarnings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="18" selection-start="1203" selection-end="1203" vertical-scroll-proportion="0.45627376" vertical-offset="0" max-vertical-offset="789">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/util/HookManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="3" selection-start="988" selection-end="988" vertical-scroll-proportion="0.26615968" vertical-offset="0" max-vertical-offset="789">
+        <state line="21" column="1" selection-start="665" selection-end="665" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
           <folding>
-            <element signature="method#prioritySort#0;class#HookManager#0" expanded="true" />
+            <element signature="method#handlePreCreate#0;class#Logger#0" expanded="true" />
+            <element signature="method#getConstraints#0;class#Logger#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar:///opt/java/jre/lib/rt.jar!/sun/misc/Sort.class">
+    <entry file="file://$PROJECT_DIR$/../auth-plugin/src/main/java/eu/lod2/edcat/auth/AuthenticationProvider.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="23" selection-start="448" selection-end="448" vertical-scroll-proportion="0.22813688" vertical-offset="0" max-vertical-offset="789">
+        <state line="40" column="0" selection-start="1377" selection-end="1377" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
           <folding>
-            <element signature="method#quicksort#1;class#Sort#0" expanded="true" />
+            <element signature="method#getConstraints#0;class#AuthenticationProvider#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar:///opt/java/src.zip!/java/util/Set.java">
+    <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/util/HookManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="94" column="8" selection-start="3340" selection-end="3340" vertical-scroll-proportion="0.33333334" vertical-offset="802" max-vertical-offset="5520">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///opt/java/src.zip!/java/util/Comparator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="142" column="8" selection-start="6101" selection-end="6101" vertical-scroll-proportion="0.39163497" vertical-offset="1476" max-vertical-offset="2265">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///opt/java/src.zip!/java/util/List.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="234" column="12" selection-start="9674" selection-end="9674" vertical-scroll-proportion="0.61850446" vertical-offset="2677" max-vertical-offset="8745">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///opt/java/src.zip!/java/util/Collections.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="212" column="27" selection-start="9847" selection-end="9847" vertical-scroll-proportion="0.0" vertical-offset="2655" max-vertical-offset="39555">
-          <folding>
-            <element signature="method#sort#1;class#Collections#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/constraints/RelativePriority.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="13" selection-start="55" selection-end="55" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/constraints/Priority.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="22" selection-start="64" selection-end="64" vertical-scroll-proportion="0.038022812" vertical-offset="0" max-vertical-offset="789">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/constraints/graph/Node.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="333" selection-end="333" vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="3945">
-          <folding>
-            <element signature="e#786#792#0" expanded="true" />
-            <element signature="e#935#941#0" expanded="true" />
-            <element signature="e#1105#1111#0" expanded="true" />
-            <element signature="e#1277#1283#0" expanded="true" />
-            <element signature="e#1448#1454#0" expanded="true" />
-            <element signature="e#1621#1627#0" expanded="true" />
-            <element signature="method#Node#0;class#Node#0" expanded="true" />
-            <element signature="e#2003#2004#0" expanded="true" />
-            <element signature="e#2038#2039#0" expanded="true" />
-            <element signature="e#2712#2713#0" expanded="true" />
-            <element signature="e#2766#2767#0" expanded="true" />
-            <element signature="e#2954#2955#0" expanded="true" />
-            <element signature="e#3002#3003#0" expanded="true" />
-            <element signature="method#explicitlyRunsAfter#0;class#Node#0" expanded="true" />
-            <element signature="method#explicitlyRunsBefore#0;class#Node#0" expanded="true" />
-            <element signature="e#3868#3869#0" expanded="true" />
-            <element signature="e#3910#3911#0" expanded="true" />
-            <element signature="e#4132#4133#0" expanded="true" />
-            <element signature="e#4175#4176#0" expanded="true" />
-            <element signature="method#getAccessibleNodes#0;class#Node#0" expanded="true" />
-            <element signature="e#4393#4412#0" expanded="true" />
-            <element signature="method#getAllImplicitBeforeMe#0;class#Node#0" expanded="true" />
-            <element signature="method#getAllImplicitAfterMe#0;class#Node#0" expanded="true" />
-            <element signature="method#after#0;class#Node#0" expanded="true" />
-            <element signature="method#before#0;class#Node#0" expanded="true" />
-            <element signature="method#thisExplicitlyRunsAfter#0;class#Node#0" expanded="true" />
-            <element signature="method#thisExplicitlyRunsBefore#0;class#Node#0" expanded="true" />
-            <element signature="method#addSingleStepAfter#0;class#Node#0" expanded="true" />
-            <element signature="method#addSingleStepBefore#0;class#Node#0" expanded="true" />
-            <element signature="method#addImplicitAfter#0;class#Node#0" expanded="true" />
-            <element signature="method#addImplicitBefore#0;class#Node#0" expanded="true" />
-            <element signature="method#addImplicitAfterDirectional#0;class#Node#0" expanded="true" />
-            <element signature="method#addImplicitBeforeDirectional#0;class#Node#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/constraints/graph/ConnectedGraph.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="17" selection-start="1307" selection-end="1313" vertical-scroll-proportion="-4.703704" vertical-offset="473" max-vertical-offset="2625">
+        <state line="25" column="84" selection-start="1034" selection-end="1034" vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="1440">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#ConnectedGraph#0;class#ConnectedGraph#0" expanded="true" />
-            <element signature="method#discoverNodeSets#0;class#ConnectedGraph#0" expanded="true" />
-            <element signature="e#1471#1490#0" expanded="true" />
-            <element signature="e#1570#1599#0" expanded="true" />
-            <element signature="method#cycleP#0;class#ConnectedGraph#0" expanded="true" />
-            <element signature="method#firstNode#0;class#ConnectedGraph#0" expanded="true" />
-            <element signature="e#3099#3118#0" expanded="true" />
-            <element signature="e#3181#3473#0" expanded="true" />
-            <element signature="e#3454#3455#0" expanded="true" />
-            <element signature="method#lastNode#0;class#ConnectedGraph#0" expanded="true" />
-            <element signature="e#3771#3790#0" expanded="true" />
-            <element signature="e#3853#4143#0" expanded="true" />
-            <element signature="e#4124#4125#0" expanded="true" />
-            <element signature="method#executionOrder#0;class#ConnectedGraph#0" expanded="true" />
-            <element signature="e#4803#4822#0" expanded="true" />
-            <element signature="e#4893#4912#0" expanded="true" />
-            <element signature="method#earliestUnconstrainedNode#0;class#ConnectedGraph#0" expanded="true" />
-            <element signature="method#lastUnconstrainedNode#0;class#ConnectedGraph#0" expanded="true" />
-            <element signature="method#allDirectNodeRequirementsInCollection#0;class#ConnectedGraph#0" expanded="true" />
+            <element signature="method#getHandlerFor#0;class#HookManager#0" expanded="true" />
+            <element signature="e#504#517#0" expanded="true" />
+            <element signature="method#optionalHookHandlerImplements#0;class#HookManager#0" expanded="true" />
+            <element signature="method#orderedHandlers#0;class#HookManager#0" expanded="true" />
+            <element signature="method#getAllInterfaces#0;class#HookManager#0" expanded="true" />
+            <element signature="e#2490#2500#0" expanded="true" />
+            <element signature="method#getAllInterfaces#1;class#HookManager#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/handlers/HookHandler.java">
+    <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/handlers/HookHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="70" selection-end="70" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="165">
+        <state line="22" column="3" selection-start="1057" selection-end="1057" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="660">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/constraints/graph/Node.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="13" selection-start="234" selection-end="234" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3075">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/constraints/Constraint.java">
+    <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/constraints/graph/NodeSet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="67" selection-start="333" selection-end="333" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
-          <folding>
-            <element signature="method#before#0;class#Constraint#0" expanded="true" />
-            <element signature="method#after#1;class#Constraint#0" expanded="true" />
-            <element signature="method#before#1;class#Constraint#0" expanded="true" />
-          </folding>
+        <state line="134" column="7" selection-start="4512" selection-end="4512" vertical-scroll-proportion="0.0" vertical-offset="1545" max-vertical-offset="2880">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/constraints/graph/NodeSet.java">
+    <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/hooks/constraints/graph/HookHandlerNodeSet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="22" selection-start="806" selection-end="806" vertical-scroll-proportion="0.0" vertical-offset="78" max-vertical-offset="4095">
+        <state line="37" column="30" selection-start="1087" selection-end="1087" vertical-scroll-proportion="0.68456376" vertical-offset="0" max-vertical-offset="745">
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1017#1030#0" expanded="true" />
-            <element signature="e#1136#1155#0" expanded="true" />
-            <element signature="method#inAddingState#0;class#NodeSet#0" expanded="true" />
-            <element signature="method#inRetrievingState#0;class#NodeSet#0" expanded="true" />
-            <element signature="method#add#0;class#NodeSet#0" expanded="true" />
-            <element signature="method#handlersExecutionList#0;class#NodeSet#0" expanded="true" />
-            <element signature="method#hasCycleP#0;class#NodeSet#0" expanded="true" />
-            <element signature="method#clearNodes#0;class#NodeSet#0" expanded="true" />
-            <element signature="method#constructNodes#0;class#NodeSet#0" expanded="true" />
-            <element signature="method#constructNodeReferences#0;class#NodeSet#0" expanded="true" />
-            <element signature="method#findNodeByHandler#0;class#NodeSet#0" expanded="true" />
-            <element signature="method#orderedExecutionPath#0;class#NodeSet#0" expanded="true" />
-            <element signature="e#7353#7378#0" expanded="true" />
-            <element signature="e#7448#7473#0" expanded="true" />
-            <element signature="e#7543#7568#0" expanded="true" />
-            <element signature="e#7637#7662#0" expanded="true" />
-            <element signature="e#8768#8787#0" expanded="true" />
-            <element signature="method#unpackNodes#0;class#NodeSet#0" expanded="true" />
-            <element signature="e#9640#9653#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../hooks/src/main/java/eu/lod2/edcat/hooks/constraints/graph/HookHandlerNodeSet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="301" selection-end="301" vertical-scroll-proportion="0.3119584" vertical-offset="0" max-vertical-offset="577">
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="method#HookHandlerNodeSet#0;class#HookHandlerNodeSet#0" expanded="true" />
             <element signature="method#hookExecutesBefore#0;class#HookHandlerNodeSet#0" expanded="true" />
             <element signature="method#hookExecutesAfter#0;class#HookHandlerNodeSet#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <last-edited>e-dcat-api:war</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>Invalid</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>1.7</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>e-dcat-api</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-                <option value="0.6" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>1.6</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.20000003" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>Maven: aopalliance:aopalliance:1.0</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>
 

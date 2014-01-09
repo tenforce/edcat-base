@@ -59,6 +59,30 @@
     <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.13" level="project" />
     <orderEntry type="module" module-name="logging-plugin" />
     <orderEntry type="module" module-name="e-dcat-api-hooks" />
+    <orderEntry type="module" module-name="hooks" />
+    <orderEntry type="library" name="Maven: virtuoso.sesame2:driver:2.7.3-build1.12" level="project" />
+    <orderEntry type="library" name="Maven: virtuoso:jdbc-driver:4.0" level="project" />
+    <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-repository-api:2.7.9" level="project" />
+    <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-query:2.7.9" level="project" />
+    <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-sail-memory:2.7.9" level="project" />
+    <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-sail-api:2.7.9" level="project" />
+    <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-queryalgebra-model:2.7.9" level="project" />
+    <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-sail-inferencer:2.7.9" level="project" />
+    <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-queryparser-api:2.7.9" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.openrdf.sesame:sesame-queryparser-serql:2.7.9" level="project" />
+    <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-queryalgebra-evaluation:2.7.9" level="project" />
+    <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-repository-sparql:2.7.9" level="project" />
+    <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-http-client:2.7.9" level="project" />
+    <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-http-protocol:2.7.9" level="project" />
+    <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-rio-ntriples:2.7.9" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.openrdf.sesame:sesame-rio-datatypes:2.7.9" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.openrdf.sesame:sesame-rio-languages:2.7.9" level="project" />
+    <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-queryresultio-api:2.7.9" level="project" />
+    <orderEntry type="library" name="Maven: commons-httpclient:commons-httpclient:3.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-queryparser-sparql:2.7.9" level="project" />
+    <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-queryresultio-sparqlxml:2.7.9" level="project" />
+    <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-repository-sail:2.7.9" level="project" />
+    <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-sail-nativerdf:2.7.9" level="project" />
     <orderEntry type="module" module-name="auth-plugin" />
   </component>
 </module>
