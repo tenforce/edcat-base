@@ -8,7 +8,7 @@ package eu.lod2.hooks.constraints;
  *
  * @see eu.lod2.hooks.constraints.Constraint
  */
-class BroadPriority extends Priority {
+public class BroadPriority extends Priority {
 
     /** Handy pointer to an EARLY priority */
     public static BroadPriority EARLY = new BroadPriority(BroadPriority.Priority.EARLY);

@@ -1,5 +1,6 @@
 package eu.lod2.hooks.util;
 
+import eu.lod2.hooks.constraints.graph.CycleException;
 import eu.lod2.hooks.constraints.graph.HookHandlerNodeSet;
 import eu.lod2.hooks.constraints.graph.NodeSet;
 import eu.lod2.hooks.handlers.HookHandler;
@@ -22,17 +23,18 @@ public class HookManager {
         return filteredHandlers;
     }
 
-    private static List<HookHandler> prioritySort(Collection<HookHandler> hookHandlers, String hook) {
+    private static List<HookHandler> prioritySort(Collection<HookHandler> hookHandlers, String hook) throws CycleException {
         NodeSet<HookHandler> nodeSet = new HookHandlerNodeSet( hookHandlers, hook );
-        // TODO: actually sort it
-        return null;
+        if(nodeSet.hasCycleP())
+            throw new CycleException();
+        return nodeSet.handlersExecutionList();
     }
 
     private static boolean optionalHookHandlerImplements(HookHandler handler, Class<?> hookInterface) {
         return handler instanceof OptionalHookHandler && ((OptionalHookHandler) handler).isHandlingHook(hookInterface.getCanonicalName());
     }
 
-    public static List<HookHandler> orderedHandlers(Class<?> hook) throws ClassNotFoundException {
+    public static List<HookHandler> orderedHandlers(Class<?> hook) throws ClassNotFoundException, CycleException {
         return prioritySort(getHandlerFor(hook), hook.getCanonicalName());
     }
 

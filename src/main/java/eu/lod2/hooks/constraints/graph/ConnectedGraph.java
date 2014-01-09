@@ -58,7 +58,7 @@ public class ConnectedGraph<HookHandler> {
         // the same check could be done in the other direction, but that check would be redundant.
         for(Node<HookHandler> source : nodes)
             for(Node<HookHandler> target : source.getAllImplicitAfterMe())
-                if(source.getAllImplicitAfterMe().contains(source))
+                if(target.getAllImplicitAfterMe().contains(source))
                     return true;
         return false;
     }
@@ -115,6 +115,7 @@ public class ConnectedGraph<HookHandler> {
         executionOrder.add(firstNode);
         availableNodes.remove(firstNode);
 
+        // todo: for nodes which neither set a before, nor an after priority, it would make sense to have them injected by their requested priority.
         while(!availableNodes.isEmpty())
             for(Node<HookHandler> availableNode : availableNodes )
                 if( allDirectNodeRequirementsInCollection(availableNode, executionOrder) ) {

@@ -1,9 +1,6 @@
 package eu.lod2.hooks.constraints.graph;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * A NodeSet contains an Array of Nodes and can perform operations on them regarding
@@ -23,7 +20,7 @@ public abstract class NodeSet<HookHandler> {
     //--------------------
 
     /** Stores all HookHandlers in the current set */
-    private Set<HookHandler> handlers = new HashSet<HookHandler>();
+    protected Set<HookHandler> handlers = new HashSet<HookHandler>();
 
     /** Stores all nodes in the current set */
     private Set<Node<HookHandler>> nodes = new HashSet<Node<HookHandler>>();
@@ -82,11 +79,10 @@ public abstract class NodeSet<HookHandler> {
     //--------------------------
 
     /**
-     * Adds *hook* to the set of hooks to manage.
+     * Adds *handler* to the set of HookHandlers to manage unless *handler* was already being handled.
      * <p/>
      * Internally, this means a node will be constructed to manage the dependency tree of *hook*.
      * <p/>
-     * /@pre Hook must not be part of the currently managed set of hooks.
      *
      * @param handler Hook to be managed by the current set of nodes.
      */
@@ -99,8 +95,10 @@ public abstract class NodeSet<HookHandler> {
      * Discovers an order in which the handlers can be executed.
      *
      * @return Ordered list of HookHandlers.  The first handler in the list should be executed first.
+     * /@pre Graph must not contain cycles
      */
     public List<HookHandler> handlersExecutionList() {
+        inRetrievingState();
         Set<ConnectedGraph<HookHandler>> nodeSets = ConnectedGraph.discoverNodeSets(nodes);
         return unpackNodes(orderedExecutionPath(nodeSets));
     }
@@ -111,6 +109,7 @@ public abstract class NodeSet<HookHandler> {
      * @return true if a cycle could be found, false otherwise.
      */
     public boolean hasCycleP() {
+        inRetrievingState();
         for (ConnectedGraph<HookHandler> graph : ConnectedGraph.discoverNodeSets(nodes))
             if (graph.cycleP())
                 return true;
@@ -127,10 +126,11 @@ public abstract class NodeSet<HookHandler> {
      * <p/>
      * /@atStateChange: used during State change
      *
+     *
      * @param hook The hook which should indicate the hooks that must execute before itself.
      * @return Hooks before which *hook* should execute.
      */
-    public abstract List<HookHandler> hookExecutesBefore(HookHandler hook);
+    public abstract Collection<HookHandler> hookExecutesBefore(HookHandler hook);
 
     /**
      * We want *hook* to be executed only after each of the returned results have been executed.
@@ -141,7 +141,7 @@ public abstract class NodeSet<HookHandler> {
      * @param hook The hook which should indicate the hooks that must execute after itself.
      * @return Hooks after which *hook* should execute.
      */
-    public abstract List<HookHandler> hookExecutesAfter(HookHandler hook);
+    public abstract Collection<HookHandler> hookExecutesAfter(HookHandler hook);
 
     /**
      * Returns the scheduling preference for the supplied hook.  This is the EARLY/LATE distinction
@@ -203,6 +203,7 @@ public abstract class NodeSet<HookHandler> {
      * @return Node which has HookHandler
      */
     private Node<HookHandler> findNodeByHandler(HookHandler handler) {
+        inRetrievingState();
         for (Node<HookHandler> node : nodes)
             if (node.getHandler() == handler)
                 return node;
@@ -218,8 +219,10 @@ public abstract class NodeSet<HookHandler> {
      *
      * @param graphs The ConnectedGraphs which contain all nodes to be executed.
      * @return List of HookHandlers contained in the graphs, in the order in which they should be executed.
+     * /@pre graph must not contain cycles
      */
     private List<Node<HookHandler>> orderedExecutionPath(Set<ConnectedGraph<HookHandler>> graphs) {
+        inRetrievingState();
         // In order to sort the complete graphs, we request the earliest unconstrained node and
         // the last unconstrained node.  We check their SchedulingPreference and sort as good as we can on that.
         Set<List<Node<HookHandler>>> fromEarlyToEarly = new HashSet<List<Node<HookHandler>>>();
@@ -269,6 +272,7 @@ public abstract class NodeSet<HookHandler> {
      *
      * @param nodes Nodes which will be unpacked.
      * @return List containing the payload of the supplied nodes in the same order as their corresponding nodes.
+     * /@atStateChange: does not influence state
      */
     private <HookHandler> List<HookHandler> unpackNodes(List<Node<HookHandler>> nodes) {
         List<HookHandler> handlers = new ArrayList<HookHandler>();
@@ -276,5 +280,4 @@ public abstract class NodeSet<HookHandler> {
             handlers.add(node.getHandler());
         return handlers;
     }
-
 }
