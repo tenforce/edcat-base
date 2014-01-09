@@ -1,4 +1,4 @@
-package eu.lod2.edcat.hooks.constraints.graph;
+package eu.lod2.hooks.constraints.graph;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -142,6 +142,19 @@ public abstract class NodeSet<HookHandler> {
      * @return Hooks after which *hook* should execute.
      */
     public abstract List<HookHandler> hookExecutesAfter(HookHandler hook);
+
+    /**
+     * Returns the scheduling preference for the supplied hook.  This is the EARLY/LATE distinction
+     * inside three of solutions.
+     *
+     * Returning LATE indicates that we prefer this HookHandler to be executed later within the
+     * constraints of its execution.  Returning EARLY indicates that we want this HookHandler to be
+     * executed earlier on.
+     *
+     * @param hook Hook of which we want to know the scheduling preference.
+     * @return Indication of the broad scheduling preference of the supplied HookHandler.
+     */
+    public abstract Node.SchedulingPreference hookSchedulingPreference(HookHandler hook);
 
 
     //--------------------------------------------

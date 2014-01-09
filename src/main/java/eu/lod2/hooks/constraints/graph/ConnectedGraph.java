@@ -1,11 +1,6 @@
-package eu.lod2.edcat.hooks.constraints.graph;
-
-import eu.lod2.edcat.hooks.handlers.HookHandler;
-import sun.misc.Compare;
-import sun.misc.Sort;
+package eu.lod2.hooks.constraints.graph;
 
 import java.util.*;
-import java.util.zip.CheckedInputStream;
 
 /**
  * Stores a series of nodes in which each node is accessible from the other nodes

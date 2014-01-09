@@ -1,20 +1,56 @@
 package eu.lod2.hooks.constraints;
 
-public class BroadPriority extends Priority {
-  public static final boolean EARLY = true;
-  public static final boolean LATE = false;
+/**
+ * Indicates a general tendency to be called early or late in the execution
+ * order.
+ * <p/>
+ * Construction of priorities should be done through the Constraint class.
+ *
+ * @see eu.lod2.hooks.constraints.Constraint
+ */
+class BroadPriority extends Priority {
 
-  private boolean earlyP;
+    /** Handy pointer to an EARLY priority */
+    public static BroadPriority EARLY = new BroadPriority(BroadPriority.Priority.EARLY);
+    /** Handy pointer to an EARLY priority */
+    public static BroadPriority LATE = new BroadPriority(BroadPriority.Priority.LATE);
 
-  public BroadPriority(boolean type) {
-    this.earlyP = type;
-  }
+    /**
+     * Possible broad priority specifications.
+     */
+    public enum Priority {
+        EARLY, LATE
+    }
 
-  public boolean isEarly() {
-    return earlyP == EARLY;
-  }
+    /**
+     * My priority.
+     */
+    public Priority priority = Priority.LATE;
 
-  public boolean isLate() {
-    return earlyP == LATE;
-  }
+    /**
+     * Constructs a new priority.
+     *
+     * @param priority Value indicating whether we should execute EARLY or LATE.
+     */
+    public BroadPriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    /**
+     * Returns true iff we want to execute early.
+     *
+     * @return true on early priority.  false otherwise.
+     */
+    public boolean isEarly() {
+        return priority == Priority.EARLY;
+    }
+
+    /**
+     * Returns true iff we want to execute late.
+     *
+     * @return true on late priority, false otherwise.
+     */
+    public boolean isLate() {
+        return priority == Priority.LATE;
+    }
 }

@@ -1,22 +1,53 @@
 package eu.lod2.hooks.constraints;
 
+/**
+ * Construction of priorities should be done through the Constraint class.
+ *
+ * @see eu.lod2.hooks.constraints.Constraint
+ */
 public class RelativePriority extends Priority {
-  public static final boolean BEFORE = true;
-  public static final boolean AFTER = false;
 
-  private boolean beforeP;
-  private String name;
+    /**
+     * We may either execute BEFORE or AFTER another plugin.
+     */
+    public enum Relation {
+        BEFORE, AFTER
+    }
 
-  public RelativePriority(boolean type,String name) {
-    beforeP = type;
-    this.name = name;
-  }
+    /** My priority kind */
+    private Relation priority;
 
-  public boolean getType() {
-    return beforeP;
-  }
+    /** The canonical name of the plugin before/after which we should execute */
+    private String targetPlugin;
 
-  public String getName() {
-    return name;
-  }
+    /**
+     * Constructs a new RelativePriority, supplying the kind of constraint and
+     * relative to which plugin it is.
+     *
+     * @param priority Whether we want to run before or after the target plugin.
+     * @param targetPlugin Plugin before/after which we want to run.
+     */
+    public RelativePriority(Relation priority, String targetPlugin) {
+        this.priority = priority;
+        this.targetPlugin = targetPlugin;
+    }
+
+    /**
+     * Returns whether or not we want to run before/after the target.
+     *
+     * @return Value of the {@link eu.lod2.hooks.constraints.RelativePriority.Relation} enum
+     */
+    public Relation getPriority() {
+        return priority;
+    }
+
+    /**
+     * Returns the target before/after which we want to run, as a string containing the
+     * canonical name of its class.
+     *
+     * @return Canonical name of the target plugin.
+     */
+    public String getTarget() {
+        return targetPlugin;
+    }
 }

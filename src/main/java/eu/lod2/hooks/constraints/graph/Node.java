@@ -1,4 +1,4 @@
-package eu.lod2.edcat.hooks.constraints.graph;
+package eu.lod2.hooks.constraints.graph;
 
 import java.util.*;
 
