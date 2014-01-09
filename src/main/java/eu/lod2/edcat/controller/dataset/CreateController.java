@@ -3,6 +3,7 @@ package eu.lod2.edcat.controller.dataset;
 import eu.lod2.edcat.utils.Catalog;
 import eu.lod2.edcat.utils.Constants;
 import eu.lod2.edcat.utils.SparqlEngine;
+import eu.lod2.hooks.constraints.graph.CycleException;
 import eu.lod2.hooks.handlers.HookHandler;
 import eu.lod2.hooks.handlers.OptionalHookHandler;
 import eu.lod2.hooks.handlers.dcat.AtCreateHandler;
@@ -41,7 +42,7 @@ public class CreateController extends Datasetcontroller {
     return response;
   }
 
-  private void postCreateHook(SparqlEngine engine,ResponseEntity<Object> response) throws ClassNotFoundException, ActionAbortException {
+  private void postCreateHook(SparqlEngine engine,ResponseEntity<Object> response) throws ClassNotFoundException, ActionAbortException,CycleException {
     for (HookHandler h : HookManager.orderedHandlers(PostCreateHandler.class)) {
       if (h instanceof PreCreateHandler)
         ((PostCreateHandler) h).handlePostCreate(engine, response);
@@ -50,7 +51,7 @@ public class CreateController extends Datasetcontroller {
     }
   }
 
-  private void atCreateHook(Model statements) throws ClassNotFoundException {
+  private void atCreateHook(Model statements) throws ClassNotFoundException,CycleException {
     for (HookHandler h : HookManager.orderedHandlers(AtCreateHandler.class)) {
       if (h instanceof  AtCreateHandler)
         ((AtCreateHandler) h).handleAtCreate(statements);
@@ -60,7 +61,7 @@ public class CreateController extends Datasetcontroller {
 
   }
 
-  private void preCreateHook(SparqlEngine engine, HttpServletRequest request) throws ActionAbortException, ClassNotFoundException {
+  private void preCreateHook(SparqlEngine engine, HttpServletRequest request) throws ActionAbortException, ClassNotFoundException,CycleException {
     for (HookHandler h : HookManager.orderedHandlers(PreCreateHandler.class)) {
       if (h instanceof  PreCreateHandler)
         ((PreCreateHandler) h).handlePreCreate(request,engine);
