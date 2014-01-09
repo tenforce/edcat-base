@@ -1,0 +1,144 @@
+{  "@context":
+  {
+    "uri" : "@id",
+    "dcterms"  : "http://purl.org/dc/terms/",
+    "xsd"  : "http://www.w3.org/2001/XMLSchema#",
+    "dcat" : "http://www.w3.org/ns/dcat#",
+    "tf" : "http://tenforce.com/onto#",
+    "void" : "http://rdfs.org/ns/void#",
+    "skos" : "http://www.w3.org/2004/02/skos/core#",
+    "vcard" : "http://www.w3.org/2006/vcard/ns#",
+    "rdfs" : "http://www.w3.org/2000/01/rdf-schema#",
+    "title" : {
+      "@id": "dcterms:title",
+      "@container" : "@language"
+    },
+    "description" : {
+      "@id" : "dcterms:description",
+      "@container" : "@language"
+    },
+    "modified" : {
+      "@id" : "dcterms:modified",
+      "@type" : "xsd:dateTime"
+    },
+    "issued" : {
+      "@id" : "dcterms:issued",
+      "@type" : "xsd:dateTime"
+    },
+    "periodicity" : {
+      "@id" : "dcterms:accrualPeriodicity"
+    },
+    "language" : {
+      "@id" : "dcterms:language",
+      "@type" : "xsd:string"
+    },
+    "mainTheme" : {
+      "@id" : "tf:mainTheme"
+    },
+    "theme" : {
+      "@id" : "dcat:theme"
+    },
+    "keywordList" : {
+      "@id" : "dcat:keyword"
+    },
+    "contactPoint" : {
+      "@id" : "dcat:contactPoint"
+    },
+    "landingPage" : {
+      "@id" : "dcterms:landingPage"
+    },
+    "conformsTo" : {
+      "@id" : "void:vocabulary",
+      "@type" : "@id"
+    },
+    "spatial" : {
+      "@id" : "dcterms:spatial"
+    },
+    "distribution" : {
+      "@id" : "dcat:distribution"
+    },
+    "publisher" : {
+      "@id" : "dcterms:publisher"
+    },
+    "temporalPeriod" : {
+      "@id" : "dcterms:temporal"
+    },
+    "record" : {
+      "@id" : "dcat:record"
+    },
+    "schema" : {
+      "@id" : "skos:inScheme"
+    },
+    "label" : {
+      "@id" : "skos:prefLabel"
+    },
+    "name" : {
+      "@id" : "vcard:fn"
+    },
+    "mail" : {
+      "@id" : "vcard:hasEmail",
+      "@type" : "@id"
+    },
+    "phone" : {
+      "@id" : "vcard:hasTelephone"
+    },
+    "web" : {
+      "@id" : "vcard:hasURL",
+      "@type" : "@id"
+    },
+    "mimeType" : {
+      "@id" : "dcat:mediaType",
+      "@type" : "xsd:string"
+    },
+    "format" : {
+      "@id" : "dcterms:format",
+      "@type" : "xsd:string"
+    },
+    "downloadURL" : {
+      "@id" : "dcat:downloadURL",
+      "@type" : "@id"
+    },
+    "accessURL" : {
+      "@id" : "dcat:accessURL",
+      "@type" : "@id"
+    },
+    "byteSize" : {
+      "@id" : "dcat:byteSize",
+      "@type" : "xsd:integer"
+    },
+    "license" : {
+      "@id" : "dcterms:license",
+      "@type" : "@id"
+    },
+    "rights" : {
+      "@id" : "dcterms:rights",
+      "@type" : "@id"
+    },
+    "shortText" :{
+      "@id" : "rdfs:label",
+      "@container" : "@language"
+    },
+    "notBefore" :{
+      "@id" : "tf:notBefore"
+    },
+    "before" :{
+      "@id" : "tf:before"
+    },
+    "keyword" : {
+      "@id" : "skos:prefLabel",
+      "@type" : "xsd:string"
+    },
+    "icon" : {
+      "@id" : "tf:icon",
+      "@type" : "@id"
+    },
+    "version" : {
+    "@id" : "tf:version",
+    "@type" : "xsd:string"
+    },
+    "versionNotes" : {
+      "@id" : "tf:versionNotes",
+      "@container" : "@language"
+    }
+  }
+}

@@ -1,4 +1,4 @@
-package com.github.jsonldjava.sesame;
+package eu.lod2.edcat.utils;
 
 import org.openrdf.model.Statement;
 import org.openrdf.rio.RDFHandlerException;
