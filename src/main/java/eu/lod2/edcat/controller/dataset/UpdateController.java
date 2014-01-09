@@ -3,6 +3,7 @@ package eu.lod2.edcat.controller.dataset;
 import eu.lod2.edcat.utils.Catalog;
 import eu.lod2.edcat.utils.Constants;
 import eu.lod2.edcat.utils.SparqlEngine;
+import eu.lod2.hooks.constraints.graph.CycleException;
 import eu.lod2.hooks.handlers.HookHandler;
 import eu.lod2.hooks.handlers.OptionalHookHandler;
 import eu.lod2.hooks.handlers.dcat.AtCreateHandler;
@@ -32,9 +33,9 @@ public class UpdateController extends Datasetcontroller {
     preHook(engine, request);
     Catalog catalog = new Catalog(engine, Constants.getURIBase());
     URI datasetUri = catalog.insertDataset(getId());
-    Model statements = buildModel(request,datasetUri);
+    Model statements = buildModel(request, datasetUri);
     atHook(statements);
-    engine.addStatements(statements,datasetUri);
+    engine.addStatements(statements, datasetUri);
     Object compactedJsonLD = buildJsonFromStatements(statements);
     ResponseEntity<Object> response = new ResponseEntity<Object>(compactedJsonLD, getHeaders(), HttpStatus.OK);
     postHook(engine, response);
@@ -42,31 +43,31 @@ public class UpdateController extends Datasetcontroller {
     return response;
   }
 
-  private void postHook(SparqlEngine engine,ResponseEntity<Object> response) throws ClassNotFoundException, ActionAbortException {
+  private void postHook(SparqlEngine engine, ResponseEntity<Object> response) throws ClassNotFoundException, ActionAbortException, CycleException {
     for (HookHandler h : HookManager.orderedHandlers(PostUpdateHandler.class)) {
       if (h instanceof PreCreateHandler)
         ((PostCreateHandler) h).handlePostCreate(engine, response);
       else
-        ((OptionalHookHandler) h).handle(PostUpdateHandler.class.getCanonicalName(),engine,response);
+        ((OptionalHookHandler) h).handle(PostUpdateHandler.class.getCanonicalName(), engine, response);
     }
   }
 
-  private void atHook(Model statements) throws ClassNotFoundException {
+  private void atHook(Model statements) throws ClassNotFoundException, CycleException {
     for (HookHandler h : HookManager.orderedHandlers(AtUpdateHandler.class)) {
-      if (h instanceof  AtCreateHandler)
+      if (h instanceof AtCreateHandler)
         ((AtCreateHandler) h).handleAtCreate(statements);
       else
-        ((OptionalHookHandler) h).handle(AtUpdateHandler.class.getCanonicalName(),statements);
+        ((OptionalHookHandler) h).handle(AtUpdateHandler.class.getCanonicalName(), statements);
     }
 
   }
 
-  private void preHook(SparqlEngine engine, HttpServletRequest request) throws ActionAbortException, ClassNotFoundException {
+  private void preHook(SparqlEngine engine, HttpServletRequest request) throws ActionAbortException, ClassNotFoundException, CycleException {
     for (HookHandler h : HookManager.orderedHandlers(PreUpdateHandler.class)) {
-      if (h instanceof  PreCreateHandler)
-        ((PreCreateHandler) h).handlePreCreate(request,engine);
+      if (h instanceof PreCreateHandler)
+        ((PreCreateHandler) h).handlePreCreate(request, engine);
       else
-        ((OptionalHookHandler) h).handle(PreUpdateHandler.class.getCanonicalName(),request,engine);
+        ((OptionalHookHandler) h).handle(PreUpdateHandler.class.getCanonicalName(), request, engine);
     }
   }
 }
