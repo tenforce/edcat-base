@@ -1,5 +1,6 @@
 package eu.lod2.edcat.controller;
 
+import eu.lod2.hooks.constraints.graph.CycleException;
 import eu.lod2.hooks.util.ActionAbortException;
 import eu.lod2.hooks.handlers.HookHandler;
 import eu.lod2.hooks.util.HookManager;
@@ -71,7 +72,7 @@ public abstract class AbstractBuildController {
 //     }
   }
 
-  private void preCreateHook(SparqlEngine engine, HttpServletRequest request) throws ActionAbortException, ClassNotFoundException {
+  private void preCreateHook(SparqlEngine engine, HttpServletRequest request) throws ActionAbortException, ClassNotFoundException, CycleException {
     for (HookHandler h : HookManager.orderedHandlers(PreCreateHandler.class)) {
       if (h instanceof  PreCreateHandler)
         ((PreCreateHandler) h).handlePreCreate(request,engine);
