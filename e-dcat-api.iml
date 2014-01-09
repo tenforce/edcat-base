@@ -45,8 +45,8 @@
     <orderEntry type="library" name="Maven: javax.servlet:servlet-api:2.5" level="project" />
     <orderEntry type="library" name="Maven: junit:junit:4.8.1" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-test:3.2.4.RELEASE" level="project" />
-    <orderEntry type="module" module-name="jsonld-java-sesame" />
-    <orderEntry type="module" module-name="jsonld-java" />
+    <orderEntry type="library" name="Maven: com.github.jsonld-java:jsonld-java-sesame:0.3-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: com.github.jsonld-java:jsonld-java:0.3-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.2.3" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.2.3" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.2.3" level="project" />
