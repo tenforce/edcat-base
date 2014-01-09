@@ -20,22 +20,22 @@ public class Node<HookHandler> {
     private SchedulingPreference schedulingPreference = SchedulingPreference.LATE;
 
     /** Contains the nodes of which I specified that I would run before them */
-    private Set<Node> thisExplicitlyRunsBefore = new HashSet<Node>();
+    private Set<Node<HookHandler>> thisExplicitlyRunsBefore = new HashSet<Node<HookHandler>>();
 
     /** Contains the nodes of which I specified that I would run after them */
-    private Set<Node> thisExplicitlyRunsAfter = new HashSet<Node>();
+    private Set<Node<HookHandler>> thisExplicitlyRunsAfter = new HashSet<Node<HookHandler>>();
 
     /** Nodes which have implicitly been specified to be executed after this node (in a single step) */
-    private Set<Node> singleStepAfterSelf = new HashSet<Node>();
+    private Set<Node<HookHandler>> singleStepAfterSelf = new HashSet<Node<HookHandler>>();
 
     /** Nodes which have implicitly been specified to be executed before this node (in a single step) */
-    private Set<Node> singleStepBeforeSelf = new HashSet<Node>();
+    private Set<Node<HookHandler>> singleStepBeforeSelf = new HashSet<Node<HookHandler>>();
 
     /** Nodes which have implicitly been specified to be executed after this node (any amount of steps) */
-    private Set<Node> implicitAfterSelf = new HashSet<Node>();
+    private Set<Node<HookHandler>> implicitAfterSelf = new HashSet<Node<HookHandler>>();
 
     /** Nodes which have implicitly been specified to be executed before this node (any amount of steps) */
-    private Set<Node> implicitBeforeSelf = new HashSet<Node>();
+    private Set<Node<HookHandler>> implicitBeforeSelf = new HashSet<Node<HookHandler>>();
 
 
     /**
@@ -104,7 +104,7 @@ public class Node<HookHandler> {
      *
      * @return Directly accessible nodes from this node.
      */
-    public Set<Node> getSingleStepAfterSelf() {
+    public Set<Node<HookHandler>> getSingleStepAfterSelf() {
         return singleStepAfterSelf;
     }
 
@@ -113,7 +113,7 @@ public class Node<HookHandler> {
      *
      * @return Directly accessible nodes from this node.
      */
-    public Set<Node> getSingleStepBeforeSelf() {
+    public Set<Node<HookHandler>> getSingleStepBeforeSelf() {
         return singleStepBeforeSelf;
     }
 
