@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class DeteleController extends Datasetcontroller {
+public class DeteleController extends DatasetController {
   // DELETE /datasets/{id}
   // TODO: this is a stub
   @RequestMapping(value = OBJECT_ROUTE, method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")

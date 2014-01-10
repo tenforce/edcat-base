@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class UpdateController extends Datasetcontroller {
+public class UpdateController extends DatasetController {
 
   // PUT /datasets/{id}
   @RequestMapping(value = OBJECT_ROUTE, method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")

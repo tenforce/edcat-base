@@ -48,12 +48,14 @@ public class ShowController extends Datasetcontroller {
     }
   }
 
-  private void preHook(SparqlEngine engine, HttpServletRequest request) throws ActionAbortException, ClassNotFoundException, CycleException {
-    for (HookHandler h : HookManager.orderedHandlers(PreReadHandler.class)) {
-      if (h instanceof PreCreateHandler)
-        ((PreReadHandler) h).handlePreRead(request, engine);
-      else
-        ((OptionalHookHandler) h).handle(PreReadHandler.class.getCanonicalName(), request, engine);
+    private void preHook(SparqlEngine engine, HttpServletRequest request) throws ActionAbortException, ClassNotFoundException, CycleException {
+        HookManager.callHook(PreReadHandler.class, "handlePreCreate", request, engine);
+//        for (HookHandler h : HookManager.orderedHandlers(PreReadHandler.class)) {
+//            if (h instanceof PreCreateHandler)
+//                ((PreCreateHandler) h).handlePreCreate(request, engine);
+//            else
+//                ((OptionalHookHandler) h).handle(PreReadHandler.class.getCanonicalName(), request, engine);
+//        }
     }
   }
 }
