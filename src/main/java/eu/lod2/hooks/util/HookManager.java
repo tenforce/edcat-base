@@ -6,6 +6,8 @@ import eu.lod2.hooks.constraints.graph.NodeSet;
 import eu.lod2.hooks.handlers.HookHandler;
 import eu.lod2.hooks.handlers.OptionalHookHandler;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 
 public class HookManager {
@@ -89,4 +91,37 @@ public class HookManager {
     }
 
 
+    /**
+     * Calls a hook, given the basic information about it.
+     *
+     * This handles the bookkeeping regarding the ordering of handlers and abstracts out the difference
+     * between {@link OptionalHookHandler}s and the handlerInterface.
+     *
+     * @param handlerInterface The interface by which the hook is specified.
+     * @param handlerMethodName The method to call on the supplied interface.
+     * @param args The arguments to supply to the hook's implementer.
+     */
+    public static void callHook(Class handlerInterface, String handlerMethodName, Object... args) throws CycleException, ClassNotFoundException {
+        for(HookHandler h : orderedHandlers(handlerInterface))
+            if (handlerInterface.isInstance(handlerInterface)) {
+                if (h instanceof OptionalHookHandler)
+                    // todo: splash the arguments
+                    ((OptionalHookHandler) h).handle(handlerInterface.getCanonicalName(), args);
+                else {
+                    Class[] argsClasses = new Class[args.length];
+                    for( int i = 0; i < args.length ; i++ )
+                        argsClasses[i] = args[i].getClass();
+                    try {
+                        Method hookMethod = h.getClass().getDeclaredMethod(handlerMethodName,argsClasses);
+                        hookMethod.invoke(h,args);
+                    } catch (NoSuchMethodException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+    }
 }

@@ -19,7 +19,7 @@ import java.util.Collection;
  *
  * You MUST also add a line containing only the fully qualified name of the class in
  * which you implemented the hook in to the following file in your project:
- * resources/META-INF.services/eu.lod2.hooks.handlers.HookHandler
+ * resources/META-INF/services/eu.lod2.hooks.handlers.HookHandler
  */
 public interface HookHandler {
 
