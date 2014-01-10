@@ -2,6 +2,7 @@ package eu.lod2.edcat.controller.dataset;
 
 import com.github.jsonldjava.core.JsonLdError;
 import eu.lod2.edcat.utils.DcatJsonParser;
+import eu.lod2.edcat.utils.Vocabulary;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
 import org.openrdf.rio.RDFHandlerException;
@@ -27,14 +28,13 @@ public abstract class DatasetController {
   }
 
   protected Object buildJsonFromStatements(Model statements) throws IOException, RDFHandlerException, JsonLdError {
-    Map compactJson =  (Map) DcatJsonParser.statementsToJsonLD(statements, new URL(getContext()));
-
+    Map compactJson = (Map) DcatJsonParser.statementsToJsonLD(statements, getContext());
     return compactJson;
   }
 
-  protected Model buildModel(HttpServletRequest request,URI dataset) throws Exception{
+  protected Model buildModel(HttpServletRequest request, URI dataset) throws Exception {
     InputStream in = request.getInputStream();
-    Model statements = DcatJsonParser.jsonLDToStatements(in, getContext(), dataset);
+    Model statements = DcatJsonParser.jsonLDToStatements(in, getContext().toString(), dataset, Vocabulary.get("Dataset"));
     in.close();
     return statements;
   }
@@ -43,8 +43,7 @@ public abstract class DatasetController {
     return this.datasetId == null ? UUID.randomUUID().toString() : this.datasetId;
   }
 
-  public String getContext() {
-    URL r = this.getClass().getResource("/eu/lod2/edcat/jsonld/dataset.jsonld");
-    return r.toString();
+  public URL getContext() {
+    return this.getClass().getResource("/eu/lod2/edcat/jsonld/dataset.jsonld");
   }
 }

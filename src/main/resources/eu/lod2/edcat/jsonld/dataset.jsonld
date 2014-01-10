@@ -1,6 +1,6 @@
 {  "@context":
   {
-    "uri" : "@id",
+    "Dataset": "http://www.w3.org/ns/dcat#Dataset",
     "dcterms"  : "http://purl.org/dc/terms/",
     "xsd"  : "http://www.w3.org/2001/XMLSchema#",
     "dcat" : "http://www.w3.org/ns/dcat#",
@@ -139,6 +139,9 @@
     "versionNotes" : {
       "@id" : "tf:versionNotes",
       "@container" : "@language"
-    }
-  }
+    },
+    "type": "@type",
+    "self": "@id"
+  },
+  "@type": "Dataset"
 }

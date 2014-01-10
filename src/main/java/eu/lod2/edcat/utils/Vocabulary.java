@@ -20,7 +20,7 @@ public class Vocabulary {
     properties = new Properties();
     try {
       //load a properties file from class path, inside static method
-      properties.load(Vocabulary.class.getClassLoader().getResourceAsStream("mappings.properties"));
+      properties.load(Vocabulary.class.getClassLoader().getResourceAsStream("vocab.properties"));
     } catch (IOException ex) {
       ex.printStackTrace();
     }

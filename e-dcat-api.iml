@@ -65,6 +65,7 @@
     <orderEntry type="module" module-name="logging-plugin" />
     <orderEntry type="module" module-name="core-hooks" />
     <orderEntry type="module" module-name="hooks" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.1" level="project" />
     <orderEntry type="library" name="Maven: virtuoso.sesame2:driver:2.7.3-build1.12" level="project" />
     <orderEntry type="library" name="Maven: virtuoso:jdbc-driver:4.0" level="project" />
     <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-repository-api:2.7.9" level="project" />

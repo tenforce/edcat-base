@@ -7,6 +7,7 @@ import org.openrdf.model.impl.LinkedHashModel;
 import org.openrdf.model.impl.URIImpl;
 import org.openrdf.model.impl.ValueFactoryImpl;
 import org.openrdf.model.vocabulary.DCTERMS;
+import org.openrdf.model.vocabulary.RDF;
 
 import java.util.Date;
 
@@ -36,11 +37,12 @@ public class Catalog {
     URI dataset = generateDatasetUri(datasetId);
     URI record = generateRecordUri(datasetId);
     Literal now = ValueFactoryImpl.getInstance().createLiteral(new Date());
-    statements.add(record, DCTERMS.MODIFIED, now,catalogUri);
-    statements.add(record, DCTERMS.ISSUED, now,catalogUri);
-    statements.add(record,Vocabulary.get("record.primaryTopic"),dataset,catalogUri);
-    statements.add(catalogUri, Vocabulary.get("catalog.dataset"),dataset);
-    statements.add(catalogUri, Vocabulary.get("catalog.record"),record);
+    statements.add(record, DCTERMS.MODIFIED, now, catalogUri);
+    statements.add(record, DCTERMS.ISSUED, now, catalogUri);
+    statements.add(record, RDF.TYPE, Vocabulary.get("Record"));
+    statements.add(record, Vocabulary.get("record.primaryTopic"), dataset, catalogUri);
+    statements.add(catalogUri, Vocabulary.get("catalog.dataset"), dataset);
+    statements.add(catalogUri, Vocabulary.get("catalog.record"), record);
     engine.addStatements(statements);
     return dataset;
   }
