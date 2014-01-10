@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class CreateController extends Datasetcontroller {
+public class CreateController extends DatasetController {
   private String datasetId;
 
   // POST /datasets

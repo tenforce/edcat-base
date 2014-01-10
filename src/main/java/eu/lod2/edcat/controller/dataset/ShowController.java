@@ -23,38 +23,39 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class ShowController extends Datasetcontroller {
+public class ShowController extends DatasetController {
 
-  // GET /datasets/{datasetId}
-  // TODO: this is a stub
-  @RequestMapping(value = OBJECT_ROUTE, method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
-  public ResponseEntity<Object> show(HttpServletRequest request, @PathVariable String datasetId) throws Exception {
-    SparqlEngine engine = new SparqlEngine();
-    preHook(engine, request);
-    Catalog catalog = new Catalog(engine, Constants.getURIBase());
-    Model statements = engine.getStatements(catalog.generateDatasetUri(datasetId));
-    Object compactedJsonLD = buildJsonFromStatements(statements);
-    ResponseEntity<Object> response = new ResponseEntity<Object>(compactedJsonLD, getHeaders(), HttpStatus.OK);
-    postHook(engine, response);
-    engine.terminate();
-    return response;
-  }
-
-  private void postHook(SparqlEngine engine, ResponseEntity<Object> response) throws ClassNotFoundException, ActionAbortException, CycleException {
-    for (HookHandler h : HookManager.orderedHandlers(PostReadHandler.class)) {
-      if (h instanceof PreCreateHandler)
-        ((PostCreateHandler) h).handlePostCreate(engine, response);
-      else
-        ((OptionalHookHandler) h).handle(PostReadHandler.class.getCanonicalName(), engine, response);
+    // GET /datasets/{datasetId}
+    // TODO: this is a stub
+    @RequestMapping(value = OBJECT_ROUTE, method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    public ResponseEntity<Object> show(HttpServletRequest request, @PathVariable String datasetId) throws Exception {
+        SparqlEngine engine = new SparqlEngine();
+        preHook(engine, request);
+        Catalog catalog = new Catalog(engine, Constants.getURIBase());
+        Model statements = engine.getStatements(catalog.generateDatasetUri(datasetId));
+        Object compactedJsonLD = buildJsonFromStatements(statements);
+        ResponseEntity<Object> response = new ResponseEntity<Object>(compactedJsonLD, getHeaders(), HttpStatus.OK);
+        postHook(engine, response);
+        engine.terminate();
+        return response;
     }
-  }
 
-  private void preHook(SparqlEngine engine, HttpServletRequest request) throws ActionAbortException, ClassNotFoundException, CycleException {
-    for (HookHandler h : HookManager.orderedHandlers(PreReadHandler.class)) {
-      if (h instanceof PreCreateHandler)
-        ((PreCreateHandler) h).handlePreCreate(request, engine);
-      else
-        ((OptionalHookHandler) h).handle(PreReadHandler.class.getCanonicalName(), request, engine);
+    private void postHook(SparqlEngine engine, ResponseEntity<Object> response) throws ClassNotFoundException, ActionAbortException, CycleException {
+        for (HookHandler h : HookManager.orderedHandlers(PostReadHandler.class)) {
+            if (h instanceof PreCreateHandler)
+                ((PostCreateHandler) h).handlePostCreate(engine, response);
+            else
+                ((OptionalHookHandler) h).handle(PostReadHandler.class.getCanonicalName(), engine, response);
+        }
     }
-  }
+
+    private void preHook(SparqlEngine engine, HttpServletRequest request) throws ActionAbortException, ClassNotFoundException, CycleException {
+        HookManager.callHook(PreReadHandler.class, "handlePreCreate", request, engine);
+//        for (HookHandler h : HookManager.orderedHandlers(PreReadHandler.class)) {
+//            if (h instanceof PreCreateHandler)
+//                ((PreCreateHandler) h).handlePreCreate(request, engine);
+//            else
+//                ((OptionalHookHandler) h).handle(PreReadHandler.class.getCanonicalName(), request, engine);
+//        }
+    }
 }

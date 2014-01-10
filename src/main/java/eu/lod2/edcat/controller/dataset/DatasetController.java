@@ -14,7 +14,7 @@ import java.net.URL;
 import java.util.Map;
 import java.util.UUID;
 
-public abstract class Datasetcontroller {
+public abstract class DatasetController {
   protected static final String ROUTE = "datasets";
   protected static final String OBJECT_ROUTE = ROUTE + "/{datasetId}";
 
