@@ -23,7 +23,7 @@ public abstract class NodeSet<HookHandler> {
     protected Set<HookHandler> handlers = new HashSet<HookHandler>();
 
     /** Stores all nodes in the current set */
-    private Set<Node<HookHandler>> nodes = new HashSet<Node<HookHandler>>();
+    protected Set<Node<HookHandler>> nodes = new HashSet<Node<HookHandler>>();
 
 
     //-----------------------------
@@ -50,7 +50,7 @@ public abstract class NodeSet<HookHandler> {
      * <p/>
      * IMPLEMENTATION: sets the new State
      */
-    private void inAddingState() {
+    protected void inAddingState() {
         // We don't have to do something when starting to add new HookHandlers.
         // Values are cleared when entering the next state.
         currentState = State.ADDING;
@@ -60,7 +60,7 @@ public abstract class NodeSet<HookHandler> {
      * Ensures the current state is RETRIEVING.  If it is not, the state is set up so it is
      * the current state.
      */
-    private void inRetrievingState() {
+    protected void inRetrievingState() {
         switch (currentState) {
             case ADDING: // move from ADDING state -> RETRIEVING state
                 clearNodes();
@@ -99,7 +99,8 @@ public abstract class NodeSet<HookHandler> {
      */
     public List<HookHandler> handlersExecutionList() {
         inRetrievingState();
-        Set<ConnectedGraph<HookHandler>> nodeSets = ConnectedGraph.discoverNodeSets(nodes);
+        Set<Node<HookHandler>> clonedNodes = new HashSet<Node<HookHandler>>(nodes);
+        Set<ConnectedGraph<HookHandler>> nodeSets = ConnectedGraph.discoverNodeSets(clonedNodes);
         return unpackNodes(orderedExecutionPath(nodeSets));
     }
 
@@ -181,7 +182,7 @@ public abstract class NodeSet<HookHandler> {
     }
 
     /**
-     * Constructs the node references
+     * Constructs the node references and priorities
      * <p/>
      * /@atStateChange: used during State change
      */
@@ -191,6 +192,7 @@ public abstract class NodeSet<HookHandler> {
                 node.before(findNodeByHandler(beforeHandler));
             for (HookHandler afterHandler : hookExecutesAfter(node.getHandler()))
                 node.after(findNodeByHandler(afterHandler));
+            node.setSchedulingPreference(this.hookSchedulingPreference(node.getHandler()));
         }
     }
 
@@ -203,7 +205,6 @@ public abstract class NodeSet<HookHandler> {
      * @return Node which has HookHandler
      */
     private Node<HookHandler> findNodeByHandler(HookHandler handler) {
-        inRetrievingState();
         for (Node<HookHandler> node : nodes)
             if (node.getHandler() == handler)
                 return node;

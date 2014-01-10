@@ -13,6 +13,9 @@ public class ConnectedGraph<HookHandler> {
     /** Stores all nodes in this ConnectedGraph */
     private Set<Node<HookHandler>> nodes;
 
+    /** Cache for the {@link ConnectedGraph#executionOrder()} */
+    private List<Node<HookHandler>> executionOrderCache;
+
     /**
      * Constructs a new ConnectedGraph from a set of nodes.
      *
@@ -69,12 +72,15 @@ public class ConnectedGraph<HookHandler> {
      * @return Node which should be executed first in this graph.
      */
     public Node<HookHandler> firstNode() {
+        if( executionOrderCache != null )
+            return executionOrderCache.get(0);
+
         ArrayList<Node<HookHandler>> sortedNodes = new ArrayList<Node<HookHandler>>(nodes);
         Collections.sort(sortedNodes,
                 new Comparator<Node<HookHandler>>() {
                     @Override
                     public int compare(Node<HookHandler> a, Node<HookHandler> b) {
-                        return b.getAllImplicitBeforeMe().size() - a.getAllImplicitBeforeMe().size();
+                        return a.getAllImplicitBeforeMe().size() - b.getAllImplicitBeforeMe().size();
                     }
                 });
         return sortedNodes.get(0);
@@ -86,12 +92,14 @@ public class ConnectedGraph<HookHandler> {
      * @return Node which should be executed last in this graph.
      */
     public Node<HookHandler> lastNode() {
+        if( executionOrder() != null )
+            return executionOrderCache.get(executionOrderCache.size() -1 );
         ArrayList<Node<HookHandler>> sortedNodes = new ArrayList<Node<HookHandler>>(nodes);
         Collections.sort(sortedNodes,
                 new Comparator<Node<HookHandler>>() {
                     @Override
                     public int compare(Node<HookHandler> a, Node<HookHandler> b) {
-                        return b.getAllImplicitAfterMe().size() - a.getAllImplicitAfterMe().size();
+                        return a.getAllImplicitAfterMe().size() - b.getAllImplicitAfterMe().size();
                     }
                 });
         return sortedNodes.get(0);
@@ -108,6 +116,9 @@ public class ConnectedGraph<HookHandler> {
         //     Add to accessible nodes if all required nodes (for a single step) are in accessible nodes.
         // Repeat (A) until all nodes are accessible.
 
+        if(executionOrderCache != null)
+            return new ArrayList<Node<HookHandler>>(executionOrderCache);
+
         Set<Node<HookHandler>> availableNodes = new HashSet<Node<HookHandler>>(nodes);
         List<Node<HookHandler>> executionOrder = new ArrayList<Node<HookHandler>>();
 
@@ -116,12 +127,16 @@ public class ConnectedGraph<HookHandler> {
         availableNodes.remove(firstNode);
 
         // todo: for nodes which neither set a before, nor an after priority, it would make sense to have them injected by their requested priority.
-        while(!availableNodes.isEmpty())
+        while(!availableNodes.isEmpty()){
+            List<Node<HookHandler>> newlyAvailableNodes = new ArrayList<Node<HookHandler>>();
             for(Node<HookHandler> availableNode : availableNodes )
-                if( allDirectNodeRequirementsInCollection(availableNode, executionOrder) ) {
-                    executionOrder.add(availableNode);
-                    availableNodes.remove(availableNode);
-                }
+                if( allDirectNodeRequirementsInCollection(availableNode, executionOrder) )
+                    newlyAvailableNodes.add(availableNode);
+            executionOrder.addAll(newlyAvailableNodes);
+            availableNodes.removeAll(newlyAvailableNodes);
+        }
+
+        executionOrderCache = executionOrder;
 
         return executionOrder;
     }

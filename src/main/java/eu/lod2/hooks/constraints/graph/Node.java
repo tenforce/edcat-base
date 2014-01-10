@@ -122,9 +122,19 @@ public class Node<HookHandler> {
      */
     public Set<Node<HookHandler>> getAccessibleNodes() {
         Set<Node<HookHandler>> accessibleNodes = new HashSet<Node<HookHandler>>();
-        accessibleNodes.addAll(implicitAfterSelf);
-        accessibleNodes.addAll(implicitBeforeSelf);
-        accessibleNodes.add(this);
+        Set<Node<HookHandler>> newNodes = new HashSet<Node<HookHandler>>();
+        newNodes.add(this);
+
+        while(! newNodes.isEmpty()){
+            accessibleNodes.addAll(newNodes);
+            Set<Node<HookHandler>> nextNewNodes = new HashSet<Node<HookHandler>>();
+            for(Node<HookHandler> newNode : newNodes){
+                nextNewNodes.addAll(newNode.getAllImplicitAfterMe());
+                nextNewNodes.addAll(newNode.getAllImplicitBeforeMe());
+            }
+            newNodes = nextNewNodes;
+            newNodes.removeAll(accessibleNodes);
+        }
         return accessibleNodes;
     }
 
@@ -155,7 +165,7 @@ public class Node<HookHandler> {
      *
      * @param attachment Node after which we should execute.
      */
-    public void after(Node attachment) {
+    public void after(Node<HookHandler> attachment) {
         thisExplicitlyRunsAfter(attachment);
         attachment.addSingleStepAfter(this);
         attachment.addImplicitAfter(this);
@@ -170,7 +180,7 @@ public class Node<HookHandler> {
      *
      * @param attachment Node before which we should execute.
      */
-    public void before(Node attachment) {
+    public void before(Node<HookHandler> attachment) {
         thisExplicitlyRunsBefore(attachment);
         attachment.addSingleStepBefore(this);
         attachment.addImplicitBefore(this);
@@ -199,7 +209,7 @@ public class Node<HookHandler> {
      *
      * @param other Node which should be executed after this.
      */
-    private void addSingleStepAfter(Node other) {
+    private void addSingleStepAfter(Node<HookHandler> other) {
         singleStepAfterSelf.add(other);
         other.singleStepBeforeSelf.add(this);
     }
@@ -209,7 +219,7 @@ public class Node<HookHandler> {
      *
      * @param other Node which should be executed before this.
      */
-    private void addSingleStepBefore(Node other) {
+    private void addSingleStepBefore(Node<HookHandler> other) {
         singleStepBeforeSelf.add(other);
         other.singleStepAfterSelf.add(this);
     }
@@ -219,7 +229,7 @@ public class Node<HookHandler> {
      *
      * @param other Node which should be executed after this.
      */
-    private void addImplicitAfter(Node other) {
+    private void addImplicitAfter(Node<HookHandler> other) {
         this.addImplicitAfterDirectional(other);
         other.addImplicitBeforeDirectional(this);
     }
@@ -229,7 +239,7 @@ public class Node<HookHandler> {
      *
      * @param other Node which should be executed after this.
      */
-    private void addImplicitBefore(Node other) {
+    private void addImplicitBefore(Node<HookHandler> other) {
         this.addImplicitBeforeDirectional(other);
         other.addImplicitAfterDirectional(this);
     }
@@ -239,10 +249,16 @@ public class Node<HookHandler> {
      *
      * @param other Node which should be executed after this.
      */
-    private void addImplicitAfterDirectional(Node other) {
-        implicitAfterSelf.add(other);
-        for (Node beforeSelf : implicitBeforeSelf)
-            beforeSelf.implicitAfterSelf.add(other);
+    private void addImplicitAfterDirectional(Node<HookHandler> other) {
+        if(!implicitAfterSelf.contains(other)){
+            Set<Node<HookHandler>> newAfterMe = new HashSet<Node<HookHandler>>(other.implicitAfterSelf);
+            newAfterMe.remove(this);
+            newAfterMe.add(other);
+            implicitAfterSelf.addAll(newAfterMe);
+            for(Node<HookHandler> beforeSelf : implicitBeforeSelf)
+                for(Node<HookHandler> singleNewAfterMe : newAfterMe)
+                    beforeSelf.addImplicitAfterDirectional(singleNewAfterMe);
+        }
     }
 
     /**
@@ -250,9 +266,15 @@ public class Node<HookHandler> {
      *
      * @param other Node which should be executed before self.
      */
-    private void addImplicitBeforeDirectional(Node other) {
-        implicitBeforeSelf.add(other);
-        for (Node afterSelf : implicitAfterSelf)
-            afterSelf.implicitBeforeSelf.add(other);
+    private void addImplicitBeforeDirectional(Node<HookHandler> other) {
+        if(!implicitBeforeSelf.contains(other)){
+            Set<Node<HookHandler>> newBeforeMe = new HashSet<Node<HookHandler>>(other.implicitBeforeSelf);
+            newBeforeMe.remove(this);
+            newBeforeMe.add(other);
+            implicitBeforeSelf.addAll(newBeforeMe);
+            for(Node<HookHandler> afterSelf : implicitAfterSelf)
+                for(Node<HookHandler> singleNewBeforeMe : newBeforeMe)
+                    afterSelf.addImplicitBeforeDirectional(singleNewBeforeMe);
+        }
     }
 }

@@ -5,7 +5,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * This class allows you to easily create a new NodeSet for testing the priorities.
+ * This class allows you to easily create a new NodeSet for testing the priorities
+ * and for playing around with the ordering system.  There are too many visible elements in this class to have
+ * a clean separation of concerns, yet they are good for testing.
  *
  * Each node is identified by a string of characters enclosed in arrow signs.
  *
@@ -50,6 +52,32 @@ public class StringNodeSet extends NodeSet<NodeString> {
         return strings;
     }
 
+    /**
+     * Returns the NodeString objects in the current set.
+     *
+     * @return Collection containing all NodeStrings in the current set.
+     */
+    protected Collection<NodeString> getNodeStrings(){
+        inRetrievingState();
+        HashSet<NodeString> set = new HashSet<NodeString>();
+        set.addAll(handlers);
+        return set;
+    }
+
+    /**
+     * Retrieves the nodes which are used internally in this StringNodeSet
+     *
+     * @return Set containing all nodes available to StringNodeSet
+     */
+    protected Set<Node<NodeString>> getNodes() {
+        inRetrievingState();
+        return new HashSet<Node<NodeString>>(nodes);
+    }
+
+    public void add(String nodeStringSpecification) throws InvalidNodeStringException {
+        add(new NodeString(nodeStringSpecification));
+    }
+
     @Override
     public Collection<NodeString> hookExecutesBefore(NodeString nodeString) {
         Set<NodeString> nodes = new HashSet<NodeString>();
@@ -81,14 +109,13 @@ public class StringNodeSet extends NodeSet<NodeString> {
         return nodeString.broadPreference();
     }
 
-
     /**
      * Returns the NodeString which is currently contained in this name.
      *
      * @param nodeName Name of the node to find.
      * @return NodeString with name nodeName or null if it couldn't be found.
      */
-    private NodeString findNodeStringByName(String nodeName) {
+    protected NodeString findNodeStringByName(String nodeName) {
         for(NodeString nodeString : handlers)
             if(nodeString.getName().equals(nodeName))
                 return nodeString;
@@ -109,7 +136,7 @@ class NodeString {
      * @param specification As described in the StringNodeSet description
      */
     public NodeString(String specification) throws InvalidNodeStringException {
-        nodeNamePattern = Pattern.compile("^(.*) *-> *(\\+)? *(.*) *-> *(.*)$");
+        nodeNamePattern = Pattern.compile("^\\s*(.*)\\s*->\\s*(\\+)?\\s*(.*)\\s*->\\s*(.*)\\s*$");
         if( !nodeNamePattern.matcher(specification).find() )
             throw new InvalidNodeStringException(specification);
 
@@ -131,10 +158,10 @@ class NodeString {
      *         {@link Node.SchedulingPreference}.LATE otherwise
      */
     public Node.SchedulingPreference broadPreference(){
-        if( nthSpec(1) == null )
-            return Node.SchedulingPreference.LATE;
-        else
+        if( "+".equals( nthSpec(1) ) )
             return Node.SchedulingPreference.EARLY;
+        else
+            return Node.SchedulingPreference.LATE;
     }
 
     /**

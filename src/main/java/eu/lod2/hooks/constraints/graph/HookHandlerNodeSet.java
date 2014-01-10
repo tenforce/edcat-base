@@ -37,6 +37,24 @@ public class HookHandlerNodeSet extends NodeSet<HookHandler>{
         return hookExecutesRelativeTo(hookHandler, RelativePriority.Relation.AFTER);
     }
 
+    @Override
+    public Node.SchedulingPreference hookSchedulingPreference(HookHandler hook) {
+        Collection<Priority> constraints = hook.getConstraints(hookName);
+        if( constraints == null )
+            return Node.SchedulingPreference.LATE;
+
+        // for loop is the normal case, the rest is returning LATE by default
+        for(Priority priority : constraints)
+            if( priority instanceof BroadPriority) {
+                if( ((BroadPriority) priority).isEarly())
+                    return Node.SchedulingPreference.EARLY;
+                else
+                    return Node.SchedulingPreference.LATE;
+            }
+
+        return Node.SchedulingPreference.LATE;
+    }
+
     /**
      * Abstraction of hookExecutesBefore and hookExecutesAfter.
      *
@@ -63,6 +81,7 @@ public class HookHandlerNodeSet extends NodeSet<HookHandler>{
      * @return Collection of relative priorities
      */
     private Collection<RelativePriority> relativePrioritiesFor(HookHandler hookHandler){
+        // todo: hookHandler.getConstraints(hookName) may be null
         List<RelativePriority> priorities = new ArrayList<RelativePriority>();
         for(Priority p : hookHandler.getConstraints(hookName))
             if(p instanceof RelativePriority)
@@ -84,23 +103,5 @@ public class HookHandlerNodeSet extends NodeSet<HookHandler>{
             if( handler.getClass().getCanonicalName().equals(name))
                 foundHandlers.add(handler);
         return foundHandlers;
-    }
-
-    @Override
-    public Node.SchedulingPreference hookSchedulingPreference(HookHandler hook) {
-        Collection<Priority> constraints = hook.getConstraints(hookName);
-        if( constraints == null )
-            return Node.SchedulingPreference.LATE;
-
-        // for loop is the normal case, the rest is returning LATE by default
-        for(Priority priority : constraints)
-            if( priority instanceof BroadPriority) {
-                if( ((BroadPriority) priority).isEarly())
-                    return Node.SchedulingPreference.EARLY;
-                else
-                    return Node.SchedulingPreference.LATE;
-            }
-
-        return Node.SchedulingPreference.LATE;
     }
 }
