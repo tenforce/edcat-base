@@ -3,15 +3,9 @@ package eu.lod2.edcat.controller.dataset;
 import eu.lod2.edcat.utils.Catalog;
 import eu.lod2.edcat.utils.Constants;
 import eu.lod2.edcat.utils.SparqlEngine;
-import eu.lod2.hooks.constraints.graph.CycleException;
-import eu.lod2.hooks.handlers.HookHandler;
-import eu.lod2.hooks.handlers.OptionalHookHandler;
-import eu.lod2.hooks.handlers.dcat.AtCreateHandler;
 import eu.lod2.hooks.handlers.dcat.AtUpdateHandler;
 import eu.lod2.hooks.handlers.dcat.PostUpdateHandler;
-import eu.lod2.hooks.handlers.dcat.PreCreateHandler;
 import eu.lod2.hooks.handlers.dcat.PreUpdateHandler;
-import eu.lod2.hooks.util.ActionAbortException;
 import eu.lod2.hooks.util.HookManager;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
@@ -29,46 +23,19 @@ public class UpdateController extends DatasetController {
 
   // PUT /datasets/{id}
   @RequestMapping(value = OBJECT_ROUTE, method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
-  public ResponseEntity<Object> update(HttpServletRequest request, @PathVariable String datasetId) throws Exception {
+  public ResponseEntity<Object> update(HttpServletRequest request, @PathVariable String datasetId) throws Throwable {
+    this.datasetId = datasetId;
     SparqlEngine engine = new SparqlEngine();
-    preHook(engine, request);
+    HookManager.callHook(PreUpdateHandler.class, "handlePreUpdate", request, engine);
     Catalog catalog = new Catalog(engine, Constants.getURIBase());
     URI datasetUri = catalog.insertDataset(getId());
     Model statements = buildModel(request, datasetUri);
-    atHook(statements);
+    HookManager.callHook(AtUpdateHandler.class, "handleAtUpdate", statements);
     engine.addStatements(statements, datasetUri);
     Object compactedJsonLD = buildJsonFromStatements(statements);
     ResponseEntity<Object> response = new ResponseEntity<Object>(compactedJsonLD, getHeaders(), HttpStatus.OK);
-    postHook(engine, response);
+    HookManager.callHook(PostUpdateHandler.class, "handlePostUpdate", engine, response, datasetUri);
     engine.terminate();
     return response;
-  }
-
-  private void postHook(SparqlEngine engine, ResponseEntity<Object> response) throws ClassNotFoundException, ActionAbortException, CycleException {
-    for (HookHandler h : HookManager.orderedHandlers(PostUpdateHandler.class)) {
-      if (h instanceof PreCreateHandler)
-        ((PostUpdateHandler) h).handlePostUpdate(engine, response);
-      else
-        ((OptionalHookHandler) h).handle(PostUpdateHandler.class.getCanonicalName(), engine, response);
-    }
-  }
-
-  private void atHook(Model statements) throws ClassNotFoundException, CycleException {
-    for (HookHandler h : HookManager.orderedHandlers(AtUpdateHandler.class)) {
-      if (h instanceof AtCreateHandler)
-        ((AtUpdateHandler) h).handleAtUpdate(statements);
-      else
-        ((OptionalHookHandler) h).handle(AtUpdateHandler.class.getCanonicalName(), statements);
-    }
-
-  }
-
-  private void preHook(SparqlEngine engine, HttpServletRequest request) throws ActionAbortException, ClassNotFoundException, CycleException {
-    for (HookHandler h : HookManager.orderedHandlers(PreUpdateHandler.class)) {
-      if (h instanceof PreCreateHandler)
-        ((PreUpdateHandler) h).handlePreUpdate(request, engine);
-      else
-        ((OptionalHookHandler) h).handle(PreUpdateHandler.class.getCanonicalName(), request, engine);
-    }
   }
 }

@@ -23,8 +23,7 @@ public abstract class DatasetController {
 
   //* Returns default headers for the application. These headers should always be present
   protected HttpHeaders getHeaders() throws Exception {
-    HttpHeaders headers = new HttpHeaders();
-    return headers;
+    return new HttpHeaders();
   }
 
   protected Object buildJsonFromStatements(Model statements) throws IOException, RDFHandlerException, JsonLdError {

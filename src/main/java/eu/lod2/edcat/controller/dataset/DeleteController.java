@@ -6,11 +6,14 @@ import eu.lod2.edcat.utils.SparqlEngine;
 import eu.lod2.hooks.constraints.graph.CycleException;
 import eu.lod2.hooks.handlers.HookHandler;
 import eu.lod2.hooks.handlers.OptionalHookHandler;
+import eu.lod2.hooks.handlers.dcat.PostDestroyHandler;
 import eu.lod2.hooks.handlers.dcat.PostReadHandler;
 import eu.lod2.hooks.handlers.dcat.PreCreateHandler;
+import eu.lod2.hooks.handlers.dcat.PreDestroyHandler;
 import eu.lod2.hooks.handlers.dcat.PreReadHandler;
 import eu.lod2.hooks.util.ActionAbortException;
 import eu.lod2.hooks.util.HookManager;
+import org.openrdf.model.URI;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,37 +24,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class DeteleController extends DatasetController {
+public class DeleteController extends DatasetController {
   // DELETE /datasets/{id}
   // TODO: this is a stub
   @RequestMapping(value = OBJECT_ROUTE, method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
-  public ResponseEntity<Object> destroy(HttpServletRequest request, @PathVariable String datasetId) throws Exception {
+  public ResponseEntity<Object> destroy(HttpServletRequest request, @PathVariable String datasetId) throws Throwable {
     SparqlEngine engine = new SparqlEngine();
     Catalog catalog = new Catalog(engine, Constants.getURIBase());
-    preHook(engine, request);
+    URI datasetUri = catalog.generateDatasetUri(datasetId);
+    HookManager.callHook(PreDestroyHandler.class, "handlePreDestroy", request, engine, datasetUri);
     engine.clearGraph(catalog.generateDatasetUri(datasetId).stringValue());
     catalog.removeDataset(datasetId);
     ResponseEntity<Object> response = new ResponseEntity<Object>(null, getHeaders(), HttpStatus.OK);
-    postHook(engine, response);
+    HookManager.callHook(PostDestroyHandler.class, "handlePostDestroy", request, engine, datasetUri);
     engine.terminate();
     return response;
-  }
-
-  private void postHook(SparqlEngine engine, ResponseEntity<Object> response) throws ClassNotFoundException, ActionAbortException, CycleException {
-    for (HookHandler h : HookManager.orderedHandlers(PostReadHandler.class)) {
-      if (h instanceof PreCreateHandler)
-        ((PostReadHandler) h).handlePostRead(engine, response);
-      else
-        ((OptionalHookHandler) h).handle(PostReadHandler.class.getCanonicalName(), engine, response);
-    }
-  }
-
-  private void preHook(SparqlEngine engine, HttpServletRequest request) throws ActionAbortException, ClassNotFoundException, CycleException {
-    for (HookHandler h : HookManager.orderedHandlers(PreReadHandler.class)) {
-      if (h instanceof PreCreateHandler)
-        ((PreReadHandler) h).handlePreRead(request, engine);
-      else
-        ((OptionalHookHandler) h).handle(PreReadHandler.class.getCanonicalName(), request, engine);
-    }
   }
 }

@@ -11,6 +11,7 @@ import eu.lod2.hooks.handlers.dcat.PostCreateHandler;
 import eu.lod2.hooks.handlers.dcat.PreCreateHandler;
 import eu.lod2.hooks.util.ActionAbortException;
 import eu.lod2.hooks.util.HookManager;
+import eu.lod2.hooks.util.MultiImplementedHookException;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
 import org.springframework.http.HttpStatus;
@@ -27,46 +28,18 @@ public class CreateController extends DatasetController {
 
   // POST /datasets
   @RequestMapping(value = ROUTE, method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-  public ResponseEntity<Object> create(HttpServletRequest request) throws Exception {
+  public ResponseEntity<Object> create(HttpServletRequest request) throws Throwable {
     SparqlEngine engine = new SparqlEngine();
-    preCreateHook(engine, request);
+    HookManager.callHook(PreCreateHandler.class, "handlePreCreate", request, engine);
     Catalog catalog = new Catalog(engine, Constants.getURIBase());
     URI datasetUri = catalog.insertDataset(getId());
     Model statements = buildModel(request, datasetUri);
-    atCreateHook(statements);
+    HookManager.callHook(AtCreateHandler.class, "handleAtCreate", statements);
     engine.addStatements(statements, datasetUri);
     Object compactedJsonLD = buildJsonFromStatements(statements);
     ResponseEntity<Object> response = new ResponseEntity<Object>(compactedJsonLD, getHeaders(), HttpStatus.OK);
-    postCreateHook(engine, response);
+    HookManager.callHook(PostCreateHandler.class, "handlePostCreate", engine, response, datasetUri);
     engine.terminate();
     return response;
-  }
-
-  private void postCreateHook(SparqlEngine engine, ResponseEntity<Object> response) throws ClassNotFoundException, ActionAbortException, CycleException {
-    for (HookHandler h : HookManager.orderedHandlers(PostCreateHandler.class)) {
-      if (h instanceof PostCreateHandler)
-        ((PostCreateHandler) h).handlePostCreate(engine, response);
-      else
-        ((OptionalHookHandler) h).handle(PostCreateHandler.class.getCanonicalName(), engine, response);
-    }
-  }
-
-  private void atCreateHook(Model statements) throws ClassNotFoundException, CycleException {
-    for (HookHandler h : HookManager.orderedHandlers(AtCreateHandler.class)) {
-      if (h instanceof AtCreateHandler)
-        ((AtCreateHandler) h).handleAtCreate(statements);
-      else
-        ((OptionalHookHandler) h).handle(AtCreateHandler.class.getCanonicalName(), statements);
-    }
-
-  }
-
-  private void preCreateHook(SparqlEngine engine, HttpServletRequest request) throws ActionAbortException, ClassNotFoundException, CycleException {
-    for (HookHandler h : HookManager.orderedHandlers(PreCreateHandler.class)) {
-      if (h instanceof PreCreateHandler)
-        ((PreCreateHandler) h).handlePreCreate(request, engine);
-      else
-        ((OptionalHookHandler) h).handle(PreCreateHandler.class.getCanonicalName(), request, engine);
-    }
   }
 }
