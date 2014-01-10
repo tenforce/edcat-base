@@ -6,7 +6,6 @@ import eu.lod2.edcat.utils.SparqlEngine;
 import eu.lod2.hooks.constraints.graph.CycleException;
 import eu.lod2.hooks.handlers.HookHandler;
 import eu.lod2.hooks.handlers.OptionalHookHandler;
-import eu.lod2.hooks.handlers.dcat.PostCreateHandler;
 import eu.lod2.hooks.handlers.dcat.PostReadHandler;
 import eu.lod2.hooks.handlers.dcat.PreCreateHandler;
 import eu.lod2.hooks.handlers.dcat.PreReadHandler;
@@ -43,7 +42,7 @@ public class ShowController extends Datasetcontroller {
   private void postHook(SparqlEngine engine, ResponseEntity<Object> response) throws ClassNotFoundException, ActionAbortException, CycleException {
     for (HookHandler h : HookManager.orderedHandlers(PostReadHandler.class)) {
       if (h instanceof PreCreateHandler)
-        ((PostCreateHandler) h).handlePostCreate(engine, response);
+        ((PostReadHandler) h).handlePostRead(engine, response);
       else
         ((OptionalHookHandler) h).handle(PostReadHandler.class.getCanonicalName(), engine, response);
     }
@@ -52,7 +51,7 @@ public class ShowController extends Datasetcontroller {
   private void preHook(SparqlEngine engine, HttpServletRequest request) throws ActionAbortException, ClassNotFoundException, CycleException {
     for (HookHandler h : HookManager.orderedHandlers(PreReadHandler.class)) {
       if (h instanceof PreCreateHandler)
-        ((PreCreateHandler) h).handlePreCreate(request, engine);
+        ((PreReadHandler) h).handlePreRead(request, engine);
       else
         ((OptionalHookHandler) h).handle(PreReadHandler.class.getCanonicalName(), request, engine);
     }

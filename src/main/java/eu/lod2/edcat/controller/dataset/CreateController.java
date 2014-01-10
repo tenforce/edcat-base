@@ -32,41 +32,41 @@ public class CreateController extends Datasetcontroller {
     preCreateHook(engine, request);
     Catalog catalog = new Catalog(engine, Constants.getURIBase());
     URI datasetUri = catalog.insertDataset(getId());
-    Model statements = buildModel(request,datasetUri);
+    Model statements = buildModel(request, datasetUri);
     atCreateHook(statements);
-    engine.addStatements(statements,datasetUri);
+    engine.addStatements(statements, datasetUri);
     Object compactedJsonLD = buildJsonFromStatements(statements);
     ResponseEntity<Object> response = new ResponseEntity<Object>(compactedJsonLD, getHeaders(), HttpStatus.OK);
-    postCreateHook(engine,response);
+    postCreateHook(engine, response);
     engine.terminate();
     return response;
   }
 
-  private void postCreateHook(SparqlEngine engine,ResponseEntity<Object> response) throws ClassNotFoundException, ActionAbortException,CycleException {
+  private void postCreateHook(SparqlEngine engine, ResponseEntity<Object> response) throws ClassNotFoundException, ActionAbortException, CycleException {
     for (HookHandler h : HookManager.orderedHandlers(PostCreateHandler.class)) {
-      if (h instanceof PreCreateHandler)
+      if (h instanceof PostCreateHandler)
         ((PostCreateHandler) h).handlePostCreate(engine, response);
       else
-        ((OptionalHookHandler) h).handle(PostCreateHandler.class.getCanonicalName(),engine,response);
+        ((OptionalHookHandler) h).handle(PostCreateHandler.class.getCanonicalName(), engine, response);
     }
   }
 
-  private void atCreateHook(Model statements) throws ClassNotFoundException,CycleException {
+  private void atCreateHook(Model statements) throws ClassNotFoundException, CycleException {
     for (HookHandler h : HookManager.orderedHandlers(AtCreateHandler.class)) {
-      if (h instanceof  AtCreateHandler)
+      if (h instanceof AtCreateHandler)
         ((AtCreateHandler) h).handleAtCreate(statements);
       else
-        ((OptionalHookHandler) h).handle(AtCreateHandler.class.getCanonicalName(),statements);
+        ((OptionalHookHandler) h).handle(AtCreateHandler.class.getCanonicalName(), statements);
     }
 
   }
 
-  private void preCreateHook(SparqlEngine engine, HttpServletRequest request) throws ActionAbortException, ClassNotFoundException,CycleException {
+  private void preCreateHook(SparqlEngine engine, HttpServletRequest request) throws ActionAbortException, ClassNotFoundException, CycleException {
     for (HookHandler h : HookManager.orderedHandlers(PreCreateHandler.class)) {
-      if (h instanceof  PreCreateHandler)
-        ((PreCreateHandler) h).handlePreCreate(request,engine);
+      if (h instanceof PreCreateHandler)
+        ((PreCreateHandler) h).handlePreCreate(request, engine);
       else
-        ((OptionalHookHandler) h).handle(PreCreateHandler.class.getCanonicalName(),request,engine);
+        ((OptionalHookHandler) h).handle(PreCreateHandler.class.getCanonicalName(), request, engine);
     }
   }
 }

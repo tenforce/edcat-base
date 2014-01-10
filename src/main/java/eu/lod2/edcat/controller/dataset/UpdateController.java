@@ -8,7 +8,6 @@ import eu.lod2.hooks.handlers.HookHandler;
 import eu.lod2.hooks.handlers.OptionalHookHandler;
 import eu.lod2.hooks.handlers.dcat.AtCreateHandler;
 import eu.lod2.hooks.handlers.dcat.AtUpdateHandler;
-import eu.lod2.hooks.handlers.dcat.PostCreateHandler;
 import eu.lod2.hooks.handlers.dcat.PostUpdateHandler;
 import eu.lod2.hooks.handlers.dcat.PreCreateHandler;
 import eu.lod2.hooks.handlers.dcat.PreUpdateHandler;
@@ -48,7 +47,7 @@ public class UpdateController extends Datasetcontroller {
   private void postHook(SparqlEngine engine, ResponseEntity<Object> response) throws ClassNotFoundException, ActionAbortException, CycleException {
     for (HookHandler h : HookManager.orderedHandlers(PostUpdateHandler.class)) {
       if (h instanceof PreCreateHandler)
-        ((PostCreateHandler) h).handlePostCreate(engine, response);
+        ((PostUpdateHandler) h).handlePostUpdate(engine, response);
       else
         ((OptionalHookHandler) h).handle(PostUpdateHandler.class.getCanonicalName(), engine, response);
     }
@@ -57,7 +56,7 @@ public class UpdateController extends Datasetcontroller {
   private void atHook(Model statements) throws ClassNotFoundException, CycleException {
     for (HookHandler h : HookManager.orderedHandlers(AtUpdateHandler.class)) {
       if (h instanceof AtCreateHandler)
-        ((AtCreateHandler) h).handleAtCreate(statements);
+        ((AtUpdateHandler) h).handleAtUpdate(statements);
       else
         ((OptionalHookHandler) h).handle(AtUpdateHandler.class.getCanonicalName(), statements);
     }
@@ -67,7 +66,7 @@ public class UpdateController extends Datasetcontroller {
   private void preHook(SparqlEngine engine, HttpServletRequest request) throws ActionAbortException, ClassNotFoundException, CycleException {
     for (HookHandler h : HookManager.orderedHandlers(PreUpdateHandler.class)) {
       if (h instanceof PreCreateHandler)
-        ((PreCreateHandler) h).handlePreCreate(request, engine);
+        ((PreUpdateHandler) h).handlePreUpdate(request, engine);
       else
         ((OptionalHookHandler) h).handle(PreUpdateHandler.class.getCanonicalName(), request, engine);
     }
