@@ -28,6 +28,7 @@ public class CreateController extends DatasetController {
   @RequestMapping(value = ROUTE, method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
   public ResponseEntity<Object> create(HttpServletRequest request) throws Throwable {
     SparqlEngine engine = new SparqlEngine();
+    HookManager.callHook(PreCreateHandler.class, "handlePreCreate", request, engine);
     Catalog catalog = new Catalog(engine, Constants.getURIBase());
     String datasetBaseId = getId();
     URI datasetUri = catalog.generateDatasetUri(datasetBaseId);

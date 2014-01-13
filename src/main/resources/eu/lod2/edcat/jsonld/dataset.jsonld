@@ -126,8 +126,9 @@
       "@id" : "tf:before"
     },
     "keyword" : {
-      "@id" : "skos:prefLabel",
-      "@type" : "xsd:string"
+      "@id" : "dcat:keyword",
+      "@type" : "xsd:string",
+      "@container": "@language"
     },
     "icon" : {
       "@id" : "tf:icon",
