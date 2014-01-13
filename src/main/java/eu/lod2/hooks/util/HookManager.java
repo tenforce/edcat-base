@@ -8,6 +8,7 @@ import eu.lod2.hooks.handlers.OptionalHookHandler;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -114,7 +115,10 @@ public class HookManager {
       else {
         List<Method> correctlyNamedMethods = new ArrayList<Method>();
         for (Method m : h.getClass().getMethods())
-          if (m.getName().equals(handlerMethodName))
+          if (m.getName().equals(handlerMethodName)
+                && !Modifier.isAbstract(m.getModifiers())
+                && !Modifier.isPrivate(m.getModifiers())
+                && !Modifier.isInterface(m.getModifiers()))
             correctlyNamedMethods.add(m);
 
         if (correctlyNamedMethods.size() > 1)
