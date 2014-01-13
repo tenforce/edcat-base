@@ -3,6 +3,8 @@ package eu.lod2.edcat.controller.dataset;
 import eu.lod2.edcat.utils.Catalog;
 import eu.lod2.edcat.utils.Constants;
 import eu.lod2.edcat.utils.SparqlEngine;
+import eu.lod2.hooks.contexts.PostContext;
+import eu.lod2.hooks.contexts.PreContext;
 import eu.lod2.hooks.handlers.dcat.PostDestroyHandler;
 import eu.lod2.hooks.handlers.dcat.PreDestroyHandler;
 import eu.lod2.hooks.util.HookManager;
@@ -25,11 +27,11 @@ public class DeleteController extends DatasetController {
     SparqlEngine engine = new SparqlEngine();
     Catalog catalog = new Catalog(engine, Constants.getURIBase());
     URI datasetUri = catalog.generateDatasetUri(datasetId);
-    HookManager.callHook(PreDestroyHandler.class, "handlePreDestroy", catalog, request, engine, datasetUri);
+    HookManager.callHook(PreDestroyHandler.class, "handlePreDestroy", new PreContext(catalog, request, engine, datasetUri));
     engine.clearGraph(catalog.generateDatasetUri(datasetId).stringValue());
     catalog.removeDataset(datasetId);
     ResponseEntity<Object> response = new ResponseEntity<Object>(new HashMap(), getHeaders(), HttpStatus.OK);
-    HookManager.callHook(PostDestroyHandler.class, "handlePostDestroy", catalog, request, engine, datasetUri);
+    HookManager.callHook(PostDestroyHandler.class, "handlePostDestroy", new PostContext(catalog, response, engine, datasetUri));
     engine.terminate();
     return response;
   }
