@@ -30,17 +30,17 @@ public class CreateController extends DatasetController {
   @RequestMapping(value = ROUTE, method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
   public ResponseEntity<Object> create(HttpServletRequest request) throws Throwable {
     SparqlEngine engine = new SparqlEngine();
-    HookManager.callHook(PreCreateHandler.class, "handlePreCreate", request, engine);
     Catalog catalog = new Catalog(engine, Constants.getURIBase());
+    HookManager.callHook(PreCreateHandler.class, "handlePreCreate", catalog, request, engine);
     Model record = catalog.insertDataset(getId());
     URI datasetUri = getDatasetIdFromRecord(record);
     Model statements = buildModel(request, datasetUri);
-    HookManager.callHook(AtCreateHandler.class, "handleAtCreate", statements);
+    HookManager.callHook(AtCreateHandler.class, "handleAtCreate", catalog, statements, engine);
     engine.addStatements(statements, datasetUri);
     statements.addAll(record);
     Object compactedJsonLD = buildJsonFromStatements(statements);
     ResponseEntity<Object> response = new ResponseEntity<Object>(compactedJsonLD, getHeaders(), HttpStatus.OK);
-    HookManager.callHook(PostCreateHandler.class, "handlePostCreate", engine, response, datasetUri);
+    HookManager.callHook(PostCreateHandler.class, "handlePostCreate", catalog, engine, response, datasetUri);
     engine.terminate();
     return response;
   }

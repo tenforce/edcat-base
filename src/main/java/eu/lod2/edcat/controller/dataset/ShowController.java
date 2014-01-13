@@ -24,13 +24,13 @@ public class ShowController extends DatasetController {
   @RequestMapping(value = OBJECT_ROUTE, method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
   public ResponseEntity<Object> show(HttpServletRequest request, @PathVariable String datasetId) throws Throwable {
     SparqlEngine engine = new SparqlEngine();
-    HookManager.callHook(PreReadHandler.class, "handlePreRead", request, engine);
     Catalog catalog = new Catalog(engine, Constants.getURIBase());
+    HookManager.callHook(PreReadHandler.class, "handlePreRead", catalog, request, engine);
     URI datasetUri = catalog.generateDatasetUri(datasetId);
     Model statements = engine.getStatements(datasetUri);
     Object compactedJsonLD = buildJsonFromStatements(statements);
     ResponseEntity<Object> response = new ResponseEntity<Object>(compactedJsonLD, getHeaders(), HttpStatus.OK);
-    HookManager.callHook(PostReadHandler.class, "handlePostRead", engine, response, datasetUri);
+    HookManager.callHook(PostReadHandler.class, "handlePostRead", catalog, engine, response, datasetUri);
     engine.terminate();
     return response;
   }

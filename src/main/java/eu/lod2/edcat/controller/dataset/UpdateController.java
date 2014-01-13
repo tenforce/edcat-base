@@ -26,16 +26,16 @@ public class UpdateController extends DatasetController {
   public ResponseEntity<Object> update(HttpServletRequest request, @PathVariable String datasetId) throws Throwable {
     this.datasetId = datasetId;
     SparqlEngine engine = new SparqlEngine();
-    HookManager.callHook(PreUpdateHandler.class, "handlePreUpdate", request, engine);
     Catalog catalog = new Catalog(engine, Constants.getURIBase());
+    HookManager.callHook(PreUpdateHandler.class, "handlePreUpdate", catalog, request, engine);
     Model record = catalog.updateDataset(getId());
     URI datasetUri = getDatasetIdFromRecord(record);
     Model statements = buildModel(request, datasetUri);
-    HookManager.callHook(AtUpdateHandler.class, "handleAtUpdate", statements);
+    HookManager.callHook(AtUpdateHandler.class, "handleAtUpdate", catalog, statements, engine);
     engine.addStatements(statements, datasetUri);
     Object compactedJsonLD = buildJsonFromStatements(statements);
     ResponseEntity<Object> response = new ResponseEntity<Object>(compactedJsonLD, getHeaders(), HttpStatus.OK);
-    HookManager.callHook(PostUpdateHandler.class, "handlePostUpdate", engine, response, datasetUri);
+    HookManager.callHook(PostUpdateHandler.class, "handlePostUpdate", catalog, engine, response, datasetUri);
     engine.terminate();
     return response;
   }

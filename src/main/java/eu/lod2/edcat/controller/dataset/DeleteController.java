@@ -25,11 +25,11 @@ public class DeleteController extends DatasetController {
     SparqlEngine engine = new SparqlEngine();
     Catalog catalog = new Catalog(engine, Constants.getURIBase());
     URI datasetUri = catalog.generateDatasetUri(datasetId);
-    HookManager.callHook(PreDestroyHandler.class, "handlePreDestroy", request, engine, datasetUri);
+    HookManager.callHook(PreDestroyHandler.class, "handlePreDestroy", catalog, request, engine, datasetUri);
     engine.clearGraph(catalog.generateDatasetUri(datasetId).stringValue());
     catalog.removeDataset(datasetId);
     ResponseEntity<Object> response = new ResponseEntity<Object>(new HashMap(), getHeaders(), HttpStatus.OK);
-    HookManager.callHook(PostDestroyHandler.class, "handlePostDestroy", request, engine, datasetUri);
+    HookManager.callHook(PostDestroyHandler.class, "handlePostDestroy", catalog, request, engine, datasetUri);
     engine.terminate();
     return response;
   }
