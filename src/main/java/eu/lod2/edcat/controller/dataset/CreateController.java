@@ -3,6 +3,9 @@ package eu.lod2.edcat.controller.dataset;
 import eu.lod2.edcat.utils.Catalog;
 import eu.lod2.edcat.utils.Constants;
 import eu.lod2.edcat.utils.SparqlEngine;
+import eu.lod2.hooks.contexts.AtContext;
+import eu.lod2.hooks.contexts.PostContext;
+import eu.lod2.hooks.contexts.PreContext;
 import eu.lod2.hooks.handlers.dcat.AtCreateHandler;
 import eu.lod2.hooks.handlers.dcat.PostCreateHandler;
 import eu.lod2.hooks.handlers.dcat.PreCreateHandler;
@@ -37,7 +40,7 @@ public class CreateController extends DatasetController {
     statements.addAll(record);
     Object compactedJsonLD = buildJsonFromStatements(statements);
     ResponseEntity<Object> response = new ResponseEntity<Object>(compactedJsonLD, getHeaders(), HttpStatus.OK);
-    HookManager.callHook(PostCreateHandler.class, "handlePostCreate", new PostContext(catalog, response, engine, datasetUri));
+    HookManager.callHook(PostCreateHandler.class, "handlePostCreate", new PostContext(catalog, response, engine, datasetUri,statements));
     engine.terminate();
     return response;
   }

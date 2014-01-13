@@ -31,7 +31,7 @@ public class DeleteController extends DatasetController {
     engine.clearGraph(catalog.generateDatasetUri(datasetId).stringValue());
     catalog.removeDataset(datasetId);
     ResponseEntity<Object> response = new ResponseEntity<Object>(new HashMap(), getHeaders(), HttpStatus.OK);
-    HookManager.callHook(PostDestroyHandler.class, "handlePostDestroy", new PostContext(catalog, response, engine, datasetUri));
+    HookManager.callHook(PostDestroyHandler.class, "handlePostDestroy", new PostContext(catalog, response, engine, datasetUri,null));
     engine.terminate();
     return response;
   }

@@ -32,7 +32,7 @@ public class ShowController extends DatasetController {
     Model statements = engine.getStatements(datasetUri);
     Object compactedJsonLD = buildJsonFromStatements(statements);
     ResponseEntity<Object> response = new ResponseEntity<Object>(compactedJsonLD, getHeaders(), HttpStatus.OK);
-    HookManager.callHook(PostReadHandler.class, "handlePostRead", new PostContext(catalog, response, engine, datasetUri));
+    HookManager.callHook(PostReadHandler.class, "handlePostRead", new PostContext(catalog, response, engine, datasetUri,statements));
     engine.terminate();
     return response;
   }
