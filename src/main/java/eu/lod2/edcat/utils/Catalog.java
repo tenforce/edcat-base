@@ -25,12 +25,11 @@ public class Catalog {
   }
 
   public URI generateDatasetUri(String datasetId) {
-    return new URIImpl(catalogUri + "/dataset/" + datasetId); // TODO fix this
+    return buildURI(catalogUri.stringValue(),"dataset",datasetId);
   }
 
   public URI generateRecordUri(String datasetId) {
-    return new URIImpl(catalogUri + "/record/" + datasetId); // TODO fix this
-  }
+    return buildURI(catalogUri.stringValue(),"record",datasetId);  }
 
   public Model insertDataset(String datasetId) {
     Model statements = new LinkedHashModel();
@@ -67,6 +66,17 @@ public class Catalog {
     builder.append("{<" + generateRecordUri(datasetId) + "> ?p ?o. OPTIONAL{?o ?op ?oo}}");
     builder.append("}");
     engine.sparqlUpdate(builder.toString());
+  }
+
+  private URI buildURI(String base, String sub,String id) {
+    return new URIImpl(concatWithSlash(concatWithSlash(base,sub),id));
+  }
+
+  private String concatWithSlash(String pref,String end) {
+    if (pref.endsWith("/"))
+            return pref + end;
+    else
+      return pref + '/' + end;
   }
 
 
