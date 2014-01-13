@@ -1,6 +1,7 @@
 {  "@context":
   {
     "Dataset": "http://www.w3.org/ns/dcat#Dataset",
+    "Record": "http://www.w3.org/ns/dcat#Record",
     "dcterms"  : "http://purl.org/dc/terms/",
     "xsd"  : "http://www.w3.org/2001/XMLSchema#",
     "dcat" : "http://www.w3.org/ns/dcat#",
@@ -143,5 +144,5 @@
     "type": "@type",
     "self": "@id"
   },
-  "@type": "Dataset"
+  "@type": "Record"
 }

@@ -25,35 +25,58 @@ public class Catalog {
   }
 
   public URI generateDatasetUri(String datasetId) {
-    return new URIImpl(catalogUri + "/dataset/" + datasetId); // TODO fix this
+    return buildURI(catalogUri.stringValue(),"dataset",datasetId);
   }
 
   public URI generateRecordUri(String datasetId) {
-    return new URIImpl(catalogUri + "/record/" + datasetId); // TODO fix this
-  }
+    return buildURI(catalogUri.stringValue(),"record",datasetId);  }
 
-  public URI insertDataset(String datasetId) {
+  public Model insertDataset(String datasetId) {
     Model statements = new LinkedHashModel();
     URI dataset = generateDatasetUri(datasetId);
     URI record = generateRecordUri(datasetId);
     Literal now = ValueFactoryImpl.getInstance().createLiteral(new Date());
-    statements.add(record, DCTERMS.MODIFIED, now, catalogUri);
-    statements.add(record, DCTERMS.ISSUED, now, catalogUri);
+    statements.add(record, DCTERMS.MODIFIED, now);
+    statements.add(record, DCTERMS.ISSUED, now);
     statements.add(record, RDF.TYPE, Vocabulary.get("Record"));
-    statements.add(record, Vocabulary.get("record.primaryTopic"), dataset, catalogUri);
+    statements.add(record, Vocabulary.get("record.primaryTopic"), dataset);
     statements.add(catalogUri, Vocabulary.get("catalog.dataset"), dataset);
     statements.add(catalogUri, Vocabulary.get("catalog.record"), record);
-    engine.addStatements(statements);
-    return dataset;
+    engine.addStatements(statements, catalogUri);
+    return statements;
   }
 
-  public void updateDataset(String datasetId) {
-    // TODO: this is a stub, update record modified in catalog
+  public Model getRecord(String datasetId) {
+    return engine.getStatements(generateRecordUri(datasetId), null, null, true, catalogUri);
+  }
 
+  public Model updateDataset(String datasetId) {
+    URI record = generateRecordUri(datasetId);
+    engine.sparqlUpdate("DELETE WHERE {GRAPH <" + catalogUri + "> { <" + record + "> <" + DCTERMS.MODIFIED + "> ?modified }}");
+    Model statements = new LinkedHashModel();
+    Literal now = ValueFactoryImpl.getInstance().createLiteral(new Date());
+    statements.add(record, DCTERMS.MODIFIED, now, catalogUri);
+    engine.addStatements(statements, catalogUri);
+    return engine.getStatements(record, null, null, true, catalogUri);
   }
 
   public void removeDataset(String datasetId) {
-    // TODO: this is a stub, delete record/dataset links from catalog
+    StringBuilder builder = new StringBuilder();
+    builder.append("DELETE WHERE {GRAPH <" + catalogUri + ">");
+    builder.append("{<" + generateRecordUri(datasetId) + "> ?p ?o. OPTIONAL{?o ?op ?oo}}");
+    builder.append("}");
+    engine.sparqlUpdate(builder.toString());
+  }
+
+  private URI buildURI(String base, String sub,String id) {
+    return new URIImpl(concatWithSlash(concatWithSlash(base,sub),id));
+  }
+
+  private String concatWithSlash(String pref,String end) {
+    if (pref.endsWith("/"))
+            return pref + end;
+    else
+      return pref + '/' + end;
   }
 
 

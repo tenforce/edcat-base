@@ -28,7 +28,8 @@ public class UpdateController extends DatasetController {
     SparqlEngine engine = new SparqlEngine();
     HookManager.callHook(PreUpdateHandler.class, "handlePreUpdate", request, engine);
     Catalog catalog = new Catalog(engine, Constants.getURIBase());
-    URI datasetUri = catalog.insertDataset(getId());
+    Model record = catalog.updateDataset(getId());
+    URI datasetUri = getDatasetIdFromRecord(record);
     Model statements = buildModel(request, datasetUri);
     HookManager.callHook(AtUpdateHandler.class, "handleAtUpdate", statements);
     engine.addStatements(statements, datasetUri);
