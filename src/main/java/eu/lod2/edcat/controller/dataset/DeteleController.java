@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 
 @Controller
 public class DeteleController extends DatasetController {
   // DELETE /datasets/{id}
-  // TODO: this is a stub
   @RequestMapping(value = OBJECT_ROUTE, method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
   public ResponseEntity<Object> destroy(HttpServletRequest request, @PathVariable String datasetId) throws Exception {
     SparqlEngine engine = new SparqlEngine();
@@ -31,7 +31,7 @@ public class DeteleController extends DatasetController {
     preHook(engine, request);
     engine.clearGraph(catalog.generateDatasetUri(datasetId).stringValue());
     catalog.removeDataset(datasetId);
-    ResponseEntity<Object> response = new ResponseEntity<Object>(null, getHeaders(), HttpStatus.OK);
+    ResponseEntity<Object> response = new ResponseEntity<Object>(new HashMap(), getHeaders(), HttpStatus.OK);
     postHook(engine, response);
     engine.terminate();
     return response;

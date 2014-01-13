@@ -31,10 +31,12 @@ public class CreateController extends DatasetController {
     SparqlEngine engine = new SparqlEngine();
     preCreateHook(engine, request);
     Catalog catalog = new Catalog(engine, Constants.getURIBase());
-    URI datasetUri = catalog.insertDataset(getId());
+    Model record = catalog.insertDataset(getId());
+    URI datasetUri = getDatasetIdFromRecord(record);
     Model statements = buildModel(request, datasetUri);
     atCreateHook(statements);
     engine.addStatements(statements, datasetUri);
+    statements.addAll(record);
     Object compactedJsonLD = buildJsonFromStatements(statements);
     ResponseEntity<Object> response = new ResponseEntity<Object>(compactedJsonLD, getHeaders(), HttpStatus.OK);
     postCreateHook(engine, response);
