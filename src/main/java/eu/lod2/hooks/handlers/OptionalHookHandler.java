@@ -8,6 +8,7 @@ package eu.lod2.hooks.handlers;
  * interface for a hook, yet it allows you to hook into functionality without requiring the
  * hook to be loaded.  Hence, we optionally add code to the hook.
  */
+@SuppressWarnings( { "UnusedDeclaration" } )
 public interface OptionalHookHandler extends HookHandler {
 
     /**

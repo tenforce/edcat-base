@@ -104,6 +104,7 @@ public class Node<HookHandler> {
      *
      * @return Directly accessible nodes from this node.
      */
+    @SuppressWarnings( "UnusedDeclaration" )
     public Set<Node<HookHandler>> getSingleStepAfterSelf() {
         return singleStepAfterSelf;
     }

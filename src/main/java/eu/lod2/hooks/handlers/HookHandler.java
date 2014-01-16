@@ -21,6 +21,7 @@ import java.util.Collection;
  * which you implemented the hook in to the following file in your project:
  * resources/META-INF/services/eu.lod2.hooks.handlers.HookHandler
  */
+@SuppressWarnings( { "UnusedDeclaration" } )
 public interface HookHandler {
 
     /**

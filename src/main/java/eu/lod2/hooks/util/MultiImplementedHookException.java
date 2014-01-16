@@ -5,7 +5,13 @@ package eu.lod2.hooks.util;
  * method.  Such behavior is currently not allowed due to Java reflection limitations.
  */
 public class MultiImplementedHookException extends Exception {
-    public MultiImplementedHookException(String handlerMethodName) {
-        super("Hook has multiple implementations for " + handlerMethodName + " which is not allowed.");
-    }
+
+  /**
+   * Simple constructor for the MultiImplementedHookException
+   *
+   * @param handlerMethodName Name of the method for which the hook had multiple implementations.
+   */
+  public MultiImplementedHookException( String handlerMethodName ) {
+    super( "Hook has multiple implementations for " + handlerMethodName + " which is not allowed." );
+  }
 }

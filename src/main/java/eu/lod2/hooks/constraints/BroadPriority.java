@@ -50,6 +50,7 @@ public class BroadPriority extends Priority {
      *
      * @return true on late priority, false otherwise.
      */
+    @SuppressWarnings( {"UnusedDeclaration"} )
     public boolean isLate() {
         return priority == Priority.LATE;
     }
