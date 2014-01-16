@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class CreateController extends DatasetController {
-  private String datasetId;
 
   // POST /datasets
   @RequestMapping(value = ROUTE, method = RequestMethod.POST, produces = "application/json;charset=UTF-8")

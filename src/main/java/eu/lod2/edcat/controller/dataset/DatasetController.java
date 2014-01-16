@@ -36,7 +36,7 @@ public abstract class DatasetController {
     response.setSelf(dataset.get("self").toString());
     dataset.remove("self");
     response.setDataset(dataset);
-    Map record = new LinkedHashMap();
+    Map<Object,Object> record = new LinkedHashMap<Object,Object>();
     record.put("issued", compactJson.get("issued"));
     record.put("modified", compactJson.get("modified"));
     response.setRecord(record);
@@ -58,6 +58,7 @@ public abstract class DatasetController {
     return this.getClass().getResource("/eu/lod2/edcat/jsonld/dataset.jsonld");
   }
 
+  @SuppressWarnings( { "UnusedDeclaration" } )
   protected URI getDatasetIdFromRecord(Model record) {
     return record.filter(null, Vocabulary.get("record.primaryTopic"), null).objectURI();
   }
