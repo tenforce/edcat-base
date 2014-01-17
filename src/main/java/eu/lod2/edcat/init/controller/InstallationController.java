@@ -23,6 +23,7 @@ public class InstallationController {
    * @return HttpStatus.CREATED on success.
    * @throws Throwable May throw any form of error upon failure.
    */
+  @SuppressWarnings( "UnusedDeclaration" )
   @RequestMapping(value = "install", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
   public ResponseEntity<Object> create(HttpServletRequest request) throws Throwable {
     Installation.install();
