@@ -81,7 +81,6 @@ public class HookHandlerNodeSet extends NodeSet<HookHandler>{
    * @return Collection of relative priorities
    */
   private Collection<RelativePriority> relativePrioritiesFor(HookHandler hookHandler){
-    // todo: hookHandler.getConstraints(hookName) may be null
     List<RelativePriority> priorities = new ArrayList<RelativePriority>();
 
     Collection<Priority> priorityObjects = hookHandler.getConstraints(hookName);
