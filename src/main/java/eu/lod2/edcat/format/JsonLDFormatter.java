@@ -1,5 +1,6 @@
 package eu.lod2.edcat.format;
 
+import com.github.jsonldjava.core.JsonLdError;
 import eu.lod2.edcat.utils.DcatJsonParser;
 import org.openrdf.model.Model;
 import org.openrdf.rio.RDFHandlerException;
@@ -30,7 +31,7 @@ public class JsonLDFormatter implements ResponseFormatter {
     return context;
   }
 
-  protected Object buildJsonFromStatements(Model statements) throws IOException, RDFHandlerException {
+  protected Object buildJsonFromStatements(Model statements) throws IOException, RDFHandlerException, JsonLdError {
     Map compactJson = (Map) DcatJsonParser.statementsToJsonLD(statements, getContext());
     DatasetResponse response = new DatasetResponse();
     Map dataset = (Map) compactJson.get("http://xmlns.com/foaf/0.1/primaryTopic");
