@@ -7,7 +7,6 @@ import org.openrdf.model.Statement;
 import org.openrdf.model.URI;
 import org.openrdf.model.Value;
 import org.openrdf.model.impl.LinkedHashModel;
-import org.openrdf.model.impl.URIImpl;
 import org.openrdf.query.BindingSet;
 import org.openrdf.query.GraphQueryResult;
 import org.openrdf.query.MalformedQueryException;
@@ -211,9 +210,9 @@ public class SparqlEngine {
     }
   }
 
-  public void clearGraph(String graph) {
+  public void clearGraph(URI graph) {
     try {
-      this.connection.clear(new URIImpl(graph));
+      this.connection.clear(graph);
     } catch (RepositoryException e) {
       throw new IllegalStateException(e);
     }
@@ -377,14 +376,13 @@ public class SparqlEngine {
     return result;
   }
 
-  public Model getStatements(Resource subject,URI predicate,Value value,boolean includeInferred,Resource... contexts) {
+  public Model getStatements(Resource subject, URI predicate, Value value, boolean includeInferred, Resource... contexts) {
     try {
-     RepositoryResult<Statement> statements = this.connection.getStatements(subject,predicate,value,includeInferred,contexts);
-     Model model = new LinkedHashModel(Iterations.asList(statements));
+      RepositoryResult<Statement> statements = this.connection.getStatements(subject, predicate, value, includeInferred, contexts);
+      Model model = new LinkedHashModel(Iterations.asList(statements));
       statements.close();
       return model;
-    }
-    catch (RepositoryException e) {
+    } catch (RepositoryException e) {
       throw new IllegalStateException(e.getCause());
     }
   }
