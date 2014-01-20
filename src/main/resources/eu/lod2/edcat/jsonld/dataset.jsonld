@@ -18,14 +18,8 @@
       "@id" : "dcterms:description",
       "@container" : "@language"
     },
-    "modified" : {
-      "@id" : "dcterms:modified",
-      "@type" : "xsd:dateTime"
-    },
-    "issued" : {
-      "@id" : "dcterms:issued",
-      "@type" : "xsd:dateTime"
-    },
+    "modified" : "dcterms:modified",
+    "issued" : "dcterms:issued",
     "periodicity" : {
       "@id" : "dcterms:accrualPeriodicity"
     },
@@ -143,7 +137,8 @@
       "@container" : "@language"
     },
     "type": "@type",
-    "self": "@id"
+    "self": "@id",
+    "uri": "@id"
   },
   "@type": "Record"
 }

@@ -33,10 +33,10 @@ public abstract class DatasetController {
     Map compactJson = (Map) DcatJsonParser.statementsToJsonLD(statements, getContext());
     DatasetResponse response = new DatasetResponse();
     Map dataset = (Map) compactJson.get("http://xmlns.com/foaf/0.1/primaryTopic");
-    response.setSelf(dataset.get("self").toString());
+    response.setSelf(dataset.get("uri").toString());
     dataset.remove("self");
     response.setDataset(dataset);
-    Map<Object,Object> record = new LinkedHashMap<Object,Object>();
+    Map<Object, Object> record = new LinkedHashMap<Object, Object>();
     record.put("issued", compactJson.get("issued"));
     record.put("modified", compactJson.get("modified"));
     response.setRecord(record);
@@ -58,7 +58,7 @@ public abstract class DatasetController {
     return this.getClass().getResource("/eu/lod2/edcat/jsonld/dataset.jsonld");
   }
 
-  @SuppressWarnings( { "UnusedDeclaration" } )
+  @SuppressWarnings({"UnusedDeclaration"})
   protected URI getDatasetIdFromRecord(Model record) {
     return record.filter(null, Vocabulary.get("record.primaryTopic"), null).objectURI();
   }

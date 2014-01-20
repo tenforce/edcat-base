@@ -29,6 +29,7 @@ public class DcatJsonParser {
     json.put("@id", id.stringValue());
     json.put("@type", type.stringValue());
 
+    JsonDatePreProcessor.preProcess(json);
     DcatRDFHandler rdfHandler = new DcatRDFHandler();
     final SesameTripleCallback callback = new SesameTripleCallback(rdfHandler, ValueFactoryImpl.getInstance(), new ParserConfig(), null);
     JsonLdOptions options = new JsonLdOptions("uri-base");
