@@ -1,5 +1,7 @@
 package eu.lod2.edcat.controller.dataset;
 
+import eu.lod2.edcat.format.JsonLDFormatter;
+import eu.lod2.edcat.format.ResponseFormatter;
 import eu.lod2.edcat.utils.Catalog;
 import eu.lod2.edcat.utils.Constants;
 import eu.lod2.edcat.utils.SparqlEngine;
@@ -37,7 +39,8 @@ public class UpdateController extends DatasetController {
     statements.addAll(record);
     HookManager.callHook(AtUpdateHandler.class, "handleAtUpdate", new AtContext(catalog, statements, engine));
     engine.addStatements(statements, datasetUri);
-    Object compactedJsonLD = buildJsonFromStatements(statements);
+    ResponseFormatter formatter = new JsonLDFormatter(getContext());
+    Object compactedJsonLD = formatter.format(statements);
     ResponseEntity<Object> response = new ResponseEntity<Object>(compactedJsonLD, getHeaders(), HttpStatus.OK);
     HookManager.callHook(PostUpdateHandler.class, "handlePostUpdate", new PostContext(catalog, response, engine, datasetUri, statements));
     engine.terminate();
