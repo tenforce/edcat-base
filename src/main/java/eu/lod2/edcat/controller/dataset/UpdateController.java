@@ -32,13 +32,14 @@ public class UpdateController extends DatasetController {
     String datasetIdString = getId();
     URI datasetUri = catalog.generateDatasetUri(datasetIdString);
     HookManager.callHook(PreUpdateHandler.class, "handlePreUpdate", new PreContext(catalog, request, engine, datasetUri));
-    catalog.updateDataset(datasetIdString);
+    Model record = catalog.updateDataset(datasetIdString);
     Model statements = buildModel(request, datasetUri);
+    statements.addAll(record);
     HookManager.callHook(AtUpdateHandler.class, "handleAtUpdate", new AtContext(catalog, statements, engine));
     engine.addStatements(statements, datasetUri);
     Object compactedJsonLD = buildJsonFromStatements(statements);
     ResponseEntity<Object> response = new ResponseEntity<Object>(compactedJsonLD, getHeaders(), HttpStatus.OK);
-    HookManager.callHook(PostUpdateHandler.class, "handlePostUpdate", new PostContext(catalog, response, engine, datasetUri,statements));
+    HookManager.callHook(PostUpdateHandler.class, "handlePostUpdate", new PostContext(catalog, response, engine, datasetUri, statements));
     engine.terminate();
     return response;
   }
