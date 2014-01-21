@@ -41,7 +41,7 @@ public class Installation {
   private static String BASE_URI = "http://lod2.tenforce.com/edcat/";
 
   /** Base URI for the config graph. */
-  private static String CONFIG_BASE_URI = BASE_URI + "example/config";
+  private static String CONFIG_BASE_URI = BASE_URI + "example/config/";
 
   /** URI which contains the location of the graph containing the Catalog configuration */
   private static URI CONFIG_GRAPH_URI = new URIImpl( CONFIG_BASE_URI );
@@ -57,7 +57,7 @@ public class Installation {
   private static URI RDF_A = new URIImpl( "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" );
 
   /** The class which a catalog has in the RDF store. */
-  private static URI RDF_CATALOG_TYPE = new URIImpl( BASE_URI + "terms/config/ValidationRule" );
+  private static URI RDF_CATALOG_TYPE = new URIImpl( "http://www.w3.org/ns/dcat#Catalog" );
 
 
   // --- PUBLIC INTERFACE
@@ -70,6 +70,8 @@ public class Installation {
 
     setupDatabase( engine );
     setupCatalog(engine, "example");
+
+    engine.terminate();
   }
 
   /**
