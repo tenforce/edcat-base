@@ -107,7 +107,8 @@ public class SparqlEngine {
         BindingSet set = result.next();
         Map<String, String> currentRow = new HashMap<String, String>();
         for (String name : set.getBindingNames()) {
-          currentRow.put(name, set.getValue(name).stringValue());
+          if( set.getValue(name) != null ) // sparql optional values return null, which makes a HashMap unhappy.
+            currentRow.put(name, set.getValue(name).stringValue());
         }
         results.add(currentRow);
       }
