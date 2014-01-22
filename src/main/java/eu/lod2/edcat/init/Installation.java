@@ -7,6 +7,7 @@ import eu.lod2.hooks.handlers.dcat.CatalogInstallationHandler;
 import eu.lod2.hooks.handlers.dcat.InstallationHandler;
 import eu.lod2.hooks.util.ActionAbortException;
 import eu.lod2.hooks.util.HookManager;
+import eu.lod2.query.Sparql;
 import org.apache.commons.logging.LogFactory;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
@@ -44,7 +45,7 @@ public class Installation {
   private static String CONFIG_BASE_URI = BASE_URI + "example/config/";
 
   /** URI which contains the location of the graph containing the Catalog configuration */
-  private static URI CONFIG_GRAPH_URI = new URIImpl( CONFIG_BASE_URI );
+  private static URI CONFIG_GRAPH_URI = (URI) Sparql.getClassMapVariable( "CONFIG_GRAPH" );
 
   /**
    * Namespace in which the catalogs are placed.
