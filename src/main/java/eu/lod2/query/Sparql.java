@@ -1,6 +1,7 @@
 package eu.lod2.query;
 
 import org.openrdf.model.URI;
+import org.openrdf.model.impl.URIImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -58,8 +59,8 @@ public class Sparql {
       "PREFIX edcat: <http://lod2.tenforce.com/edcat/terms/> \n" +
       "PREFIX cterms: <http://lod2.tenforce.com/edcat/terms/config/> \n" +
       "PREFIX catalogs: <http://lod2.tenforce.com/edcat/catalogs/> \n",
-    "DEFAULT_CATALOG", "<http://lod2.tenforce.com/edcat/catalogs/example>",
-    "CONFIG_GRAPH", "<http://lod2.tenforce.com/edcat/example/config/>" );
+    "DEFAULT_CATALOG", new URIImpl("http://lod2.tenforce.com/edcat/catalogs/example"),
+    "CONFIG_GRAPH", new URIImpl("http://lod2.tenforce.com/edcat/example/config/"));
 
   /**
    * Constructs a new sparql query in a short format.
@@ -172,7 +173,7 @@ public class Sparql {
    * @return String containing the (sub)matched portion of the String.
    */
   private static String subString(String regex, String source, int groupIndex){
-    Matcher matcher = Pattern.compile(regex).matcher( regex );
+    Matcher matcher = Pattern.compile(regex).matcher( source );
     if( !matcher.find() ) return null;
     return matcher.group( groupIndex );
   }
