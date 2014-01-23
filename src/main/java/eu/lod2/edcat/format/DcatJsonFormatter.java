@@ -9,6 +9,7 @@ import org.openrdf.model.Value;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DcatJsonFormatter implements ResponseFormatter {
   @Override
@@ -25,14 +26,19 @@ public class DcatJsonFormatter implements ResponseFormatter {
     Model description = statements.filter(topNode, null, null);
     for (Statement s : description) {
       Value val = s.getObject();
-      if (val instanceof Resource && statements.filter((Resource) val, null, null).size() > 0) {
-        graph.put(shortNameFor(s.getPredicate()), buildGraph((Resource) val, shortNameFor(s.getPredicate(), parentShortName), statements));
+      if (resourceIsDefinedInStatements(statements, val)) {
+        Map<String, Object> subNode = buildGraph((Resource) val, shortNameFor(s.getPredicate(), parentShortName), statements);
+        subNode.put("uri",val.stringValue()) ; // TODO: hardcoded value
+        graph.put(shortNameFor(s.getPredicate()), subNode);
       } else
         graph.put(shortNameFor(s.getPredicate()), val);
     }
     return graph;
   }
 
+  private boolean resourceIsDefinedInStatements(Model statements, Value val) {
+    return val instanceof Resource && statements.filter((Resource) val, null, null).size() > 0;
+  }
 
   private String shortNameFor(URI predicate, String parent) {
     return predicate.stringValue();
