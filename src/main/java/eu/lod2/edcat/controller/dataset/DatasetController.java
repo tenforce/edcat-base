@@ -22,9 +22,9 @@ public abstract class DatasetController {
     return new HttpHeaders();
   }
 
-  protected Model buildModel(HttpServletRequest request, URI dataset) throws Exception {
+  protected Model buildModel( HttpServletRequest request, URI dataset ) throws Exception {
     InputStream in = request.getInputStream();
-    Model statements = DcatJsonParser.jsonLDToStatements(in, getContext().toString(), dataset, Vocabulary.get("Dataset"));
+    Model statements = DcatJsonParser.jsonLDToStatements( in, getContext().toString(), dataset, Vocabulary.get( "Dataset" ) );
     in.close();
     return statements;
   }
@@ -34,11 +34,11 @@ public abstract class DatasetController {
   }
 
   public URL getContext() {
-    return this.getClass().getResource("/eu/lod2/edcat/jsonld/dataset.jsonld");
+    return this.getClass().getResource( "/eu/lod2/edcat/jsonld/dataset.jsonld" );
   }
 
-  @SuppressWarnings({"UnusedDeclaration"})
-  protected URI getDatasetIdFromRecord(Model record) {
-    return record.filter(null, Vocabulary.get("record.primaryTopic"), null).objectURI();
+  @SuppressWarnings({ "UnusedDeclaration" })
+  protected URI getDatasetIdFromRecord( Model record ) {
+    return record.filter( null, Vocabulary.get( "record.primaryTopic" ), null ).objectURI();
   }
 }

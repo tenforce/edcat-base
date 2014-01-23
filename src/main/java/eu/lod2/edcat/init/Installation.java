@@ -12,7 +12,6 @@ import org.apache.commons.logging.LogFactory;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
 import org.openrdf.model.impl.LinkedHashModel;
-import org.openrdf.model.impl.URIImpl;
 import org.openrdf.rio.RDFFormat;
 import org.openrdf.rio.RDFParseException;
 import org.openrdf.rio.Rio;
@@ -38,28 +37,6 @@ public class Installation {
   private static URL DEFAULT_CONFIG_GRAPH_URL =
       Installation.class.getResource( DEFAULT_CONFIG_GRAPH_PATH );
 
-  /** Base URI for the DCAT store. */
-  private static String BASE_URI = "http://lod2.tenforce.com/edcat/";
-
-  /** Base URI for the config graph. */
-  private static String CONFIG_BASE_URI = BASE_URI + "example/config/";
-
-  /** URI which contains the location of the graph containing the Catalog configuration */
-  private static URI CONFIG_GRAPH_URI = (URI) Sparql.getClassMapVariable( "CONFIG_GRAPH" );
-
-  /**
-   * Namespace in which the catalogs are placed.
-   * <p/>
-   * A catalog could for instance be in http://lod2.tenforce.com/edcat/catalogs/Example.
-   */
-  private static String CATALOGS_NAMESPACE = BASE_URI + "catalogs/";
-
-  /** Turtle 'a' statement in URI format */
-  private static URI RDF_A = new URIImpl( "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" );
-
-  /** The class which a catalog has in the RDF store. */
-  private static URI RDF_CATALOG_TYPE = new URIImpl( "http://www.w3.org/ns/dcat#Catalog" );
-
 
   // --- PUBLIC INTERFACE
 
@@ -82,7 +59,7 @@ public class Installation {
    *             supplied name.
    */
   public static void setupCatalog( SparqlEngine engine, String name ) throws Throwable {
-    URI catalogUri = new URIImpl( CATALOGS_NAMESPACE + name );
+    URI catalogUri = Sparql.namespaced("catalogs", name);
 
     storeCatalog( engine, catalogUri );
 
@@ -121,9 +98,12 @@ public class Installation {
     try {
       configFileInput = DEFAULT_CONFIG_GRAPH_URL.openStream();
       // parse file
-      Model validationRules = Rio.parse( configFileInput, CONFIG_BASE_URI, RDFFormat.TURTLE );
+      Model validationRules = Rio.parse(
+        configFileInput,
+        ((URI) Sparql.getClassMapVariable( "CONFIG_GRAPH" )).stringValue(),
+        RDFFormat.TURTLE );
       // add statements
-      engine.addStatements( validationRules, CONFIG_GRAPH_URI );
+      engine.addStatements( validationRules, (URI) Sparql.getClassMapVariable( "CONFIG_GRAPH" ) );
       configFileInput.close();
       // catch any errors
     } catch ( IOException e ) {
@@ -154,7 +134,7 @@ public class Installation {
    */
   private static void storeCatalog( SparqlEngine engine, URI catalogUri ) {
     Model m = new LinkedHashModel();
-    m.add( catalogUri, RDF_A, RDF_CATALOG_TYPE );
-    engine.addStatements( m, CONFIG_GRAPH_URI );
+    m.add( catalogUri, Sparql.namespaced( "rdf", "type" ), Sparql.namespaced( "dcat", "Catalog" ) );
+    engine.addStatements( m, (URI) Sparql.getClassMapVariable( "CONFIG_GRAPH" ) );
   }
 }

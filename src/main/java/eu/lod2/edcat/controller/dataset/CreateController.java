@@ -3,7 +3,6 @@ package eu.lod2.edcat.controller.dataset;
 import eu.lod2.edcat.format.JsonLDFormatter;
 import eu.lod2.edcat.format.ResponseFormatter;
 import eu.lod2.edcat.utils.Catalog;
-import eu.lod2.edcat.utils.Constants;
 import eu.lod2.edcat.utils.SparqlEngine;
 import eu.lod2.hooks.contexts.AtContext;
 import eu.lod2.hooks.contexts.PostContext;
@@ -29,7 +28,7 @@ public class CreateController extends DatasetController {
   @RequestMapping(value = ROUTE, method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
   public ResponseEntity<Object> create(HttpServletRequest request) throws Throwable {
     SparqlEngine engine = new SparqlEngine();
-    Catalog catalog = new Catalog(engine, Constants.DEFAULT_URI);
+    Catalog catalog = Catalog.getDefaultCatalog(engine);
     String datasetBaseId = getId();
     URI datasetUri = catalog.generateDatasetUri(datasetBaseId);
     HookManager.callHook(PreCreateHandler.class, "handlePreCreate", new PreContext(catalog, request, engine, datasetUri));
