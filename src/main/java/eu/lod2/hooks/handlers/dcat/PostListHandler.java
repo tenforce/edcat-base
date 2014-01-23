@@ -13,7 +13,8 @@ import eu.lod2.hooks.contexts.PostListContext;
 public interface PostListHandler {
 
   /**
-   * Called before a LIST action on a Catalog is executed.
+   * Called after a LIST action on a DataSet is finished, yet before the response is
+   * returned to the user.
    * <p/>
    * This hook allows you to clean up and monitor a successful LIST.  It also allows
    * you to alter the response. You are *not* allowed to abort the action at this stage.

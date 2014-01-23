@@ -13,8 +13,7 @@ import eu.lod2.hooks.contexts.PreListContext;
 public interface PreListHandler {
 
   /**
-   * Called after a LIST action on a DataSet is finished, yet before the response is
-   * returned to the user.
+   * Called before a LIST action on a Catalog is executed.
    * <p/>
    * This hook allows you to alter the request or possibly abort the action.
    *
