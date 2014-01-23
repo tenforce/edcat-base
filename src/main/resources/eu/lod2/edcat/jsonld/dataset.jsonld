@@ -10,6 +10,7 @@
     "skos" : "http://www.w3.org/2004/02/skos/core#",
     "vcard" : "http://www.w3.org/2006/vcard/ns#",
     "rdfs" : "http://www.w3.org/2000/01/rdf-schema#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
     "title" : {
       "@id": "dcterms:title",
       "@container" : "@language"
@@ -32,6 +33,9 @@
     },
     "theme" : {
       "@id" : "dcat:theme"
+    },
+    "themeName": {
+      "@id":"skos:prefLabel"
     },
     "keywordList" : {
       "@id" : "dcat:keyword"
@@ -67,8 +71,11 @@
     "label" : {
       "@id" : "skos:prefLabel"
     },
-    "name" : {
+    "contactName" : {
       "@id" : "vcard:fn"
+    },
+    "publisherName": {
+      "@id": "foaf:name"
     },
     "mail" : {
       "@id" : "vcard:hasEmail",

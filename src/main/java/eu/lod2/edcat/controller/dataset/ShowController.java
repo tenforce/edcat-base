@@ -1,6 +1,6 @@
 package eu.lod2.edcat.controller.dataset;
 
-import eu.lod2.edcat.format.JsonLDFormatter;
+import eu.lod2.edcat.format.DatasetFormatter;
 import eu.lod2.edcat.format.ResponseFormatter;
 import eu.lod2.edcat.format.TurtleFormatter;
 import eu.lod2.edcat.format.XMLRDFFormatter;
@@ -29,8 +29,9 @@ public class ShowController extends DatasetController {
   @RequestMapping(value = OBJECT_ROUTE, method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
   public ResponseEntity<Object> show( HttpServletRequest request, @PathVariable String datasetId ) throws Throwable {
     this.datasetId = datasetId;
-    ResponseFormatter formatter = new JsonLDFormatter( getContext() );
-    return show( request, formatter );
+//    ResponseFormatter formatter = new JsonLDFormatter(getContext());
+    ResponseFormatter formatter = new DatasetFormatter();
+    return show(request, formatter);
   }
 
   // GET /datasets/{datasetId}
