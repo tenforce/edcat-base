@@ -2,7 +2,6 @@ package eu.lod2.edcat.format;
 
 import com.github.jsonldjava.core.JsonLdError;
 import eu.lod2.edcat.utils.DcatJsonParser;
-import eu.lod2.query.Sparql;
 import org.openrdf.model.Model;
 import org.openrdf.rio.RDFHandlerException;
 
@@ -35,7 +34,7 @@ public class JsonLDFormatter implements ResponseFormatter {
   protected Object buildJsonFromStatements(Model statements) throws IOException, RDFHandlerException, JsonLdError {
     Map compactJson = (Map) DcatJsonParser.statementsToJsonLD(statements, getContext());
     DatasetResponse response = new DatasetResponse();
-    Map dataset = (Map) compactJson.get( Sparql.namespaced("foaf","primaryTopic") );
+    Map dataset = (Map) compactJson.get("foaf:primaryTopic");
     response.setSelf(dataset.get("uri").toString());
     dataset.remove("self");
     response.setDataset(dataset);

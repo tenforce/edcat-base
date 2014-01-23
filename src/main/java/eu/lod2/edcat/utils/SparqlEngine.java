@@ -1,5 +1,6 @@
 package eu.lod2.edcat.utils;
 
+import eu.lod2.query.Sparql;
 import info.aduna.iteration.Iterations;
 import org.openrdf.model.Model;
 import org.openrdf.model.Resource;
@@ -176,7 +177,7 @@ public class SparqlEngine {
 
   //* returns a fresh uri with the given base that is not in the sparql endpoint of this engine
   public String provideFreshUri(String kind) {
-    return provideFreshUri(Constants.getURIBase(), kind);
+    return provideFreshUri(Sparql.getClassMapVariable("DEFAULT_CATALOG").toString(), kind);
   }
 
   //* returns a fresh uri that is not in the sparql endpoint. The uri has the default base
