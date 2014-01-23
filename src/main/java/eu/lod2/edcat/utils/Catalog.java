@@ -1,5 +1,6 @@
 package eu.lod2.edcat.utils;
 
+import eu.lod2.query.Sparql;
 import org.openrdf.model.Literal;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
@@ -89,6 +90,16 @@ public class Catalog {
             return pref + end;
     else
       return pref + '/' + end;
+  }
+
+  /**
+   * Constructs a Catalog which refers to the default catalog.
+   *
+   * @param engine Connection to the database used by the catalog.
+   * @return New Catalog-object representing the default catalog.
+   */
+  public static Catalog getDefaultCatalog(SparqlEngine engine){
+    return new Catalog(engine, ((URI) Sparql.getClassMapVariable( "DEFAULT_CATALOG" )).stringValue());
   }
 
 

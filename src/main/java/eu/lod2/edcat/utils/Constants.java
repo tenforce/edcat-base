@@ -1,26 +1,22 @@
 package eu.lod2.edcat.utils;
 
 import org.apache.commons.io.IOUtils;
-import org.openrdf.model.URI;
-import org.openrdf.model.impl.URIImpl;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 //* list of constants used throughout the program
 // TODO: we should not need this class
-//       ^ (aad) but we do need the CONFIG_GRAPH_URI
 public class Constants {
-  public static URI getConfigGraphUri(){
-    return new URIImpl("http://lod2.tenforce.com/edcat/example/config");
-  }
 
   public static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-
-  public final static String DEFAULT_URI = "http://lod2.tenforce.com/edcat/catalogs/example"; // "http://lod2.tenforce.com/wp8/";
 
   public final static String defaultGraphProp = "defaults.graph";
 
@@ -35,11 +31,6 @@ public class Constants {
   private static final String targetURIProp = "defaults.targetURI";
   public static final String datasetURIType = "datasets";
 
-
-  //* returns the bas uri that is being used in the application
-  public static String getURIBase() {
-    return DEFAULT_URI;
-  }
 
   public static Properties ensureProperties() {
     if (properties == null) {
@@ -109,7 +100,6 @@ public class Constants {
     Calendar cal = DatatypeConverter.parseDate(date);
     return cal.getTime();
   }
-
 
   public static String getDefaultLanguage() {
     Properties properties = ensureProperties();

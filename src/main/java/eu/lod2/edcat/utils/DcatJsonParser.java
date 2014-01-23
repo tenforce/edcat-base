@@ -43,8 +43,7 @@ public class DcatJsonParser {
     if (!(json instanceof Map))
       throw new IllegalArgumentException("could not convert json to object");
 
-    Map jsonMap = (Map) json;
-    return jsonMap;
+    return (Map) json;
   }
 
   public static Object statementsToJsonLD(Model statements, URL context) throws RDFHandlerException, IOException, JsonLdError {
