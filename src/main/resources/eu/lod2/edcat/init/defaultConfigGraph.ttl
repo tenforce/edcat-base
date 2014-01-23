@@ -1,0 +1,7 @@
+@base <http://lod2.tenforce.com/edcat/example/config/>.
+@prefix : <http://lod2.tenforce.com/edcat/example/config/>.
+@prefix edcat: <http://lod2.tenforce.com/edcat/terms/>.
+@prefix cterms: <http://lod2.tenforce.com/edcat/terms/config>.
+@prefix catalogs: <http://lod2.tenforce.com/edcat/catalogs/>.
+
+# catalogs:example a edcat:catalog.
