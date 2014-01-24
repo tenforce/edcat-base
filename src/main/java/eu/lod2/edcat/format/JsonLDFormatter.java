@@ -7,7 +7,6 @@ import org.openrdf.rio.RDFHandlerException;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class JsonLDFormatter implements ResponseFormatter {
@@ -33,15 +32,6 @@ public class JsonLDFormatter implements ResponseFormatter {
 
   protected Object buildJsonFromStatements(Model statements) throws IOException, RDFHandlerException, JsonLdError {
     Map compactJson = (Map) DcatJsonParser.statementsToJsonLD(statements, getContext());
-    DatasetResponse response = new DatasetResponse();
-    Map dataset = (Map) compactJson.get("foaf:primaryTopic");
-    response.setSelf(dataset.get("uri").toString());
-    dataset.remove("self");
-    response.setDataset(dataset);
-    Map<Object, Object> record = new LinkedHashMap<Object, Object>();
-    record.put("issued", compactJson.get("issued"));
-    record.put("modified", compactJson.get("modified"));
-    response.setRecord(record);
-    return response;
+    return compactJson;
   }
 }
