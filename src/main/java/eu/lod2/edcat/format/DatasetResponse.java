@@ -1,32 +1,30 @@
 package eu.lod2.edcat.format;
 
-public class DatasetResponse {
-  private String self;
-  private Object dataset;
-  private Object record;
+import java.util.LinkedHashMap;
 
+public class DatasetResponse extends LinkedHashMap<String, Object> {
 
   public String getSelf() {
-    return self;
+    return (String) get( "self" );
   }
 
-  public void setSelf(String self) {
-    this.self = self;
+  public void setSelf( String self ) {
+    put( "self", self );
   }
 
   public Object getDataset() {
-    return dataset;
+    return get( "dataset" );
   }
 
-  public void setDataset(Object dataset) {
-    this.dataset = dataset;
+  public void setDataset( Object dataset ) {
+    put( "dataset", dataset );
   }
 
   public Object getRecord() {
-    return record;
+    return get( "record" );
   }
 
-  public void setRecord(Object record) {
-    this.record = record;
+  public void setRecord( Object record ) {
+    put( "record", record );
   }
 }

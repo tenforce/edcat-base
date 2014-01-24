@@ -1,22 +1,39 @@
 package eu.lod2.edcat.format;
 
+import com.github.jsonldjava.utils.JSONUtils;
+import eu.lod2.edcat.utils.DcatJsonCompacter;
 import org.openrdf.model.Model;
 import org.openrdf.model.Resource;
 import org.openrdf.model.Statement;
 import org.openrdf.model.URI;
 import org.openrdf.model.Value;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class DcatJsonFormatter implements ResponseFormatter {
+
+  protected URL context;
+
+  public DcatJsonFormatter(URL context){
+    this.context = context;
+  }
+
+  public DcatJsonFormatter(){
+  }
+
   @Override
-  public Object format(Model statements) throws FormatException {
-    HashMap<String, Object> graph = new HashMap<String, Object>();
+  public Map<String,Object> format(Model statements) throws FormatException {
+    Map<String, Object> graph = new HashMap<String, Object>();
     for (Resource topNode : getTopNodes(statements)) {
       graph.put(topNode.stringValue(), buildGraph(topNode, "", statements));
+    }
+    if( context != null ) {
+      DcatJsonCompacter compacter = new DcatJsonCompacter( getContext() );
+      graph = compacter.compact( graph );
     }
     return graph;
   }
@@ -56,5 +73,15 @@ public class DcatJsonFormatter implements ResponseFormatter {
     return topNodes;
   }
 
+  protected Map<String, Object> getContext() {
+    try {
+      Object jsonContext = JSONUtils.fromURL( context );
+      Map<String, Object> json = (Map<String, Object>) jsonContext;
+      return (Map<String, Object>) json.get("@context");
+    } catch (Exception e) {
+      throw new IllegalStateException("illegal context");
+    }
+
+  }
 
 }

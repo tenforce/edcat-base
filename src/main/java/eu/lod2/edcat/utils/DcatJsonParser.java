@@ -49,14 +49,15 @@ public class DcatJsonParser {
   public static Object statementsToJsonLD(Model statements, URL context) throws RDFHandlerException, IOException, JsonLdError {
     final SesameRDFParser serialiser = new SesameRDFParser();
     Object jsonLD = JsonLdProcessor.fromRDF(statements, serialiser);
-    if (jsonLD instanceof List) {
-      List resources = flattenGraphs((List) jsonLD);
-      Object jsonContext = JSONUtils.fromURL(context);
-      Map framedJson = JsonLdProcessor.frame(resources, jsonContext, new JsonLdOptions());
-      List graph = (List) framedJson.get("@graph");
-      return graph.get(0);
-    }
-    return null;
+    return jsonLD;
+//    if (jsonLD instanceof List) {
+//      List resources = flattenGraphs((List) jsonLD);
+//      Object jsonContext = JSONUtils.fromURL(context);
+//      Map framedJson = JsonLdProcessor.frame(resources, jsonContext, new JsonLdOptions());
+//      List graph = (List) framedJson.get("@graph");
+//      return graph.get(0);
+//    }
+//    return null;
   }
 
   private static List flattenGraphs(List jsonLD) {

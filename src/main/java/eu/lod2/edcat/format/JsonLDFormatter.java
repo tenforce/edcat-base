@@ -7,7 +7,6 @@ import org.openrdf.rio.RDFHandlerException;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Map;
 
 public class JsonLDFormatter implements ResponseFormatter {
 
@@ -31,7 +30,6 @@ public class JsonLDFormatter implements ResponseFormatter {
   }
 
   protected Object buildJsonFromStatements(Model statements) throws IOException, RDFHandlerException, JsonLdError {
-    Map compactJson = (Map) DcatJsonParser.statementsToJsonLD(statements, getContext());
-    return compactJson;
+    return DcatJsonParser.statementsToJsonLD(statements, getContext());
   }
 }
