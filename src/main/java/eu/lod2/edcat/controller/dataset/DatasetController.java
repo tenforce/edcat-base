@@ -41,4 +41,5 @@ public abstract class DatasetController {
   protected URI getDatasetIdFromRecord( Model record ) {
     return record.filter( null, Vocabulary.get( "record.primaryTopic" ), null ).objectURI();
   }
+
 }

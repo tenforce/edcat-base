@@ -39,7 +39,7 @@ public class UpdateController extends DatasetController {
     HookManager.callHook( AtUpdateHandler.class, "handleAtUpdate", new AtContext( catalog, statements, engine ) );
     engine.clearGraph( datasetUri );
     engine.addStatements( statements, datasetUri );
-    ResponseFormatter formatter = new DatasetFormatter();
+    ResponseFormatter formatter = new DatasetFormatter( getContext() );
     Object compactedJsonLD = formatter.format( statements );
     ResponseEntity<Object> response = new ResponseEntity<Object>( compactedJsonLD, getHeaders(), HttpStatus.OK );
     HookManager.callHook( PostUpdateHandler.class, "handlePostUpdate", new PostContext( catalog, response, engine, datasetUri, statements ) );

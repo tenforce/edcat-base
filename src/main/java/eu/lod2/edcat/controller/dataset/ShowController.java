@@ -29,7 +29,7 @@ public class ShowController extends DatasetController {
   @RequestMapping(value = OBJECT_ROUTE, method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
   public ResponseEntity<Object> show( HttpServletRequest request, @PathVariable String datasetId ) throws Throwable {
     this.datasetId = datasetId;
-    ResponseFormatter formatter = new DatasetFormatter();
+    ResponseFormatter formatter = new DatasetFormatter( getContext() );
     return show(request, formatter);
   }
 

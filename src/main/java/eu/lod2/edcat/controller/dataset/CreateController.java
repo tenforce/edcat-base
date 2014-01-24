@@ -37,8 +37,8 @@ public class CreateController extends DatasetController {
     HookManager.callHook(AtCreateHandler.class, "handleAtCreate", new AtContext(catalog, statements, engine));
     engine.addStatements(statements, datasetUri);
     statements.addAll(record);
-    ResponseFormatter formatter = new DatasetFormatter();
-    Object compactedJsonLD = formatter.format(statements);
+    ResponseFormatter formatter = new DatasetFormatter( getContext() );
+    Object compactedJsonLD = formatter.format( statements );
     ResponseEntity<Object> response = new ResponseEntity<Object>(compactedJsonLD, getHeaders(), HttpStatus.OK);
     HookManager.callHook(PostCreateHandler.class, "handlePostCreate", new PostContext(catalog, response, engine, datasetUri, statements));
     engine.terminate();
