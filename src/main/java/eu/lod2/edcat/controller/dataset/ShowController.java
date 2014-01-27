@@ -1,9 +1,6 @@
 package eu.lod2.edcat.controller.dataset;
 
-import eu.lod2.edcat.format.DatasetFormatter;
-import eu.lod2.edcat.format.ResponseFormatter;
-import eu.lod2.edcat.format.TurtleFormatter;
-import eu.lod2.edcat.format.XMLRDFFormatter;
+import eu.lod2.edcat.format.*;
 import eu.lod2.edcat.utils.Catalog;
 import eu.lod2.edcat.utils.SparqlEngine;
 import eu.lod2.hooks.contexts.PostContext;
@@ -30,6 +27,14 @@ public class ShowController extends DatasetController {
   public ResponseEntity<Object> show( HttpServletRequest request, @PathVariable String datasetId ) throws Throwable {
     this.datasetId = datasetId;
     ResponseFormatter formatter = new DatasetFormatter( getContext() );
+    return show(request, formatter);
+  }
+
+  // GET /datasets/{datasetId}
+  @RequestMapping(value = OBJECT_ROUTE, method = RequestMethod.GET, produces = "application/ld+json;charset=UTF-8")
+  public ResponseEntity<Object> showLD( HttpServletRequest request, @PathVariable String datasetId ) throws Throwable {
+    this.datasetId = datasetId;
+    ResponseFormatter formatter =  new JsonLDFormatter( getContext() );
     return show(request, formatter);
   }
 
