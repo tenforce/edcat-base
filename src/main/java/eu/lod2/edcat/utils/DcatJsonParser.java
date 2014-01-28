@@ -22,53 +22,43 @@ import java.util.List;
 import java.util.Map;
 
 public class DcatJsonParser {
-  public static Model jsonLDToStatements(InputStream inputStream, String contextUri, URI id, URI type) throws IOException, JsonLdError {
-    Map json = convertToJsonMap(inputStream);
+  public static Model jsonLDToStatements( InputStream inputStream, String contextUri, URI id, URI type ) throws IOException, JsonLdError {
+    Map json = convertToJsonMap( inputStream );
     // TODO: detect existing value and merge (for type) or keep it
-    json.put("@context", contextUri);
-    json.put("@id", id.stringValue());
-    json.put("@type", type.stringValue());
+    json.put( "@context", contextUri );
+    json.put( "@id", id.stringValue() );
+    json.put( "@type", type.stringValue() );
 
-    JsonDatePreProcessor.preProcess(json);
+    JsonDatePreProcessor.preProcess( json );
     DcatRDFHandler rdfHandler = new DcatRDFHandler();
-    final SesameTripleCallback callback = new SesameTripleCallback(rdfHandler, ValueFactoryImpl.getInstance(), new ParserConfig(), null);
-    JsonLdOptions options = new JsonLdOptions("uri-base");
+    final SesameTripleCallback callback = new SesameTripleCallback( rdfHandler, ValueFactoryImpl.getInstance(), new ParserConfig(), null );
+    JsonLdOptions options = new JsonLdOptions( "uri-base" );
     options.documentLoader = new DocumentLoader(); // TODO: this is ugly
-    JsonLdProcessor.toRDF(json, callback, options);
-    return new LinkedHashModel(rdfHandler.getStatements());
+    JsonLdProcessor.toRDF( json, callback, options );
+    return new LinkedHashModel( rdfHandler.getStatements() );
   }
 
-  public static Map convertToJsonMap(InputStream inputStream) throws IOException {
-    Object json = JSONUtils.fromInputStream(inputStream);
-    if (!(json instanceof Map))
-      throw new IllegalArgumentException("could not convert json to object");
+  public static Map convertToJsonMap( InputStream inputStream ) throws IOException {
+    Object json = JSONUtils.fromInputStream( inputStream );
+    if ( !(json instanceof Map) )
+      throw new IllegalArgumentException( "could not convert json to object" );
 
-    return (Map) json;
+    return ( Map ) json;
   }
 
-  public static Object statementsToJsonLD(Model statements, URL context) throws RDFHandlerException, IOException, JsonLdError {
-    final SesameRDFParser serialiser = new SesameRDFParser();
-    Object jsonLD = JsonLdProcessor.fromRDF(statements, serialiser);
-    return jsonLD;
-//    if (jsonLD instanceof List) {
-//      List resources = flattenGraphs((List) jsonLD);
-//      Object jsonContext = JSONUtils.fromURL(context);
-//      Map framedJson = JsonLdProcessor.frame(resources, jsonContext, new JsonLdOptions());
-//      List graph = (List) framedJson.get("@graph");
-//      return graph.get(0);
-//    }
-//    return null;
+  public static Object statementsToJsonLD( Model statements, URL context ) throws RDFHandlerException, IOException, JsonLdError {
+    return JsonLdProcessor.fromRDF( statements, new SesameRDFParser() );
   }
 
-  private static List flattenGraphs(List jsonLD) {
+  private static List flattenGraphs( List jsonLD ) {
     ArrayList<Map> flatLd = new ArrayList<Map>();
-    for (Object o : jsonLD) {
-      if (o instanceof Map) {
-        Map map = (Map) o;
-        if (map.containsKey("@graph"))
-          flatLd.addAll((List) map.get("@graph"));
+    for ( Object o : jsonLD ) {
+      if ( o instanceof Map ) {
+        Map map = ( Map ) o;
+        if ( map.containsKey( "@graph" ) )
+          flatLd.addAll( ( List ) map.get( "@graph" ) );
         else
-          flatLd.add(map);
+          flatLd.add( map );
       }
     }
     return flatLd;
