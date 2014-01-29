@@ -33,8 +33,9 @@ public abstract class DatasetController {
     return this.datasetId == null ? UUID.randomUUID().toString() : this.datasetId;
   }
 
-  public URL getContext() {
-    return this.getClass().getResource( "/eu/lod2/edcat/jsonld/dataset.jsonld" );
+  //todo: this should A) be retrieved from a configurable location and B) be published in a more sane class than the DatasetController.
+  public static URL getContext() {
+    return DatasetController.class.getResource( "/eu/lod2/edcat/jsonld/dataset.jsonld" );
   }
 
   @SuppressWarnings({ "UnusedDeclaration" })
