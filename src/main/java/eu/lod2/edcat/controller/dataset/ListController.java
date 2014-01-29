@@ -1,10 +1,6 @@
 package eu.lod2.edcat.controller.dataset;
 
-import eu.lod2.edcat.format.DcatJsonFormatter;
-import eu.lod2.edcat.format.JsonLDFormatter;
-import eu.lod2.edcat.format.ResponseFormatter;
-import eu.lod2.edcat.format.TurtleFormatter;
-import eu.lod2.edcat.format.XMLRDFFormatter;
+import eu.lod2.edcat.format.*;
 import eu.lod2.edcat.utils.QueryResult;
 import eu.lod2.edcat.utils.SparqlEngine;
 import eu.lod2.hooks.contexts.PostListContext;
@@ -64,7 +60,7 @@ public class ListController extends DatasetController {
   public ResponseEntity<Object> create( HttpServletRequest request, ResponseFormatter formatter ) throws Throwable {
     SparqlEngine engine = new SparqlEngine();
     HookManager.callHook( PreListHandler.class, "handlePreList", new PreListContext( request, engine ) );
-    Model m = modelFromQueryResult( fetchDatasets( engine, (URI) Sparql.getClassMapVariable( "DEFAULT_CATALOG" ) ) );
+    Model m = modelFromQueryResult( fetchDatasets( engine, (URI) Sparql.getClassMapVariable( "DEFAULT_CATALOG" ), request ) );
     Object body = formatter.format( m );
     ResponseEntity<Object> response = new ResponseEntity<Object>( body, getHeaders(), HttpStatus.OK );
     HookManager.callHook( PostListHandler.class, "handlePostList", new PostListContext( response, engine ) );
@@ -73,33 +69,81 @@ public class ListController extends DatasetController {
   }
 
   /**
+   * Returns the integer which is found in the request for the "pageNumber" parameter.
+   * Defaulting to 0;
+   *
+   * @return Supplied or default int for the pageNumber parameter.
+   */
+  private int getPageNumberParameter( HttpServletRequest request ){
+    return getIntParameter( request, "page", 0 );
+  }
+
+  /**
+   * Returns the integer which is found in the request for the "pageSize" parameter.
+   * Defaulting to 100;
+   *
+   * @return Supplied or default int for the pageSize parameter.
+   */
+  private int getPageSizeParameter( HttpServletRequest request ){
+    return getIntParameter( request, "pageSize", 100 );
+  }
+
+  /**
+   * Retrieves the value of an integer parameter in the request.
+   *
+   * @param request Request which contains the parameter.
+   * @param name Name of the supplied parameter.
+   * @param defaultValue Value which is to be returned if the value couldn't be converted to an
+   *                     integer or if no value was supplied.
+   * @return integer containing the value for the get parameter with name {@code name}.
+   */
+  private int getIntParameter( HttpServletRequest request, String name, int defaultValue ){
+    try {
+      return Integer.parseInt( request.getParameter( name ) );
+    } catch( Exception e ) {
+      return defaultValue;
+    }
+  }
+
+  /**
    * Fetches the information we want to list about the datasets.
+   *
    *
    * @param engine  Connection to the RDF store for fetching information.
    * @param catalog Catalog for which we want to list the DataSets.
+   * @param request Request for which the dataset should be fetched (used for parametrization)
    * @return QueryResult containing the information we want to render out.
    * @see #modelFromQueryResult(eu.lod2.edcat.utils.QueryResult)
    */
-  private QueryResult fetchDatasets( SparqlEngine engine, URI catalog ) {
+  private QueryResult fetchDatasets( SparqlEngine engine, URI catalog, HttpServletRequest request ) {
+    int pageSize = getPageSizeParameter( request );
+    int pageNumber = getPageNumberParameter( request );
+    int limit = pageSize;
+    int offset = pageSize * pageNumber;
+
+    // todo: this query selects the english title.  if neither the english title, an english description or an english themeLabel exists, this will only return the title.  That behaviour makes the subjected dataset hidden in the json output.  hence a 'best' title should be returned.  It is not possible to return all titles as that would break the semantics of the optional/limit (as it's implemented right at this time).
     String query = Sparql.query( "" +
-      " @PREFIX " +
-      " SELECT ?dataset ?description ?title ?theme ?themeLabel" +
-      " WHERE {" +
-      "   GRAPH $catalog {" +
-      "     ?catalog dcat:dataset ?dataset." +
-      "   }." +
-      "   GRAPH ?dataset {" +
-      "     OPTIONAL {" +
-      "       { ?dataset dct:description ?description FILTER( lang( ?description ) = \"en\") }" +
-      "       UNION " +
-      "       { ?dataset dct:title ?title FILTER( lang( ?title ) = \"en\" ) }" +
-      "       UNION " +
-      "       { ?dataset dcat:theme ?theme." +
-      "         ?theme skos:preflabel ?themeLabel FILTER( lang( ?themeLabel ) = \"en\" ) }" +
-      "     }" +
-      "   }" +
-      " } ",
-      "catalog", catalog );
+        " @PREFIX " +
+        " SELECT DISTINCT ?dataset ?description ?title ?themeLabel " +
+        " WHERE {" +
+        "   GRAPH $catalog {" +
+        "     ?catalog dcat:dataset ?dataset." +
+        "   } OPTIONAL { " +
+        "     GRAPH ?dataset {" +
+        "       OPTIONAL { ?dataset dct:description ?description FILTER( lang( ?description ) = \"en\") }" +
+        "       OPTIONAL { ?dataset dct:title ?title FILTER( lang( ?title ) = \"en\" ) }" +
+        "       OPTIONAL { " +
+        "           ?dataset dcat:theme ?theme." +
+        "           ?theme skos:preflabel ?themeLabel FILTER( lang( ?themeLabel ) = \"en\" )" +
+        "       }" +
+        "     }" +
+        "   }" +
+        " }" +
+        (limit == 0 ? "" : " LIMIT $limit") +
+        (offset == 0 ? "" : " OFFSET $offset"),
+        "catalog", catalog,
+        "limit", limit,
+        "offset", offset );
 
     return engine.sparqlSelect( query );
   }
@@ -109,10 +153,11 @@ public class ListController extends DatasetController {
    *
    * @param queryResults The answers received from the RDF store.
    * @return Model which can be converted to an output format for the end-user.
-   * @see #fetchDatasets(eu.lod2.edcat.utils.SparqlEngine, org.openrdf.model.URI)
+   * @see #fetchDatasets(eu.lod2.edcat.utils.SparqlEngine, org.openrdf.model.URI, javax.servlet.http.HttpServletRequest)
    */
   private Model modelFromQueryResult( QueryResult queryResults ) {
     Model statements = new LinkedHashModel();
+
     for ( Map<String, String> result : queryResults ) {
       URI dataset = new URIImpl( result.get( "dataset" ) );
       if ( result.containsKey( "description" ) )
