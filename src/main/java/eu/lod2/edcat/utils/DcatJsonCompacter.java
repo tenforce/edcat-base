@@ -1,5 +1,6 @@
 package eu.lod2.edcat.utils;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,16 +19,26 @@ public class DcatJsonCompacter {
       Object o = map.get(key);
       if (o instanceof Map)
         o = compact((Map<String, Object>) o);
-      if (o instanceof List)
-        for (Object i : (List) o)
-          if  (i instanceof Map)
-            o = compact((Map<String, Object>) o);
+      if (o instanceof List) {
+        o = compactList((List) o);
+      }
       if (getReverseContext().containsKey(key))
         reversedMap.put(getReverseContext().get(key),o);
       else
         reversedMap.put(key,o);
     }
     return reversedMap;
+  }
+
+  private List compactList(List list) {
+    List compactedList = new ArrayList(list.size());
+    for (Object i : list)   {
+      if  (i instanceof Map)
+        compactedList.add(compact((Map<String, Object>) i));
+      else
+        compactedList.add(i);
+    }
+    return compactedList;
   }
 
   public Map<String, String> getReverseContext() {

@@ -50,8 +50,7 @@ public class DcatJsonHashMap extends LinkedHashMap<String, Object> {
     else if (oldValue instanceof List) {
       ((List) oldValue).add(newValue);
       return super.put(key, oldValue);
-    } else if (oldValue instanceof DcatJsonHashMap)
-      return ((DcatJsonHashMap) oldValue).put(key, newValue);
+    }
     else {
       List list = new ArrayList();
       list.add(newValue);

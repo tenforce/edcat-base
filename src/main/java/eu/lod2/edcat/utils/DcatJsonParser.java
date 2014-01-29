@@ -1,6 +1,5 @@
 package eu.lod2.edcat.utils;
 
-import com.github.jsonldjava.core.DocumentLoader;
 import com.github.jsonldjava.core.JsonLdError;
 import com.github.jsonldjava.core.JsonLdOptions;
 import com.github.jsonldjava.core.JsonLdProcessor;
@@ -33,7 +32,6 @@ public class DcatJsonParser {
     DcatRDFHandler rdfHandler = new DcatRDFHandler();
     final SesameTripleCallback callback = new SesameTripleCallback( rdfHandler, ValueFactoryImpl.getInstance(), new ParserConfig(), null );
     JsonLdOptions options = new JsonLdOptions( "uri-base" );
-    options.documentLoader = new DocumentLoader(); // TODO: this is ugly
     JsonLdProcessor.toRDF( json, callback, options );
     return new LinkedHashModel( rdfHandler.getStatements() );
   }
