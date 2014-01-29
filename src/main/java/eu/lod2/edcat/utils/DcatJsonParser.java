@@ -16,8 +16,6 @@ import org.openrdf.rio.RDFHandlerException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class DcatJsonParser {
@@ -46,19 +44,5 @@ public class DcatJsonParser {
 
   public static Object statementsToJsonLD( Model statements, URL context ) throws RDFHandlerException, IOException, JsonLdError {
     return JsonLdProcessor.fromRDF( statements, new SesameRDFParser() );
-  }
-
-  private static List flattenGraphs( List jsonLD ) {
-    ArrayList<Map> flatLd = new ArrayList<Map>();
-    for ( Object o : jsonLD ) {
-      if ( o instanceof Map ) {
-        Map map = ( Map ) o;
-        if ( map.containsKey( "@graph" ) )
-          flatLd.addAll( ( List ) map.get( "@graph" ) );
-        else
-          flatLd.add( map );
-      }
-    }
-    return flatLd;
   }
 }
