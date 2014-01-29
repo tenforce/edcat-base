@@ -13,7 +13,7 @@ public class TurtleFormatter implements ResponseFormatter {
   public Object format(Model statements) throws FormatException {
     ByteArrayOutputStream output = new ByteArrayOutputStream();
     try {
-      Rio.write(statements, output, RDFFormat.RDFXML);
+      Rio.write(statements, output, RDFFormat.TURTLE);
       return new String(output.toByteArray(), Charset.forName("UTF-8"));
     } catch (RDFHandlerException e) {
       throw new FormatException(e);
