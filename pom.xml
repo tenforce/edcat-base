@@ -9,7 +9,7 @@
   <version>1.0-SNAPSHOT</version>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <sesame.version>2.7.9</sesame.version>
+    <sesame.version>2.7.10</sesame.version>
     <spring.version>3.2.4.RELEASE</spring.version>
   </properties>
   <dependencies>
@@ -81,12 +81,12 @@
     <dependency>
       <groupId>com.github.jsonld-java</groupId>
       <artifactId>jsonld-java</artifactId>
-      <version>0.3-SNAPSHOT</version>
+      <version>0.3-535cbd1b42</version>
     </dependency>
     <dependency>
       <groupId>com.github.jsonld-java</groupId>
       <artifactId>jsonld-java-sesame</artifactId>
-      <version>0.3-SNAPSHOT</version>
+      <version>0.3-535cbd1b42</version>
     </dependency>
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
@@ -99,6 +99,7 @@
       <version>6.1.1</version>
     </dependency>
   </dependencies>
+
   <repositories>
     <repository>
       <id>spring-snapshots</id>
@@ -114,5 +115,18 @@
       <url>http://archiva.tenforce.com/archiva/repository/external_free/</url>
     </repository>
   </repositories>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>
