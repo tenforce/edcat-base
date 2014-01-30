@@ -1,5 +1,6 @@
 package eu.lod2.edcat.controller.dataset;
 
+import eu.lod2.edcat.utils.BlankNodeNuker;
 import eu.lod2.edcat.utils.DcatJsonParser;
 import eu.lod2.edcat.utils.JsonLdContext;
 import eu.lod2.edcat.utils.Vocabulary;
@@ -25,6 +26,7 @@ public abstract class DatasetController {
   protected Model buildModel( HttpServletRequest request, URI dataset ) throws Exception {
     InputStream in = request.getInputStream();
     Model statements = DcatJsonParser.jsonLDToStatements( in, JsonLdContext.getContextLocation().toString(), dataset, Vocabulary.get( "Dataset" ) );
+    BlankNodeNuker.nuke( statements );
     in.close();
     return statements;
   }
