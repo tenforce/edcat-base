@@ -1,17 +1,19 @@
 package eu.lod2.edcat.init;
 
+import eu.lod2.edcat.model.CatalogDTO;
 import eu.lod2.edcat.utils.SparqlEngine;
 import eu.lod2.hooks.contexts.CatalogInstallationContext;
 import eu.lod2.hooks.contexts.InstallationContext;
+import eu.lod2.hooks.handlers.dcat.ActionAbortException;
 import eu.lod2.hooks.handlers.dcat.CatalogInstallationHandler;
 import eu.lod2.hooks.handlers.dcat.InstallationHandler;
-import eu.lod2.hooks.handlers.dcat.ActionAbortException;
 import eu.lod2.hooks.util.HookManager;
 import eu.lod2.query.Sparql;
 import org.apache.commons.logging.LogFactory;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
 import org.openrdf.model.impl.LinkedHashModel;
+import org.openrdf.model.impl.LiteralImpl;
 import org.openrdf.rio.RDFFormat;
 import org.openrdf.rio.RDFParseException;
 import org.openrdf.rio.Rio;
@@ -47,26 +49,22 @@ public class Installation {
     SparqlEngine engine = new SparqlEngine();
 
     setupDatabase( engine );
-    setupCatalog(engine, "example");
-
+    setupCatalog(engine,CatalogDTO.example());
     engine.terminate();
   }
 
   /**
    * Constructs a new catalog and installs it in the database.
    *
-   * @param name Name of the new catalog.  The URI and graph for the catalog will be based on the
-   *             supplied name.
+   * @param catalog CatalogDTO representing the catalog.
    */
-  public static void setupCatalog( SparqlEngine engine, String name ) throws Throwable {
-    URI catalogUri = Sparql.namespaced("catalogs", name);
-
-    storeCatalog( engine, catalogUri );
+  public static void setupCatalog( SparqlEngine engine, CatalogDTO catalog ) throws Throwable {
+    storeCatalog( engine, catalog );
 
     try {
       HookManager.callHook( CatalogInstallationHandler.class,
           "handleCatalogInstall",
-          new CatalogInstallationContext( engine, catalogUri ) );
+          new CatalogInstallationContext( engine, catalog.getUri() ) );
     } catch ( ActionAbortException aae ) {
       LogFactory.getLog( "setupCatalog" ).error( aae.getMessage() );
     }
@@ -130,11 +128,14 @@ public class Installation {
    *
    * @param engine     Engine with a connection to the RDF store in which we have to add the
    *                   identification of the catalog.
-   * @param catalogUri URI of the graph and id of the Catalog which we want to create.
+   * @param catalog    CatalogDTO describing the new catalog
    */
-  private static void storeCatalog( SparqlEngine engine, URI catalogUri ) {
+  private static void storeCatalog( SparqlEngine engine, CatalogDTO catalog) {
     Model m = new LinkedHashModel();
-    m.add( catalogUri, Sparql.namespaced( "rdf", "type" ), Sparql.namespaced( "dcat", "Catalog" ) );
+    m.add(catalog.getUri(), Sparql.namespaced( "rdf", "type" ), Sparql.namespaced( "dcat", "Catalog" ) );
+    m.add(catalog.getUri(),Sparql.namespaced("dct","identifier"), new LiteralImpl(catalog.getIdentifier()));
+    m.add(catalog.getUri(),Sparql.namespaced("dct","title"), new LiteralImpl(catalog.getTitle()));
+    m.add(catalog.getUri(),Sparql.namespaced("foaf","homepage"), new LiteralImpl(catalog.getHomepage()));
     engine.addStatements( m, (URI) Sparql.getClassMapVariable( "CONFIG_GRAPH" ) );
   }
 }
