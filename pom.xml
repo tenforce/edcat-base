@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>eu.lod2.dcat</groupId>
-  <artifactId>e-dcat-api</artifactId>
+  <groupId>eu.lod2.edcat</groupId>
   <version>1.0-SNAPSHOT</version>
+  <artifactId>e-dcat-api</artifactId>
   <packaging>war</packaging>
   <name>LOD2 Wp8 DCAT</name>
 
@@ -86,11 +86,6 @@
     <dependency>
       <groupId>org.openrdf.sesame</groupId>
       <artifactId>sesame-rio-rdfxml</artifactId>
-      <version>${sesame.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.openrdf.sesame</groupId>
-      <artifactId>sesame-rio-turtle</artifactId>
       <version>${sesame.version}</version>
     </dependency>
     <dependency>
