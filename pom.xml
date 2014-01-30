@@ -98,7 +98,21 @@
       <artifactId>testng</artifactId>
       <version>6.1.1</version>
     </dependency>
-
   </dependencies>
+  <repositories>
+    <repository>
+      <id>spring-snapshots</id>
+      <name>Spring Snapshots</name>
+      <url>http://repo.spring.io/snapshot</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>tenforce_archiva_external_free</id>
+      <name>tenforce_archiva_external_free</name>
+      <url>http://archiva.tenforce.com/archiva/repository/external_free/</url>
+    </repository>
+  </repositories>
 
 </project>
