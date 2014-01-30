@@ -8,12 +8,11 @@
   <version>1.0-SNAPSHOT</version>
   <artifactId>e-dcat-api</artifactId>
   <packaging>war</packaging>
-  <name>LOD2 Wp8 DCAT</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <spring.version>3.2.4.RELEASE</spring.version>
-    <sesame.version>2.7.9</sesame.version>
+    <sesame.version>2.7.10</sesame.version>
   </properties>
 
   <build>
