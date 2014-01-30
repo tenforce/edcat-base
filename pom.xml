@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>eu.lod2.dcat</groupId>
+  <groupId>eu.lod2.edcat</groupId>
+  <version>0.1.0</version>
   <artifactId>e-dcat-api</artifactId>
-  <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
-  <name>LOD2 Wp8 DCAT</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <spring.version>3.2.4.RELEASE</spring.version>
-    <sesame.version>2.7.9</sesame.version>
+    <sesame.version>2.7.10</sesame.version>
   </properties>
 
   <build>
@@ -89,11 +86,6 @@
       <version>${sesame.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.openrdf.sesame</groupId>
-      <artifactId>sesame-rio-turtle</artifactId>
-      <version>${sesame.version}</version>
-    </dependency>
-    <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <version>2.4</version>
@@ -116,32 +108,32 @@
     <dependency>
       <groupId>eu.lod2.edcat</groupId>
       <artifactId>logging-plugin</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>0.1.0</version>
     </dependency>
     <dependency>
       <groupId>eu.lod2.edcat.plugins</groupId>
       <artifactId>siren-search</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>0.1.0</version>
     </dependency>
     <dependency>
       <groupId>eu.lod2.edcat</groupId>
       <artifactId>edcat-plugin-base</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>0.1.0</version>
     </dependency>
     <dependency>
       <groupId>eu.lod2.edcat</groupId>
       <artifactId>auth-plugin</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>0.1.0</version>
     </dependency>
     <dependency>
       <groupId>eu.lod2.edcat</groupId>
       <artifactId>model-validation-plugin</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>0.1.0</version>
     </dependency>
     <dependency>
       <groupId>eu.lod2.edcat</groupId>
       <artifactId>distribution-accessibility-validation-plugin</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>0.1.0</version>
     </dependency>
     <dependency>
       <groupId>org.testng</groupId>
