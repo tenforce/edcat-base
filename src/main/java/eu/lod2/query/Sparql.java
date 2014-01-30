@@ -69,7 +69,7 @@ public class Sparql {
    */
   private static Map<String, Object> classVariableMap = constructLocalVariableMap(
     "PREFIX", constructSparqlPrefixes( namespaces ),
-    "DEFAULT_CATALOG", new URIImpl( "http://lod2.tenforce.com/edcat/catalogs/example" ),
+    "DEFAULT_CATALOG", new URIImpl( "http://data.opendatasupport.eu/id/catalog/gb/" ),
     "CONFIG_GRAPH", new URIImpl( "http://lod2.tenforce.com/edcat/example/config/" ) );
 
   /**

@@ -1,7 +1,6 @@
 package eu.lod2.hooks.handlers.dcat;
 
 import eu.lod2.hooks.contexts.CatalogInstallationContext;
-import eu.lod2.hooks.util.ActionAbortException;
 
 /**
  * This handler will be called when the system is being set up.

@@ -2,7 +2,6 @@ package eu.lod2.hooks.handlers.dcat;
 
 import eu.lod2.hooks.contexts.PreContext;
 import eu.lod2.hooks.handlers.HookHandler;
-import eu.lod2.hooks.util.ActionAbortException;
 
 
 /**

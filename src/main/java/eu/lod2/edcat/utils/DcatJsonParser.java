@@ -1,6 +1,5 @@
 package eu.lod2.edcat.utils;
 
-import com.github.jsonldjava.core.DocumentLoader;
 import com.github.jsonldjava.core.JsonLdError;
 import com.github.jsonldjava.core.JsonLdOptions;
 import com.github.jsonldjava.core.JsonLdProcessor;
@@ -17,8 +16,6 @@ import org.openrdf.rio.RDFHandlerException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class DcatJsonParser {
@@ -33,7 +30,6 @@ public class DcatJsonParser {
     DcatRDFHandler rdfHandler = new DcatRDFHandler();
     final SesameTripleCallback callback = new SesameTripleCallback( rdfHandler, ValueFactoryImpl.getInstance(), new ParserConfig(), null );
     JsonLdOptions options = new JsonLdOptions( "uri-base" );
-    options.documentLoader = new DocumentLoader(); // TODO: this is ugly
     JsonLdProcessor.toRDF( json, callback, options );
     return new LinkedHashModel( rdfHandler.getStatements() );
   }
@@ -48,19 +44,5 @@ public class DcatJsonParser {
 
   public static Object statementsToJsonLD( Model statements, URL context ) throws RDFHandlerException, IOException, JsonLdError {
     return JsonLdProcessor.fromRDF( statements, new SesameRDFParser() );
-  }
-
-  private static List flattenGraphs( List jsonLD ) {
-    ArrayList<Map> flatLd = new ArrayList<Map>();
-    for ( Object o : jsonLD ) {
-      if ( o instanceof Map ) {
-        Map map = ( Map ) o;
-        if ( map.containsKey( "@graph" ) )
-          flatLd.addAll( ( List ) map.get( "@graph" ) );
-        else
-          flatLd.add( map );
-      }
-    }
-    return flatLd;
   }
 }
