@@ -1,5 +1,6 @@
 package eu.lod2.edcat.controller.dataset;
 
+import eu.lod2.edcat.utils.JsonLdContext;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,7 @@ public class ContextController {
   @RequestMapping(value = "context.jsonld", method = RequestMethod.GET)
   @ResponseBody
   public void getContext(HttpServletResponse response) throws Throwable {
-    InputStream contextIn = DatasetController.getContext().openStream();
+    InputStream contextIn = JsonLdContext.getContextLocation().openStream();
     String contextString = IOUtils.toString( contextIn, "UTF-8" );
     contextIn.close();
     response.setStatus( 200 );

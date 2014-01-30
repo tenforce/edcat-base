@@ -1,6 +1,7 @@
 package eu.lod2.edcat.controller.dataset;
 
 import eu.lod2.edcat.format.*;
+import eu.lod2.edcat.utils.JsonLdContext;
 import eu.lod2.edcat.utils.QueryResult;
 import eu.lod2.edcat.utils.SparqlEngine;
 import eu.lod2.hooks.contexts.PostListContext;
@@ -31,7 +32,7 @@ public class ListController extends DatasetController {
 
   @RequestMapping( value = ROUTE, method = RequestMethod.GET, produces = "application/json;charset=UTF-8" )
   public ResponseEntity<Object> create( HttpServletRequest request ) throws Throwable {
-    return create( request, new DcatJsonFormatter( getContext() ) );
+    return create( request, new DcatJsonFormatter( JsonLdContext.getContextLocation() ) );
   }
 
   @RequestMapping( value = ROUTE, method = RequestMethod.GET, produces = "application/rdf+xml;charset=UTF-8" )
@@ -46,7 +47,7 @@ public class ListController extends DatasetController {
 
   @RequestMapping( value = ROUTE, method = RequestMethod.GET, produces = "application/ld+json;charset=UTF-8" )
   public ResponseEntity<Object> createJSONLD( HttpServletRequest request ) throws Throwable {
-    return create( request, new JsonLDFormatter( getContext() ) );
+    return create( request, new JsonLDFormatter( JsonLdContext.getContextLocation() ) );
   }
 
   /**
