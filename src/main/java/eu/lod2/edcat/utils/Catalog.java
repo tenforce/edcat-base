@@ -99,6 +99,19 @@ public class Catalog {
    * @return New Catalog-object representing the default catalog.
    */
   public static Catalog getDefaultCatalog(SparqlEngine engine){
+    String query = Sparql.query(
+            "@PREFIX " +
+                    "SELECT ?catalog" +
+                    " FROM @CONFIG_GRAPH " +
+                    "WHERE {" +
+                    " ?catalog a dcat:Catalog" +
+                    "}");
+    QueryResult result = engine.sparqlSelect(query);
+    if (result.size() > 0) {
+      String catalog = result.get(0).get("catalog");
+      return new Catalog(engine,catalog);
+    }
+
     return new Catalog(engine, ((URI) Sparql.getClassMapVariable( "DEFAULT_CATALOG" )).stringValue());
   }
 
