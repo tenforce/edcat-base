@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>eu.lod2.edcat</groupId>
-  <version>0.1.0</version>
+  <version>0.3.0-SNAPSHOT</version>
   <artifactId>e-dcat-api</artifactId>
   <packaging>war</packaging>
 
@@ -108,32 +108,32 @@
     <dependency>
       <groupId>eu.lod2.edcat</groupId>
       <artifactId>logging-plugin</artifactId>
-      <version>0.1.0</version>
+      <version>0.3.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>eu.lod2.edcat.plugins</groupId>
       <artifactId>siren-search</artifactId>
-      <version>0.1.0</version>
+      <version>0.3.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>eu.lod2.edcat</groupId>
       <artifactId>edcat-plugin-base</artifactId>
-      <version>0.1.0</version>
+      <version>0.3.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>eu.lod2.edcat</groupId>
       <artifactId>auth-plugin</artifactId>
-      <version>0.1.0</version>
+      <version>0.3.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>eu.lod2.edcat</groupId>
       <artifactId>model-validation-plugin</artifactId>
-      <version>0.1.0</version>
+      <version>0.3.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>eu.lod2.edcat</groupId>
       <artifactId>distribution-accessibility-validation-plugin</artifactId>
-      <version>0.1.0</version>
+      <version>0.3.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.testng</groupId>
