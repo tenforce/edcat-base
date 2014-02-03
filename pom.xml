@@ -136,6 +136,11 @@
       <version>0.1.0</version>
     </dependency>
     <dependency>
+      <groupId>eu.lod2.edcat</groupId>
+      <artifactId>attached-triple-insertion-plugin</artifactId>
+      <version>0.1.0</version>
+    </dependency>
+    <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
       <version>6.1.1</version>

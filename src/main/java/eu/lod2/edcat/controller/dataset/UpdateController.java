@@ -37,7 +37,7 @@ public class UpdateController extends DatasetController {
     Model record = catalog.updateDataset( datasetIdString );
     Model statements = buildModel( request, datasetUri );
     statements.addAll( record );
-    HookManager.callHook( AtUpdateHandler.class, "handleAtUpdate", new AtContext( catalog, statements, engine ) );
+    HookManager.callHook( AtUpdateHandler.class, "handleAtUpdate", new AtContext( catalog, statements, engine, datasetUri ) );
     engine.clearGraph( datasetUri );
     engine.addStatements( statements, datasetUri );
     ResponseFormatter formatter = new DatasetFormatter( JsonLdContext.getContextLocation() );

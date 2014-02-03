@@ -35,7 +35,7 @@ public class CreateController extends DatasetController {
     HookManager.callHook(PreCreateHandler.class, "handlePreCreate", new PreContext(catalog, request, engine, datasetUri));
     Model record = catalog.insertDataset(datasetBaseId);
     Model statements = buildModel(request, datasetUri);
-    HookManager.callHook(AtCreateHandler.class, "handleAtCreate", new AtContext(catalog, statements, engine));
+    HookManager.callHook(AtCreateHandler.class, "handleAtCreate", new AtContext(catalog, statements, engine, datasetUri));
     engine.addStatements(statements, datasetUri);
     statements.addAll(record);
     ResponseFormatter formatter = new DatasetFormatter( JsonLdContext.getContextLocation() );
