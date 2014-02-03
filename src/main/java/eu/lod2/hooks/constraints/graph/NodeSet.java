@@ -163,7 +163,7 @@ public abstract class NodeSet<HookHandler> {
     //--------------------------------------------
 
     /**
-     * Clears the precalculated nodes
+     * Clears the pre-calculated nodes
      * <p/>
      * /@atStateChange: used during State change
      */
