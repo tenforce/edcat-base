@@ -3,6 +3,7 @@ package eu.lod2.hooks.contexts;
 import eu.lod2.edcat.utils.Catalog;
 import eu.lod2.edcat.utils.SparqlEngine;
 import org.openrdf.model.Model;
+import org.openrdf.model.URI;
 
 /**
  * The AtContext is used for:
@@ -20,10 +21,11 @@ public class AtContext extends Context {
   /**
    * Constructs a new PreContext with all fields set.
    */
-  public AtContext( Catalog catalog, Model statements, SparqlEngine engine ){
+  public AtContext( Catalog catalog, Model statements, SparqlEngine engine, URI datasetUri ){
     this.catalog = catalog;
     this.statements = statements;
     this.engine = engine;
+    this.datasetUri = datasetUri;
   }
 
   //--- GETTERS AND SETTERS
@@ -66,4 +68,20 @@ public class AtContext extends Context {
   public SparqlEngine getEngine() {
     return engine;
   }
+
+  /** URI identifier for the DataSet which will be created. */
+  private URI datasetUri;
+
+  /**
+   * Returns the URI identifier for the DataSet which will be created.
+   * <p/>
+   * This URI serves both as the name of the graph in which the metadata of the DataSet is stored,
+   * as the name by which we identify the DataSet in the config graph.
+   *
+   * @return URI identifying the DataSet.
+   */
+  public URI getDatasetUri(){
+    return datasetUri;
+  }
+
 }
