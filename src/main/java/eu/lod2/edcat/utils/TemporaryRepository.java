@@ -68,6 +68,7 @@ public class TemporaryRepository {
    *
    * @throws RepositoryException Thrown when the repository failed to shut down or set up.
    */
+  @SuppressWarnings( "UnusedDeclaration" )
   public void clean() throws RepositoryException {
     // todo: this could clean the data and reuse the rest of the repository and the connection.
     tearDown();

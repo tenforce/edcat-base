@@ -2,6 +2,7 @@ package eu.lod2.edcat.format;
 
 import java.util.LinkedHashMap;
 
+@SuppressWarnings( "UnusedDeclaration" )
 public class DatasetResponse extends LinkedHashMap<String, Object> {
 
   public String getSelf() {

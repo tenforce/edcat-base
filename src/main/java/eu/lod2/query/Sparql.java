@@ -160,6 +160,7 @@ public class Sparql {
    * @param <V>   Type of the values in the plist.  They values will be typecast to this type.
    * @return Supplied PLIST in map version
    */
+  @SuppressWarnings("unchecked")
   private static <K, V> Map<K, V> constructMapFromList( Object... plist ) {
     Map<K, V> varmap = new HashMap<K, V>();
     if ( !(plist.length % 2 == 0) )

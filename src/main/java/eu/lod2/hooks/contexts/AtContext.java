@@ -62,7 +62,7 @@ public class AtContext extends Context {
   private SparqlEngine engine;
 
   /**
-   * Returns the engine used for retrievig and inserting data in the
+   * Returns the engine used for retrieving and inserting data in the
    * RDF store.
    */
   public SparqlEngine getEngine() {

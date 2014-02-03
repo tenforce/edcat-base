@@ -16,6 +16,6 @@ public class DatasetFormatter extends DcatJsonFormatter {
   public Map<String,Object> format(Model statements) throws FormatException {
     Map<String,Object> compactedJson = super.format( statements );
 
-    return DatasetResponseBuilder.build( (Map<String, Object>) compactedJson );
+    return DatasetResponseBuilder.build( compactedJson );
   }
 }

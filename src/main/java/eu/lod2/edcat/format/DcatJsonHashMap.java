@@ -36,13 +36,15 @@ public class DcatJsonHashMap extends LinkedHashMap<String, Object> {
    * If the map previously contained a mapping for the key,
    * the values are merged into an Array
    *
-   * @param key
-   * @param newValue
+   * @param key Key containing the value for which the merge will take place.
+   * @param newValue Value to add to the keyword, or to which the keyword should be set if it did
+   *                 not yet contain a value.
    * @return the previous newValue associated with <tt>key</tt>, or
    *         <tt>null</tt> if there was no mapping for <tt>key</tt>.
    *         (A <tt>null</tt> return can also indicate that the map
    *         previously associated <tt>null</tt> with <tt>key</tt>.)
    */
+  @SuppressWarnings( "unchecked" )
   public Object mergePut(String key, Object newValue) {
     Object oldValue = get(key);
     if (isLanguageString(newValue))
@@ -60,8 +62,10 @@ public class DcatJsonHashMap extends LinkedHashMap<String, Object> {
   }
 
   /**
-   * @param key
-   * @param value
+   * Adds a language-oriented string to the field with key {@code key}.
+   * @param key Key Key containing the value to which the language-tagged string {@code value} will
+   *            be attached.
+   * @param value Literal with a language which will be attached to the key.
    * @return the previous newValue associated with <tt>key</tt>, or
    *         <tt>null</tt> if there was no mapping for <tt>key</tt>.
    *         (A <tt>null</tt> return can also indicate that the map
@@ -77,14 +81,20 @@ public class DcatJsonHashMap extends LinkedHashMap<String, Object> {
       lMap.put(value.getLanguage(), value.stringValue());
       return put(key, lMap);
     }
-
   }
 
-  private boolean isLanguageString(Object value) {
+  /**
+   * Returns true iff {@code value} is a language string.
+   *
+   * @param value Object for which we should check if it is a language string.
+   * @return true iff {@code value} is a Literal which has a language.
+   */
+  private static boolean isLanguageString(Object value) {
     return (value instanceof Literal && ((Literal) value).getLanguage() != null);
   }
 
-
-  private class LanguageMap extends DcatJsonHashMap {
-  }
+  /**
+   * Inner class for typing purposes.  Represents a map of literals which contain a language.
+   */
+  private class LanguageMap extends DcatJsonHashMap { }
 }

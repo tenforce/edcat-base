@@ -5,7 +5,6 @@ import org.openrdf.model.impl.LinkedHashModel;
 import org.openrdf.model.impl.StatementImpl;
 import org.openrdf.model.impl.URIImpl;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -44,7 +43,6 @@ public class BlankNodeNuker {
   private void nukeBlankNodes() {
     // until we have changes
     int changes;
-    ArrayList<Resource> changedResources = new ArrayList<Resource>();
     do {
       changes = 0;
       // walk over each triple
@@ -66,7 +64,6 @@ public class BlankNodeNuker {
                   + connectingSubject.stringValue() + "/"
                   + ldContext.getReverseKeywordMap().get( connectingPredicate.stringValue() ) + "/"
                   + UUID.randomUUID() );
-              changedResources.add( target ); changedResources.add( newTarget );
               // replace the triples which have the blank node as subject or as object.
               for ( Statement changeMySubject : walkingModel.filter( target, null, null ) ) {
                 model.remove( changeMySubject );
