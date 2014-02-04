@@ -11,12 +11,12 @@ import eu.lod2.hooks.contexts.CatalogInstallationContext;
 public interface CatalogInstallationHandler {
 
   /**
-   * Called just after a new Catalog is created in the DCAT store.
+   * Called just after a new CatalogService is created in the DCAT store.
    *
-   * Use this if you need to configure your plugin to handle a new Catalog.
+   * Use this if you need to configure your plugin to handle a new CatalogService.
    *
    * @param context The context provides all information which you have available to you during
-   *                the installation of a new Catalog.
+   *                the installation of a new CatalogService.
    */
   public void handleCatalogInstall( CatalogInstallationContext context ) throws ActionAbortException;
 

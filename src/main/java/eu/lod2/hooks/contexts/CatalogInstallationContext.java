@@ -14,7 +14,7 @@ public class CatalogInstallationContext extends Context {
   /**
    * Constructs a new CatalogInstallationContext supplying all necessary information.
    *
-   * @param engine AccessPoint to the RDF store where the Catalog information has been stored.
+   * @param engine AccessPoint to the RDF store where the CatalogService information has been stored.
    * @param catalogURI URI containing the newly inserted catalog.
    */
   @SuppressWarnings( {"UnusedDeclaration"} )
@@ -39,7 +39,7 @@ public class CatalogInstallationContext extends Context {
   }
 
 
-  /** Contains the URI of the newly created Catalog */
+  /** Contains the URI of the newly created CatalogService */
   private URI catalogURI;
 
   /**

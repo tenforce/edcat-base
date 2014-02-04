@@ -13,7 +13,7 @@ import eu.lod2.hooks.contexts.PreListContext;
 public interface PreListHandler {
 
   /**
-   * Called before a LIST action on a Catalog is executed.
+   * Called before a LIST action on a CatalogService is executed.
    * <p/>
    * This hook allows you to alter the request or possibly abort the action.
    *

@@ -1,6 +1,6 @@
 package eu.lod2.hooks.contexts;
 
-import eu.lod2.edcat.utils.Catalog;
+import eu.lod2.edcat.utils.CatalogService;
 import eu.lod2.edcat.utils.SparqlEngine;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
@@ -24,8 +24,8 @@ public class PostContext {
   /**
    * Constructs a new PostContext with all variables set.
    */
-  public PostContext( Catalog catalog, ResponseEntity<Object> response, SparqlEngine engine, URI datasetUri, Model statements ){
-    this.catalog = catalog;
+  public PostContext( CatalogService catalogService, ResponseEntity<Object> response, SparqlEngine engine, URI datasetUri, Model statements ){
+    this.catalogService = catalogService;
     this.engine = engine;
     this.response = response;
     this.datasetUri = datasetUri;
@@ -35,16 +35,16 @@ public class PostContext {
   //--- GETTERS AND SETTERS
 
   /**
-   * The {@link eu.lod2.edcat.utils.Catalog} on which this request
+   * The {@link eu.lod2.edcat.utils.CatalogService} on which this request
    * operates.
    */
-  private Catalog catalog;
+  private CatalogService catalogService;
 
   /**
-   * Returns the Catalog on which this request operates.
+   * Returns the CatalogService on which this request operates.
    */
-  public Catalog getCatalog() {
-    return catalog;
+  public CatalogService getCatalogService() {
+    return catalogService;
   }
 
   /**
