@@ -1,11 +1,9 @@
 package eu.lod2.edcat.init.controller;
 
 import eu.lod2.edcat.init.Installation;
-import eu.lod2.edcat.model.CatalogDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -25,12 +23,11 @@ public class InstallationController {
    * @return HttpStatus.CREATED on success.
    * @throws Throwable May throw any form of error upon failure.
    */
-  @SuppressWarnings( "UnusedDeclaration" )
+  // @SuppressWarnings( "UnusedDeclaration" )
   @RequestMapping(value = "install", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-  public ResponseEntity<Object> create(HttpServletRequest request,@RequestBody CatalogDTO catalog) throws Throwable {
+  public ResponseEntity<Object> create(HttpServletRequest request) throws Throwable {
     Installation.install();
     return new ResponseEntity<Object>( HttpStatus.CREATED );
   }
-
 
 }

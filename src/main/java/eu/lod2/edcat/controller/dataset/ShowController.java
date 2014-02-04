@@ -1,7 +1,7 @@
 package eu.lod2.edcat.controller.dataset;
 
 import eu.lod2.edcat.format.*;
-import eu.lod2.edcat.utils.Catalog;
+import eu.lod2.edcat.utils.CatalogService;
 import eu.lod2.edcat.utils.JsonLdContext;
 import eu.lod2.edcat.utils.SparqlEngine;
 import eu.lod2.hooks.contexts.PostContext;
@@ -56,13 +56,13 @@ public class ShowController extends DatasetController {
 
   private ResponseEntity<Object> show( HttpServletRequest request, ResponseFormatter formatter ) throws Throwable {
     SparqlEngine engine = new SparqlEngine();
-    Catalog catalog = Catalog.getDefaultCatalog( engine );
-    URI datasetUri = catalog.generateDatasetUri( datasetId );
-    HookManager.callHook( PreReadHandler.class, "handlePreRead", new PreContext( catalog, request, engine, datasetUri ) );
+    CatalogService catalogService = CatalogService.getDefaultCatalog( engine );
+    URI datasetUri = catalogService.generateDatasetUri( datasetId );
+    HookManager.callHook( PreReadHandler.class, "handlePreRead", new PreContext( catalogService, request, engine, datasetUri ) );
     Model statements = engine.getStatements( datasetUri );
     Object body = formatter.format( statements );
     ResponseEntity<Object> response = new ResponseEntity<Object>( body, getHeaders(), HttpStatus.OK );
-    HookManager.callHook( PostReadHandler.class, "handlePostRead", new PostContext( catalog, response, engine, datasetUri, statements ) );
+    HookManager.callHook( PostReadHandler.class, "handlePostRead", new PostContext( catalogService, response, engine, datasetUri, statements ) );
     engine.terminate();
     return response;
   }

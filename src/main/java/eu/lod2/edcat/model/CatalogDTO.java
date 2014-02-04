@@ -24,6 +24,7 @@ public class CatalogDTO {
 
   /* resource uri for the catalog */
   private URI uri;
+
   /* Catalog title */
   private String title;
 

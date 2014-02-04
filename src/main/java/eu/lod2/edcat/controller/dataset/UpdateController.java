@@ -2,7 +2,7 @@ package eu.lod2.edcat.controller.dataset;
 
 import eu.lod2.edcat.format.DatasetFormatter;
 import eu.lod2.edcat.format.ResponseFormatter;
-import eu.lod2.edcat.utils.Catalog;
+import eu.lod2.edcat.utils.CatalogService;
 import eu.lod2.edcat.utils.JsonLdContext;
 import eu.lod2.edcat.utils.SparqlEngine;
 import eu.lod2.hooks.contexts.AtContext;
@@ -30,20 +30,20 @@ public class UpdateController extends DatasetController {
   public ResponseEntity<Object> update( HttpServletRequest request, @PathVariable String datasetId ) throws Throwable {
     this.datasetId = datasetId;
     SparqlEngine engine = new SparqlEngine();
-    Catalog catalog = Catalog.getDefaultCatalog( engine );
+    CatalogService catalogService = CatalogService.getDefaultCatalog( engine );
     String datasetIdString = getId();
-    URI datasetUri = catalog.generateDatasetUri( datasetIdString );
-    HookManager.callHook( PreUpdateHandler.class, "handlePreUpdate", new PreContext( catalog, request, engine, datasetUri ) );
-    Model record = catalog.updateDataset( datasetIdString );
+    URI datasetUri = catalogService.generateDatasetUri( datasetIdString );
+    HookManager.callHook( PreUpdateHandler.class, "handlePreUpdate", new PreContext( catalogService, request, engine, datasetUri ) );
+    Model record = catalogService.updateDataset( datasetIdString );
     Model statements = buildModel( request, datasetUri );
     statements.addAll( record );
-    HookManager.callHook( AtUpdateHandler.class, "handleAtUpdate", new AtContext( catalog, statements, engine, datasetUri ) );
+    HookManager.callHook( AtUpdateHandler.class, "handleAtUpdate", new AtContext( catalogService, statements, engine, datasetUri ) );
     engine.clearGraph( datasetUri );
     engine.addStatements( statements, datasetUri );
     ResponseFormatter formatter = new DatasetFormatter( JsonLdContext.getContextLocation() );
     Object compactedJsonLD = formatter.format( statements );
     ResponseEntity<Object> response = new ResponseEntity<Object>( compactedJsonLD, getHeaders(), HttpStatus.OK );
-    HookManager.callHook( PostUpdateHandler.class, "handlePostUpdate", new PostContext( catalog, response, engine, datasetUri, statements ) );
+    HookManager.callHook( PostUpdateHandler.class, "handlePostUpdate", new PostContext( catalogService, response, engine, datasetUri, statements ) );
     engine.terminate();
     return response;
   }

@@ -4,4 +4,4 @@
 @prefix cterms: <http://lod2.tenforce.com/edcat/terms/config>.
 @prefix catalogs: <http://lod2.tenforce.com/edcat/catalogs/>.
 
-# catalogs:example a edcat:catalog.
+# catalogs:example a dcat:Catalog.

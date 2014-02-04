@@ -49,7 +49,7 @@ public class Installation {
     SparqlEngine engine = new SparqlEngine();
 
     setupDatabase( engine );
-    setupCatalog(engine,CatalogDTO.example());
+    setupCatalog( engine, CatalogDTO.example() );
     engine.terminate();
   }
 
@@ -97,11 +97,11 @@ public class Installation {
       configFileInput = DEFAULT_CONFIG_GRAPH_URL.openStream();
       // parse file
       Model validationRules = Rio.parse(
-        configFileInput,
-        ((URI) Sparql.getClassMapVariable( "CONFIG_GRAPH" )).stringValue(),
-        RDFFormat.TURTLE );
+          configFileInput,
+          (( URI ) Sparql.getClassMapVariable( "CONFIG_GRAPH" )).stringValue(),
+          RDFFormat.TURTLE );
       // add statements
-      engine.addStatements( validationRules, (URI) Sparql.getClassMapVariable( "CONFIG_GRAPH" ) );
+      engine.addStatements( validationRules, ( URI ) Sparql.getClassMapVariable( "CONFIG_GRAPH" ) );
       configFileInput.close();
       // catch any errors
     } catch ( IOException e ) {
@@ -126,16 +126,16 @@ public class Installation {
   /**
    * Sets up the config graph so it knows about the catalog.
    *
-   * @param engine     Engine with a connection to the RDF store in which we have to add the
-   *                   identification of the catalog.
-   * @param catalog    CatalogDTO describing the new catalog
+   * @param engine  Engine with a connection to the RDF store in which we have to add the
+   *                identification of the catalog.
+   * @param catalog CatalogDTO describing the new catalog
    */
-  private static void storeCatalog( SparqlEngine engine, CatalogDTO catalog) {
+  private static void storeCatalog( SparqlEngine engine, CatalogDTO catalog ) {
     Model m = new LinkedHashModel();
-    m.add(catalog.getUri(), Sparql.namespaced( "rdf", "type" ), Sparql.namespaced( "dcat", "Catalog" ) );
-    m.add(catalog.getUri(),Sparql.namespaced("dct","identifier"), new LiteralImpl(catalog.getIdentifier()));
-    m.add(catalog.getUri(),Sparql.namespaced("dct","title"), new LiteralImpl(catalog.getTitle()));
-    m.add(catalog.getUri(),Sparql.namespaced("foaf","homepage"), new LiteralImpl(catalog.getHomepage()));
-    engine.addStatements( m, (URI) Sparql.getClassMapVariable( "CONFIG_GRAPH" ) );
+    m.add( catalog.getUri(), Sparql.namespaced( "rdf", "type" ), Sparql.namespaced( "dcat", "Catalog" ) );
+    m.add( catalog.getUri(), Sparql.namespaced( "dct", "identifier" ), new LiteralImpl( catalog.getIdentifier() ) );
+    m.add( catalog.getUri(), Sparql.namespaced( "dct", "title" ), new LiteralImpl( catalog.getTitle() ) );
+    m.add( catalog.getUri(), Sparql.namespaced( "foaf", "homepage" ), new LiteralImpl( catalog.getHomepage() ) );
+    engine.addStatements( m, ( URI ) Sparql.getClassMapVariable( "CONFIG_GRAPH" ) );
   }
 }

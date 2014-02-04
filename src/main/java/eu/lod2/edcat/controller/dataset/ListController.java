@@ -31,23 +31,23 @@ import java.util.Map;
 public class ListController extends DatasetController {
 
   @RequestMapping( value = ROUTE, method = RequestMethod.GET, produces = "application/json;charset=UTF-8" )
-  public ResponseEntity<Object> create( HttpServletRequest request ) throws Throwable {
-    return create( request, new DcatJsonFormatter( JsonLdContext.getContextLocation() ) );
+  public ResponseEntity<Object> listJSON( HttpServletRequest request ) throws Throwable {
+    return list( request, new DcatJsonFormatter( JsonLdContext.getContextLocation() ) );
   }
 
   @RequestMapping( value = ROUTE, method = RequestMethod.GET, produces = "application/rdf+xml;charset=UTF-8" )
-  public ResponseEntity<Object> createXML( HttpServletRequest request ) throws Throwable {
-    return create( request, new XMLRDFFormatter() );
+  public ResponseEntity<Object> listXML( HttpServletRequest request ) throws Throwable {
+    return list( request, new XMLRDFFormatter() );
   }
 
   @RequestMapping( value = ROUTE, method = RequestMethod.GET, produces = "text/turtle;charset=UTF-8" )
-  public ResponseEntity<Object> createTurtle( HttpServletRequest request ) throws Throwable {
-    return create( request, new TurtleFormatter() );
+  public ResponseEntity<Object> listTurtle( HttpServletRequest request ) throws Throwable {
+    return list( request, new TurtleFormatter() );
   }
 
   @RequestMapping( value = ROUTE, method = RequestMethod.GET, produces = "application/ld+json;charset=UTF-8" )
-  public ResponseEntity<Object> createJSONLD( HttpServletRequest request ) throws Throwable {
-    return create( request, new JsonLDFormatter( JsonLdContext.getContextLocation() ) );
+  public ResponseEntity<Object> listJSONLD( HttpServletRequest request ) throws Throwable {
+    return list( request, new JsonLDFormatter( JsonLdContext.getContextLocation() ) );
   }
 
   /**
@@ -58,7 +58,7 @@ public class ListController extends DatasetController {
    * @return Response which can be sent to the user.
    * @throws Throwable Throws an exception if one of the hooks throws one.
    */
-  public ResponseEntity<Object> create( HttpServletRequest request, ResponseFormatter formatter ) throws Throwable {
+  public ResponseEntity<Object> list( HttpServletRequest request, ResponseFormatter formatter ) throws Throwable {
     SparqlEngine engine = new SparqlEngine();
     HookManager.callHook( PreListHandler.class, "handlePreList", new PreListContext( request, engine ) );
     Model m = modelFromQueryResult( fetchDatasets( engine, (URI) Sparql.getClassMapVariable( "DEFAULT_CATALOG" ), request ) );
@@ -111,7 +111,7 @@ public class ListController extends DatasetController {
    *
    *
    * @param engine  Connection to the RDF store for fetching information.
-   * @param catalog Catalog for which we want to list the DataSets.
+   * @param catalog CatalogService for which we want to list the DataSets.
    * @param request Request for which the dataset should be fetched (used for parametrization)
    * @return QueryResult containing the information we want to render out.
    * @see #modelFromQueryResult(eu.lod2.edcat.utils.QueryResult)
