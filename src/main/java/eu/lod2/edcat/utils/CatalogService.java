@@ -51,7 +51,7 @@ public class CatalogService {
    * @return New CatalogService-object representing the default catalog.
    */
   // todo: remove me
-  public static CatalogService getDefaultCatalog( ) {
+  public static CatalogService getDefaultCatalog() {
     QueryResult result = Db.query( "" +
         "@PREFIX " +
         "SELECT ?catalog" +
@@ -61,7 +61,7 @@ public class CatalogService {
         "}" );
     if ( result.size() > 0 ) {
       String catalog = result.get( 0 ).get( "catalog" );
-      return new CatalogService(  catalog );
+      return new CatalogService( catalog );
     }
     return new CatalogService( (( URI ) Sparql.getClassMapVariable( "DEFAULT_CATALOG" )).stringValue() );
   }
@@ -105,10 +105,10 @@ public class CatalogService {
     Literal now = ValueFactoryImpl.getInstance().createLiteral( new Date() );
     statements.add( record, DCTERMS.MODIFIED, now );
     statements.add( record, DCTERMS.ISSUED, now );
-    statements.add( record, RDF.TYPE, Vocabulary.get( "Record" ) );
-    statements.add( record, Vocabulary.get( "record.primaryTopic" ), dataset );
-    statements.add( catalogUri, Vocabulary.get( "catalog.dataset" ), dataset );
-    statements.add( catalogUri, Vocabulary.get( "catalog.record" ), record );
+    statements.add( record, RDF.TYPE, Sparql.namespaced( "dcat", "Record" ) );
+    statements.add( record, Sparql.namespaced( "foaf", "primaryTopic" ), dataset );
+    statements.add( catalogUri, Sparql.namespaced( "dcat","dataset" ), dataset );
+    statements.add( catalogUri, Sparql.namespaced( "dcat", "record" ), record );
     Db.add( statements, catalogUri );
     return statements;
   }
