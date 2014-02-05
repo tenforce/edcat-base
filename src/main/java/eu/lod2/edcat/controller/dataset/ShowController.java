@@ -3,12 +3,12 @@ package eu.lod2.edcat.controller.dataset;
 import eu.lod2.edcat.format.*;
 import eu.lod2.edcat.utils.CatalogService;
 import eu.lod2.edcat.utils.JsonLdContext;
-import eu.lod2.edcat.utils.SparqlEngine;
 import eu.lod2.hooks.contexts.PostContext;
 import eu.lod2.hooks.contexts.PreContext;
 import eu.lod2.hooks.handlers.dcat.PostReadHandler;
 import eu.lod2.hooks.handlers.dcat.PreReadHandler;
 import eu.lod2.hooks.util.HookManager;
+import eu.lod2.query.Db;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
 import org.springframework.http.HttpStatus;
@@ -55,15 +55,13 @@ public class ShowController extends DatasetController {
   }
 
   private ResponseEntity<Object> show( HttpServletRequest request, ResponseFormatter formatter ) throws Throwable {
-    SparqlEngine engine = new SparqlEngine();
-    CatalogService catalogService = CatalogService.getDefaultCatalog( engine );
+    CatalogService catalogService = CatalogService.getDefaultCatalog( );
     URI datasetUri = catalogService.generateDatasetUri( datasetId );
-    HookManager.callHook( PreReadHandler.class, "handlePreRead", new PreContext( catalogService, request, engine, datasetUri ) );
-    Model statements = engine.getStatements( datasetUri );
+    HookManager.callHook( PreReadHandler.class, "handlePreRead", new PreContext( catalogService, request, datasetUri ) );
+    Model statements = Db.getStatements( datasetUri );
     Object body = formatter.format( statements );
     ResponseEntity<Object> response = new ResponseEntity<Object>( body, getHeaders(), HttpStatus.OK );
-    HookManager.callHook( PostReadHandler.class, "handlePostRead", new PostContext( catalogService, response, engine, datasetUri, statements ) );
-    engine.terminate();
+    HookManager.callHook( PostReadHandler.class, "handlePostRead", new PostContext( catalogService, response, datasetUri, statements ) );
     return response;
   }
 }

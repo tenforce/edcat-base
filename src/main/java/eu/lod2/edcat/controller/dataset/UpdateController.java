@@ -4,7 +4,6 @@ import eu.lod2.edcat.format.DatasetFormatter;
 import eu.lod2.edcat.format.ResponseFormatter;
 import eu.lod2.edcat.utils.CatalogService;
 import eu.lod2.edcat.utils.JsonLdContext;
-import eu.lod2.edcat.utils.SparqlEngine;
 import eu.lod2.hooks.contexts.AtContext;
 import eu.lod2.hooks.contexts.PostContext;
 import eu.lod2.hooks.contexts.PreContext;
@@ -12,6 +11,7 @@ import eu.lod2.hooks.handlers.dcat.AtUpdateHandler;
 import eu.lod2.hooks.handlers.dcat.PostUpdateHandler;
 import eu.lod2.hooks.handlers.dcat.PreUpdateHandler;
 import eu.lod2.hooks.util.HookManager;
+import eu.lod2.query.Db;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
 import org.springframework.http.HttpStatus;
@@ -29,22 +29,20 @@ public class UpdateController extends DatasetController {
   @RequestMapping(value = OBJECT_ROUTE, method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
   public ResponseEntity<Object> update( HttpServletRequest request, @PathVariable String datasetId ) throws Throwable {
     this.datasetId = datasetId;
-    SparqlEngine engine = new SparqlEngine();
-    CatalogService catalogService = CatalogService.getDefaultCatalog( engine );
+    CatalogService catalogService = CatalogService.getDefaultCatalog( );
     String datasetIdString = getId();
     URI datasetUri = catalogService.generateDatasetUri( datasetIdString );
-    HookManager.callHook( PreUpdateHandler.class, "handlePreUpdate", new PreContext( catalogService, request, engine, datasetUri ) );
+    HookManager.callHook( PreUpdateHandler.class, "handlePreUpdate", new PreContext( catalogService, request, datasetUri ) );
     Model record = catalogService.updateDataset( datasetIdString );
     Model statements = buildModel( request, datasetUri );
     statements.addAll( record );
-    HookManager.callHook( AtUpdateHandler.class, "handleAtUpdate", new AtContext( catalogService, statements, engine, datasetUri ) );
-    engine.clearGraph( datasetUri );
-    engine.addStatements( statements, datasetUri );
+    HookManager.callHook( AtUpdateHandler.class, "handleAtUpdate", new AtContext( catalogService, statements, datasetUri ) );
+    Db.clearGraph( datasetUri );
+    Db.add( statements, datasetUri );
     ResponseFormatter formatter = new DatasetFormatter( JsonLdContext.getContextLocation() );
     Object compactedJsonLD = formatter.format( statements );
     ResponseEntity<Object> response = new ResponseEntity<Object>( compactedJsonLD, getHeaders(), HttpStatus.OK );
-    HookManager.callHook( PostUpdateHandler.class, "handlePostUpdate", new PostContext( catalogService, response, engine, datasetUri, statements ) );
-    engine.terminate();
+    HookManager.callHook( PostUpdateHandler.class, "handlePostUpdate", new PostContext( catalogService, response, datasetUri, statements ) );
     return response;
   }
 }

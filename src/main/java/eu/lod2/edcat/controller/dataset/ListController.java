@@ -3,12 +3,12 @@ package eu.lod2.edcat.controller.dataset;
 import eu.lod2.edcat.format.*;
 import eu.lod2.edcat.utils.JsonLdContext;
 import eu.lod2.edcat.utils.QueryResult;
-import eu.lod2.edcat.utils.SparqlEngine;
 import eu.lod2.hooks.contexts.PostListContext;
 import eu.lod2.hooks.contexts.PreListContext;
 import eu.lod2.hooks.handlers.dcat.PostListHandler;
 import eu.lod2.hooks.handlers.dcat.PreListHandler;
 import eu.lod2.hooks.util.HookManager;
+import eu.lod2.query.Db;
 import eu.lod2.query.Sparql;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
@@ -59,13 +59,11 @@ public class ListController extends DatasetController {
    * @throws Throwable Throws an exception if one of the hooks throws one.
    */
   public ResponseEntity<Object> list( HttpServletRequest request, ResponseFormatter formatter ) throws Throwable {
-    SparqlEngine engine = new SparqlEngine();
-    HookManager.callHook( PreListHandler.class, "handlePreList", new PreListContext( request, engine ) );
-    Model m = modelFromQueryResult( fetchDatasets( engine, (URI) Sparql.getClassMapVariable( "DEFAULT_CATALOG" ), request ) );
+    HookManager.callHook( PreListHandler.class, "handlePreList", new PreListContext( request ) );
+    Model m = modelFromQueryResult( fetchDatasets( (URI) Sparql.getClassMapVariable( "DEFAULT_CATALOG" ), request ) );
     Object body = formatter.format( m );
     ResponseEntity<Object> response = new ResponseEntity<Object>( body, getHeaders(), HttpStatus.OK );
-    HookManager.callHook( PostListHandler.class, "handlePostList", new PostListContext( response, engine ) );
-    engine.terminate();
+    HookManager.callHook( PostListHandler.class, "handlePostList", new PostListContext( response ) );
     return response;
   }
 
@@ -109,21 +107,19 @@ public class ListController extends DatasetController {
   /**
    * Fetches the information we want to list about the datasets.
    *
-   *
-   * @param engine  Connection to the RDF store for fetching information.
    * @param catalog CatalogService for which we want to list the DataSets.
    * @param request Request for which the dataset should be fetched (used for parametrization)
    * @return QueryResult containing the information we want to render out.
    * @see #modelFromQueryResult(eu.lod2.edcat.utils.QueryResult)
    */
-  private QueryResult fetchDatasets( SparqlEngine engine, URI catalog, HttpServletRequest request ) {
+  private QueryResult fetchDatasets( URI catalog, HttpServletRequest request ) {
     int pageSize = getPageSizeParameter( request );
     int pageNumber = getPageNumberParameter( request );
     int limit = pageSize;
     int offset = pageSize * pageNumber;
 
     // todo: this query selects the english title.  if neither the english title, an english description or an english themeLabel exists, this will only return the title.  That behaviour makes the subjected dataset hidden in the json output.  hence a 'best' title should be returned.  It is not possible to return all titles as that would break the semantics of the optional/limit (as it's implemented right at this time).
-    String query = Sparql.query( "" +
+    return Db.query( "" +
         " @PREFIX " +
         " SELECT DISTINCT ?dataset ?description ?title ?themeLabel " +
         " WHERE {" +
@@ -145,8 +141,6 @@ public class ListController extends DatasetController {
         "catalog", catalog,
         "limit", limit,
         "offset", offset );
-
-    return engine.sparqlSelect( query );
   }
 
   /**
@@ -154,7 +148,7 @@ public class ListController extends DatasetController {
    *
    * @param queryResults The answers received from the RDF store.
    * @return Model which can be converted to an output format for the end-user.
-   * @see #fetchDatasets(eu.lod2.edcat.utils.SparqlEngine, org.openrdf.model.URI, javax.servlet.http.HttpServletRequest)
+   * @see #fetchDatasets(org.openrdf.model.URI, javax.servlet.http.HttpServletRequest)
    */
   private Model modelFromQueryResult( QueryResult queryResults ) {
     Model statements = new LinkedHashModel();
