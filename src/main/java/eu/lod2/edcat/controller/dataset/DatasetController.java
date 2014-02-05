@@ -18,7 +18,7 @@ import java.io.InputStream;
 import java.util.UUID;
 
 public abstract class DatasetController {
-  protected static final String ROUTE = "datasets";
+  protected static final String ROUTE = "/catalogs/{catalogId}/datasets";
   protected static final String OBJECT_ROUTE = ROUTE + "/{datasetId}";
   Logger logger = LoggerFactory.getLogger(this.getClass());
   protected String datasetId;
