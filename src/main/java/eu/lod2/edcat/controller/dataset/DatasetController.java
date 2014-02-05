@@ -3,8 +3,8 @@ package eu.lod2.edcat.controller.dataset;
 import eu.lod2.edcat.utils.BlankNodeNuker;
 import eu.lod2.edcat.utils.DcatJsonParser;
 import eu.lod2.edcat.utils.JsonLdContext;
-import eu.lod2.edcat.utils.Vocabulary;
 import eu.lod2.hooks.handlers.dcat.ActionAbortException;
+import eu.lod2.query.Sparql;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
 import org.slf4j.Logger;
@@ -20,7 +20,7 @@ import java.util.UUID;
 public abstract class DatasetController {
   protected static final String ROUTE = "/catalogs/{catalogId}/datasets";
   protected static final String OBJECT_ROUTE = ROUTE + "/{datasetId}";
-  Logger logger = LoggerFactory.getLogger(this.getClass());
+  Logger logger = LoggerFactory.getLogger( this.getClass() );
   protected String datasetId;
 
   //* Returns default headers for the application. These headers should always be present
@@ -30,7 +30,9 @@ public abstract class DatasetController {
 
   protected Model buildModel( HttpServletRequest request, URI dataset ) throws Exception {
     InputStream in = request.getInputStream();
-    Model statements = DcatJsonParser.jsonLDToStatements( in, JsonLdContext.getContextLocation().toString(), dataset, Vocabulary.get( "Dataset" ) );
+    Model statements = DcatJsonParser.jsonLDToStatements(
+        in, JsonLdContext.getContextLocation().toString(),
+        dataset, Sparql.namespaced( "dcat", "Dataset" ) );
     BlankNodeNuker.nuke( statements );
     in.close();
     return statements;
@@ -41,15 +43,15 @@ public abstract class DatasetController {
   }
 
   @ExceptionHandler(ActionAbortException.class)
-  public ResponseEntity handleError(HttpServletRequest req, ActionAbortException exception) {
-    logger.error("Request: " + req.getRequestURL() + " raised " + exception);
+  public ResponseEntity handleError( HttpServletRequest req, ActionAbortException exception ) {
+    logger.error( "Request: " + req.getRequestURL() + " raised " + exception );
 
-    return new ResponseEntity<Object>(exception,exception.getStatus());
+    return new ResponseEntity<Object>( exception, exception.getStatus() );
   }
 
-  @SuppressWarnings({ "UnusedDeclaration" })
+  @SuppressWarnings({"UnusedDeclaration"})
   protected URI getDatasetIdFromRecord( Model record ) {
-    return record.filter( null, Vocabulary.get( "record.primaryTopic" ), null ).objectURI();
+    return record.filter( null, Sparql.namespaced( "foaf", "primaryTopic" ), null ).objectURI();
   }
 
 }
