@@ -1,13 +1,13 @@
 package eu.lod2.edcat.init;
 
 import eu.lod2.edcat.model.CatalogDTO;
-import eu.lod2.edcat.utils.SparqlEngine;
 import eu.lod2.hooks.contexts.CatalogInstallationContext;
 import eu.lod2.hooks.contexts.InstallationContext;
 import eu.lod2.hooks.handlers.dcat.ActionAbortException;
 import eu.lod2.hooks.handlers.dcat.CatalogInstallationHandler;
 import eu.lod2.hooks.handlers.dcat.InstallationHandler;
 import eu.lod2.hooks.util.HookManager;
+import eu.lod2.query.Db;
 import eu.lod2.query.Sparql;
 import org.apache.commons.logging.LogFactory;
 import org.openrdf.model.Model;
@@ -46,11 +46,8 @@ public class Installation {
    * Sets up a new DCAT installation.
    */
   public static void install() throws Throwable {
-    SparqlEngine engine = new SparqlEngine();
-
-    setupDatabase( engine );
-    setupCatalog( engine, CatalogDTO.example() );
-    engine.terminate();
+    setupDatabase();
+    setupCatalog( CatalogDTO.example() );
   }
 
   /**
@@ -58,13 +55,13 @@ public class Installation {
    *
    * @param catalog CatalogDTO representing the catalog.
    */
-  public static void setupCatalog( SparqlEngine engine, CatalogDTO catalog ) throws Throwable {
-    storeCatalog( engine, catalog );
+  public static void setupCatalog( CatalogDTO catalog ) throws Throwable {
+    storeCatalog( catalog );
 
     try {
       HookManager.callHook( CatalogInstallationHandler.class,
           "handleCatalogInstall",
-          new CatalogInstallationContext( engine, catalog.getUri() ) );
+          new CatalogInstallationContext( catalog.getUri() ) );
     } catch ( ActionAbortException aae ) {
       LogFactory.getLog( "setupCatalog" ).error( aae.getMessage() );
     }
@@ -75,11 +72,11 @@ public class Installation {
   /**
    * Injects the basic triples into the database, needed to get the base DCAT installation running.
    */
-  private static void setupDatabase( SparqlEngine engine ) throws Throwable {
-    storeBaseDatabase( engine );
+  private static void setupDatabase( ) throws Throwable {
+    storeBaseDatabase( );
 
     try {
-      HookManager.callHook( InstallationHandler.class, "handleInstall", new InstallationContext( engine ) );
+      HookManager.callHook( InstallationHandler.class, "handleInstall", new InstallationContext( ) );
     } catch ( ActionAbortException aae ) {
       LogFactory.getLog( "Installation" ).error( aae.getMessage() );
     }
@@ -87,10 +84,8 @@ public class Installation {
 
   /**
    * Imports the base Turtle graph into the database so the required structures are available.
-   *
-   * @param engine Engine with a connection to the RDF store in which we add the graph.
    */
-  private static void storeBaseDatabase( SparqlEngine engine ) {
+  private static void storeBaseDatabase( ) {
     // fetch file
     InputStream configFileInput = null;
     try {
@@ -101,7 +96,7 @@ public class Installation {
           (( URI ) Sparql.getClassMapVariable( "CONFIG_GRAPH" )).stringValue(),
           RDFFormat.TURTLE );
       // add statements
-      engine.addStatements( validationRules, ( URI ) Sparql.getClassMapVariable( "CONFIG_GRAPH" ) );
+      Db.add( validationRules, ( URI ) Sparql.getClassMapVariable( "CONFIG_GRAPH" ) );
       configFileInput.close();
       // catch any errors
     } catch ( IOException e ) {
@@ -126,16 +121,14 @@ public class Installation {
   /**
    * Sets up the config graph so it knows about the catalog.
    *
-   * @param engine  Engine with a connection to the RDF store in which we have to add the
-   *                identification of the catalog.
    * @param catalog CatalogDTO describing the new catalog
    */
-  private static void storeCatalog( SparqlEngine engine, CatalogDTO catalog ) {
+  private static void storeCatalog( CatalogDTO catalog ) {
     Model m = new LinkedHashModel();
     m.add( catalog.getUri(), Sparql.namespaced( "rdf", "type" ), Sparql.namespaced( "dcat", "Catalog" ) );
     m.add( catalog.getUri(), Sparql.namespaced( "dct", "identifier" ), new LiteralImpl( catalog.getIdentifier() ) );
     m.add( catalog.getUri(), Sparql.namespaced( "dct", "title" ), new LiteralImpl( catalog.getTitle() ) );
     m.add( catalog.getUri(), Sparql.namespaced( "foaf", "homepage" ), new LiteralImpl( catalog.getHomepage() ) );
-    engine.addStatements( m, ( URI ) Sparql.getClassMapVariable( "CONFIG_GRAPH" ) );
+    Db.add( m, ( URI ) Sparql.getClassMapVariable( "CONFIG_GRAPH" ) );
   }
 }
