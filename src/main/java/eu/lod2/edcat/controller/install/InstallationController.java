@@ -1,6 +1,6 @@
-package eu.lod2.edcat.init.controller;
+package eu.lod2.edcat.controller.install;
 
-import eu.lod2.edcat.init.Installation;
+import eu.lod2.edcat.model.Installation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

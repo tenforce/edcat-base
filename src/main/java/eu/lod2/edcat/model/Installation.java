@@ -1,6 +1,5 @@
-package eu.lod2.edcat.init;
+package eu.lod2.edcat.model;
 
-import eu.lod2.edcat.model.CatalogDTO;
 import eu.lod2.hooks.contexts.CatalogInstallationContext;
 import eu.lod2.hooks.contexts.InstallationContext;
 import eu.lod2.hooks.handlers.dcat.ActionAbortException;
@@ -127,7 +126,6 @@ public class Installation {
     Model m = new LinkedHashModel();
     m.add( catalog.getUri(), Sparql.namespaced( "rdf", "type" ), Sparql.namespaced( "dcat", "Catalog" ) );
     m.add( catalog.getUri(), Sparql.namespaced( "dct", "identifier" ), new LiteralImpl( catalog.getIdentifier() ) );
-    m.add( catalog.getUri(), Sparql.namespaced( "dct", "title" ), new LiteralImpl( catalog.getTitle() ) );
     m.add( catalog.getUri(), Sparql.namespaced( "foaf", "homepage" ), new LiteralImpl( catalog.getHomepage() ) );
     Db.add( m, ( URI ) Sparql.getClassMapVariable( "CONFIG_GRAPH" ) );
   }

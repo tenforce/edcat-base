@@ -10,13 +10,12 @@ public class CatalogDTO {
   public static CatalogDTO example() {
     CatalogDTO cat = new CatalogDTO();
     cat.setHomepage("http://www.tenforce.com/");
-    cat.setTitle("Tenforce Catalog");
     cat.setIdentifier(UUID.randomUUID().toString());
     cat.setUri(Sparql.namespaced("catalogs", cat.getIdentifier()));
     return cat;
   }
 
-  /* foaf:homepage of the catalog, the public URI to be used for smushing */
+  /* foaf:homepage of the catalog, the public derefencable URI to be used */
   private String homepage;
 
   /* internal identifier for the catalog */
@@ -24,17 +23,6 @@ public class CatalogDTO {
 
   /* resource uri for the catalog */
   private URI uri;
-
-  /* Catalog title */
-  private String title;
-
-  public String getTitle() {
-    return title;
-  }
-
-  public void setTitle(String title) {
-    this.title = title;
-  }
 
   public String getIdentifier() {
     return identifier;

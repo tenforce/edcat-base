@@ -1,6 +1,11 @@
 package eu.lod2.edcat.controller.dataset;
 
-import eu.lod2.edcat.format.*;
+import eu.lod2.edcat.format.DcatJsonFormatter;
+import eu.lod2.edcat.format.JsonLDFormatter;
+import eu.lod2.edcat.format.ResponseFormatter;
+import eu.lod2.edcat.format.TurtleFormatter;
+import eu.lod2.edcat.format.XMLRDFFormatter;
+import eu.lod2.edcat.utils.CatalogService;
 import eu.lod2.edcat.utils.JsonLdContext;
 import eu.lod2.edcat.utils.QueryResult;
 import eu.lod2.hooks.contexts.PostListContext;
@@ -32,22 +37,22 @@ public class ListController extends DatasetController {
 
   @RequestMapping( value = ROUTE, method = RequestMethod.GET, produces = "application/json;charset=UTF-8" )
   public ResponseEntity<Object> listJSON( HttpServletRequest request ) throws Throwable {
-    return list( request, new DcatJsonFormatter( JsonLdContext.getContextLocation() ) );
+    return list(request, new DcatJsonFormatter(JsonLdContext.getContextLocation()));
   }
 
   @RequestMapping( value = ROUTE, method = RequestMethod.GET, produces = "application/rdf+xml;charset=UTF-8" )
   public ResponseEntity<Object> listXML( HttpServletRequest request ) throws Throwable {
-    return list( request, new XMLRDFFormatter() );
+    return list(request, new XMLRDFFormatter());
   }
 
   @RequestMapping( value = ROUTE, method = RequestMethod.GET, produces = "text/turtle;charset=UTF-8" )
   public ResponseEntity<Object> listTurtle( HttpServletRequest request ) throws Throwable {
-    return list( request, new TurtleFormatter() );
+    return list(request, new TurtleFormatter());
   }
 
   @RequestMapping( value = ROUTE, method = RequestMethod.GET, produces = "application/ld+json;charset=UTF-8" )
   public ResponseEntity<Object> listJSONLD( HttpServletRequest request ) throws Throwable {
-    return list( request, new JsonLDFormatter( JsonLdContext.getContextLocation() ) );
+    return list(request, new JsonLDFormatter(JsonLdContext.getContextLocation()));
   }
 
   /**
@@ -60,7 +65,7 @@ public class ListController extends DatasetController {
    */
   public ResponseEntity<Object> list( HttpServletRequest request, ResponseFormatter formatter ) throws Throwable {
     HookManager.callHook( PreListHandler.class, "handlePreList", new PreListContext( request ) );
-    Model m = modelFromQueryResult( fetchDatasets( (URI) Sparql.getClassMapVariable( "DEFAULT_CATALOG" ), request ) );
+    Model m = modelFromQueryResult( fetchDatasets( CatalogService.getDefaultCatalog().getURI(), request ) );
     Object body = formatter.format( m );
     ResponseEntity<Object> response = new ResponseEntity<Object>( body, getHeaders(), HttpStatus.OK );
     HookManager.callHook( PostListHandler.class, "handlePostList", new PostListContext( response ) );
