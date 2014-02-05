@@ -52,19 +52,17 @@ public class CatalogService {
    */
   // todo: remove me
   public static CatalogService getDefaultCatalog( ) {
-//    String query = Sparql.query( "" +
-//        "@PREFIX " +
-//        "SELECT ?catalog" +
-//        " FROM @CONFIG_GRAPH " +
-//        "WHERE {" +
-//        " ?catalog a dcat:CatalogService" +
-//        "}" );
-//    QueryResult result = engine.sparqlSelect( query );
-//    if ( result.size() > 0 ) {
-//      String catalog = result.get( 0 ).get( "catalog" );
-//      return new CatalogService( engine, catalog );
-//    }
-
+    QueryResult result = Db.query( "" +
+        "@PREFIX " +
+        "SELECT ?catalog" +
+        " FROM @CONFIG_GRAPH " +
+        "WHERE {" +
+        " ?catalog a dcat:CatalogService" +
+        "}" );
+    if ( result.size() > 0 ) {
+      String catalog = result.get( 0 ).get( "catalog" );
+      return new CatalogService(  catalog );
+    }
     return new CatalogService( (( URI ) Sparql.getClassMapVariable( "DEFAULT_CATALOG" )).stringValue() );
   }
 
