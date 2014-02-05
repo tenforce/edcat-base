@@ -1,7 +1,5 @@
 package eu.lod2.hooks.contexts;
 
-import eu.lod2.edcat.utils.SparqlEngine;
-
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -14,11 +12,9 @@ public class PreListContext extends Context {
    * Constructs a new PreListContext with all fields set.
    *
    * @param request contains all information about the user's request.
-   * @param engine  connection to the RDF store.
    */
-  public PreListContext( HttpServletRequest request, SparqlEngine engine ) {
+  public PreListContext( HttpServletRequest request ) {
     this.request = request;
-    this.engine = engine;
   }
 
   /**
@@ -33,18 +29,5 @@ public class PreListContext extends Context {
   public HttpServletRequest getRequest() {
     return request;
   }
-
-  /**
-   * The SparqlEngine used for answering to the request.
-   */
-  private SparqlEngine engine;
-
-  /**
-   * Return the SparqlEngine used for answering to the request.
-   */
-  public SparqlEngine getEngine() {
-    return engine;
-  }
-
 
 }

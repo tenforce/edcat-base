@@ -1,5 +1,6 @@
 package eu.lod2.edcat.utils;
 
+import eu.lod2.query.Db;
 import eu.lod2.query.Sparql;
 import org.openrdf.model.Literal;
 import org.openrdf.model.Model;
@@ -21,12 +22,6 @@ public class CatalogService {
   // --- LOCAL VARIABLES
 
   /**
-   * The CatalogService has many methods which alter the database.  It uses this engine as a
-   * connection to the triple store.
-   */
-  private SparqlEngine engine;
-
-  /**
    * URI of the catalog.
    */
   private URI catalogUri;
@@ -44,22 +39,19 @@ public class CatalogService {
   /**
    * Constructs a new CatalogService with minimal information.
    *
-   * @param engine     Connection to the database used by the catalog.
    * @param catalogUri URI which this CatalogService manages.
    */
-  public CatalogService( SparqlEngine engine, String catalogUri ) {
-    this.engine = engine;
+  public CatalogService( String catalogUri ) {
     this.catalogUri = new URIImpl( catalogUri );
   }
 
   /**
    * Constructs a CatalogService which refers to the default catalog.
    *
-   * @param engine Connection to the database used by the catalog.
    * @return New CatalogService-object representing the default catalog.
    */
   // todo: remove me
-  public static CatalogService getDefaultCatalog( SparqlEngine engine ) {
+  public static CatalogService getDefaultCatalog( ) {
 //    String query = Sparql.query( "" +
 //        "@PREFIX " +
 //        "SELECT ?catalog" +
@@ -73,7 +65,7 @@ public class CatalogService {
 //      return new CatalogService( engine, catalog );
 //    }
 
-    return new CatalogService( engine, (( URI ) Sparql.getClassMapVariable( "DEFAULT_CATALOG" )).stringValue() );
+    return new CatalogService( (( URI ) Sparql.getClassMapVariable( "DEFAULT_CATALOG" )).stringValue() );
   }
 
 
@@ -119,13 +111,13 @@ public class CatalogService {
     statements.add( record, Vocabulary.get( "record.primaryTopic" ), dataset );
     statements.add( catalogUri, Vocabulary.get( "catalog.dataset" ), dataset );
     statements.add( catalogUri, Vocabulary.get( "catalog.record" ), record );
-    engine.addStatements( statements, catalogUri );
+    Db.add( statements, catalogUri );
     return statements;
   }
 
   @SuppressWarnings( "UnusedDeclaration" )
   public Model getRecord( String datasetId ) {
-    return engine.getStatements( generateRecordUri( datasetId ), null, null, true, catalogUri );
+    return Db.getStatements( generateRecordUri( datasetId ), null, null, true, catalogUri );
   }
 
   /**
@@ -139,7 +131,7 @@ public class CatalogService {
    */
   public Model updateDataset( String datasetId ) {
     URI record = generateRecordUri( datasetId );
-    engine.sparqlUpdate( Sparql.query( "" +
+    Db.update( Sparql.query( "" +
         " @PREFIX" +
         " DELETE WHERE" +
         " GRAPH $catalog {" +
@@ -150,8 +142,8 @@ public class CatalogService {
     Model statements = new LinkedHashModel();
     Literal now = ValueFactoryImpl.getInstance().createLiteral( new Date() );
     statements.add( record, DCTERMS.MODIFIED, now, catalogUri );
-    engine.addStatements( statements, catalogUri );
-    return engine.getStatements( record, null, null, true, catalogUri );
+    Db.add( statements, catalogUri );
+    return Db.getStatements( record, null, null, true, catalogUri );
   }
 
   /**
@@ -161,7 +153,7 @@ public class CatalogService {
    */
   // todo: shouldn't this remove the dataset and it's distributions as well?  the implementation does not fit the method name.
   public void removeDataset( String datasetId ) {
-    engine.sparqlUpdate( Sparql.query( "" +
+    Db.update( Sparql.query( "" +
         " @PREFIX" +
         " DELETE WHERE {" +
         "   GRAPH $catalog {" +

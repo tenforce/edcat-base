@@ -1,6 +1,5 @@
 package eu.lod2.hooks.contexts;
 
-import eu.lod2.edcat.utils.SparqlEngine;
 import org.openrdf.model.URI;
 
 /**
@@ -14,30 +13,14 @@ public class CatalogInstallationContext extends Context {
   /**
    * Constructs a new CatalogInstallationContext supplying all necessary information.
    *
-   * @param engine AccessPoint to the RDF store where the CatalogService information has been stored.
    * @param catalogURI URI containing the newly inserted catalog.
    */
   @SuppressWarnings( {"UnusedDeclaration"} )
-  public CatalogInstallationContext( SparqlEngine engine, URI catalogURI ) {
-    this.engine = engine;
+  public CatalogInstallationContext( URI catalogURI ) {
     this.catalogURI = catalogURI;
   }
 
   // --- ACCESSORS
-
-  /** Contains an access point to the RDF store */
-  private SparqlEngine engine;
-
-  /**
-   * Retrieves an access point to the RDF store.
-   *
-   * @return SparqlEngine which supplies access to the used RDF store.
-   */
-  @SuppressWarnings( {"UnusedDeclaration"} )
-  public SparqlEngine getEngine() {
-    return engine;
-  }
-
 
   /** Contains the URI of the newly created CatalogService */
   private URI catalogURI;

@@ -1,7 +1,6 @@
 package eu.lod2.hooks.contexts;
 
 import eu.lod2.edcat.utils.CatalogService;
-import eu.lod2.edcat.utils.SparqlEngine;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +23,8 @@ public class PostContext {
   /**
    * Constructs a new PostContext with all variables set.
    */
-  public PostContext( CatalogService catalogService, ResponseEntity<Object> response, SparqlEngine engine, URI datasetUri, Model statements ){
+  public PostContext( CatalogService catalogService, ResponseEntity<Object> response, URI datasetUri, Model statements ){
     this.catalogService = catalogService;
-    this.engine = engine;
     this.response = response;
     this.datasetUri = datasetUri;
     this.dataset = statements;
@@ -45,18 +43,6 @@ public class PostContext {
    */
   public CatalogService getCatalogService() {
     return catalogService;
-  }
-
-  /**
-   * The SparqlEngine used for fulfilling the request.
-   */
-  private SparqlEngine engine;
-
-  /**
-   * Engine used for retrieving and inserting data in the RDF store.
-   */
-  public SparqlEngine getEngine() {
-    return engine;
   }
 
   /**

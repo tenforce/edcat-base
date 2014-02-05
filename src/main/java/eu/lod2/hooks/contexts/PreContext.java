@@ -1,7 +1,6 @@
 package eu.lod2.hooks.contexts;
 
 import eu.lod2.edcat.utils.CatalogService;
-import eu.lod2.edcat.utils.SparqlEngine;
 import org.openrdf.model.URI;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,10 +23,9 @@ public class PreContext extends Context {
   /**
    * Constructs a new PreContext with all fields set.
    */
-  public PreContext( CatalogService catalogService, HttpServletRequest request, SparqlEngine engine, URI datasetUri ) {
+  public PreContext( CatalogService catalogService, HttpServletRequest request, URI datasetUri ) {
     this.catalogService = catalogService;
     this.request = request;
-    this.engine = engine;
     this.datasetUri = datasetUri;
   }
 
@@ -72,17 +70,6 @@ public class PreContext extends Context {
    */
   public HttpServletRequest getRequest() {
     return request;
-  }
-
-
-  /** The SparqlEngine used for answering to the request. */
-  private SparqlEngine engine;
-
-  /**
-   * Return the SparqlEngine used for answering to the request.
-   */
-  public SparqlEngine getEngine() {
-    return engine;
   }
 
 }

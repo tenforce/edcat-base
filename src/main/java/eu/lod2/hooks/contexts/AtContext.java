@@ -1,7 +1,6 @@
 package eu.lod2.hooks.contexts;
 
 import eu.lod2.edcat.utils.CatalogService;
-import eu.lod2.edcat.utils.SparqlEngine;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
 
@@ -21,10 +20,9 @@ public class AtContext extends Context {
   /**
    * Constructs a new PreContext with all fields set.
    */
-  public AtContext( CatalogService catalogService, Model statements, SparqlEngine engine, URI datasetUri ){
+  public AtContext( CatalogService catalogService, Model statements, URI datasetUri ){
     this.catalogService = catalogService;
     this.statements = statements;
-    this.engine = engine;
     this.datasetUri = datasetUri;
   }
 
@@ -54,19 +52,6 @@ public class AtContext extends Context {
    */
   public Model getStatements() {
     return statements;
-  }
-
-  /**
-   * Engine used for retrieving and inserting data in the RDF store.
-   */
-  private SparqlEngine engine;
-
-  /**
-   * Returns the engine used for retrieving and inserting data in the
-   * RDF store.
-   */
-  public SparqlEngine getEngine() {
-    return engine;
   }
 
   /** URI identifier for the DataSet which will be created. */
