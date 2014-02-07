@@ -2,7 +2,7 @@ package eu.lod2.edcat.controller.catalog;
 
 
 import com.github.jsonldjava.core.JsonLdError;
-import eu.lod2.edcat.format.DcatJsonFormatter;
+import eu.lod2.edcat.format.CompactedObjectFormatter;
 import eu.lod2.edcat.format.ResponseFormatter;
 import eu.lod2.edcat.model.Catalog;
 import eu.lod2.edcat.utils.JsonLD;
@@ -37,7 +37,7 @@ public class CreateController extends CatalogController {
     Model statements = catalog.getStatements();
     HookManager.callHook( AtCreateHandler.class, "handleAtCreate", new AtContext( catalog, statements ) );
     Db.add( statements );
-    ResponseFormatter formatter = new DcatJsonFormatter( jsonLdContext );
+    ResponseFormatter formatter = new CompactedObjectFormatter( jsonLdContext );
     Object compactedJsonLD = formatter.format( statements );
     ResponseEntity<Object> response = new ResponseEntity<Object>( compactedJsonLD, getHeaders(), HttpStatus.OK );
     HookManager.callHook( PostCreateHandler.class, "handlePostCreate", new PostContext( catalog, response, statements ) );

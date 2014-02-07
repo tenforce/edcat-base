@@ -24,7 +24,7 @@ public class ListController extends CatalogController {
 
   @RequestMapping( value = LIST_ROUTE, method = RequestMethod.GET, produces = "application/json;charset=UTF-8" )
   public ResponseEntity<Object> listJSON( HttpServletRequest request ) throws Throwable {
-    return list( request, new DcatJsonFormatter( jsonLdContext ) );
+    return list( request, new CompactedListFormatter( jsonLdContext ) );
   }
 
   @RequestMapping( value = LIST_ROUTE, method = RequestMethod.GET, produces = "application/rdf+xml;charset=UTF-8" )

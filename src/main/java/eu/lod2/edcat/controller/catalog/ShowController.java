@@ -1,6 +1,6 @@
 package eu.lod2.edcat.controller.catalog;
 
-import eu.lod2.edcat.format.DcatJsonFormatter;
+import eu.lod2.edcat.format.CompactedObjectFormatter;
 import eu.lod2.edcat.format.ResponseFormatter;
 import eu.lod2.edcat.model.Catalog;
 import eu.lod2.edcat.utils.JsonLdContext;
@@ -37,7 +37,7 @@ public class ShowController extends CatalogController {
     Catalog catalog = new Catalog( catalogId );
     HookManager.callHook( PreReadHandler.class, "handlePreRead", new PreContext( request, catalog.getUri() ) );
     Model statements = loadStatements( catalog );
-    ResponseFormatter formatter = new DcatJsonFormatter( new JsonLdContext( JsonLdContext.Kind.Catalog) );
+    ResponseFormatter formatter = new CompactedObjectFormatter( new JsonLdContext( JsonLdContext.Kind.Catalog ) );
     Object body = formatter.format( statements );
     ResponseEntity<Object> response = new ResponseEntity<Object>( body, getHeaders(), HttpStatus.OK );
     HookManager.callHook( PostReadHandler.class, "handlePostRead", new PostContext( catalog, response, statements ) );

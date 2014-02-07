@@ -32,9 +32,10 @@ import java.util.Map;
 @Controller
 public class ListController extends DatasetController {
 
-  @RequestMapping(value = LIST_ROUTE, method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+  @RequestMapping( value = LIST_ROUTE, method = RequestMethod.GET, produces = "application/json;charset=UTF-8" )
   public ResponseEntity<Object> listJSON( HttpServletRequest request, @PathVariable String catalogId ) throws Throwable {
-    return list( request, new DcatJsonFormatter( new JsonLdContext( kind ) ), catalogId );
+    JsonLdContext context = new JsonLdContext( JsonLdContext.Kind.Dataset );
+    return list(request, new CompactedListFormatter( context ), catalogId );
   }
 
   @RequestMapping(value = LIST_ROUTE, method = RequestMethod.GET, produces = "application/rdf+xml;charset=UTF-8")
