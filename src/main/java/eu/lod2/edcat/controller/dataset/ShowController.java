@@ -1,6 +1,7 @@
 package eu.lod2.edcat.controller.dataset;
 
 import eu.lod2.edcat.format.*;
+import eu.lod2.edcat.model.Catalog;
 import eu.lod2.edcat.utils.CatalogService;
 import eu.lod2.edcat.utils.JsonLdContext;
 import eu.lod2.hooks.contexts.PostContext;
@@ -25,37 +26,38 @@ public class ShowController extends DatasetController {
 
   // GET /datasets/{datasetId}
   @RequestMapping(value = OBJECT_ROUTE, method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
-  public ResponseEntity<Object> show( HttpServletRequest request, @PathVariable String datasetId ) throws Throwable {
+  public ResponseEntity<Object> show( HttpServletRequest request, @PathVariable String catalogId , @PathVariable String datasetId ) throws Throwable {
     this.datasetId = datasetId;
-    ResponseFormatter formatter = new DatasetFormatter( JsonLdContext.getContextLocation() );
-    return show(request, formatter);
+    ResponseFormatter formatter = new DatasetFormatter( new JsonLdContext( kind ) );
+    return show( request, formatter, catalogId );
   }
 
   // GET /datasets/{datasetId}
   @RequestMapping(value = OBJECT_ROUTE, method = RequestMethod.GET, produces = "application/ld+json;charset=UTF-8")
-  public ResponseEntity<Object> showLD( HttpServletRequest request, @PathVariable String datasetId ) throws Throwable {
+  public ResponseEntity<Object> showLD( HttpServletRequest request, @PathVariable String catalogId , @PathVariable String datasetId ) throws Throwable {
     this.datasetId = datasetId;
-    ResponseFormatter formatter =  new JsonLDFormatter( JsonLdContext.getContextLocation() );
-    return show(request, formatter);
+    ResponseFormatter formatter = new JsonLDFormatter();
+    return show( request, formatter, catalogId );
   }
 
   // GET /datasets/{datasetId}
   @RequestMapping(value = OBJECT_ROUTE, method = RequestMethod.GET, produces = "application/rdf+xml;charset=UTF-8")
-  public ResponseEntity<Object> showRDF( HttpServletRequest request, @PathVariable String datasetId ) throws Throwable {
+  public ResponseEntity<Object> showRDF( HttpServletRequest request, @PathVariable String catalogId , @PathVariable String datasetId ) throws Throwable {
     this.datasetId = datasetId;
     ResponseFormatter formatter = new XMLRDFFormatter();
-    return show( request, formatter );
+    return show( request, formatter, catalogId );
   }
 
   @RequestMapping(value = OBJECT_ROUTE, method = RequestMethod.GET, produces = "text/turtle;charset=UTF-8")
-  public ResponseEntity<Object> showTurtle( HttpServletRequest request, @PathVariable String datasetId ) throws Throwable {
+  public ResponseEntity<Object> showTurtle( HttpServletRequest request, @PathVariable String catalogId , @PathVariable String datasetId ) throws Throwable {
     this.datasetId = datasetId;
     ResponseFormatter formatter = new TurtleFormatter();
-    return show( request, formatter );
+    return show( request, formatter, catalogId );
   }
 
-  private ResponseEntity<Object> show( HttpServletRequest request, ResponseFormatter formatter ) throws Throwable {
-    CatalogService catalogService = CatalogService.getDefaultCatalog( );
+  private ResponseEntity<Object> show( HttpServletRequest request, ResponseFormatter formatter, String catalogId ) throws Throwable {
+    Catalog catalog = new Catalog( catalogId );
+    CatalogService catalogService = new CatalogService( catalog.getUri().stringValue() );
     URI datasetUri = catalogService.generateDatasetUri( datasetId );
     HookManager.callHook( PreReadHandler.class, "handlePreRead", new PreContext( catalogService, request, datasetUri ) );
     Model statements = Db.getStatements( datasetUri );

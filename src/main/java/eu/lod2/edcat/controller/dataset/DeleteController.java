@@ -1,5 +1,6 @@
 package eu.lod2.edcat.controller.dataset;
 
+import eu.lod2.edcat.model.Catalog;
 import eu.lod2.edcat.utils.CatalogService;
 import eu.lod2.hooks.contexts.PostContext;
 import eu.lod2.hooks.contexts.PreContext;
@@ -22,8 +23,9 @@ import java.util.HashMap;
 public class DeleteController extends DatasetController {
   // DELETE /datasets/{id}
   @RequestMapping(value = OBJECT_ROUTE, method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
-  public ResponseEntity<Object> destroy( HttpServletRequest request, @PathVariable String datasetId ) throws Throwable {
-    CatalogService catalogService = CatalogService.getDefaultCatalog( );
+  public ResponseEntity<Object> destroy( HttpServletRequest request, @PathVariable String catalogId, @PathVariable String datasetId ) throws Throwable {
+    Catalog catalog = new Catalog( catalogId );
+    CatalogService catalogService = new CatalogService( catalog.getUri().stringValue() );
     URI datasetUri = catalogService.generateDatasetUri( datasetId );
     HookManager.callHook( PreDestroyHandler.class, "handlePreDestroy", new PreContext( catalogService, request, datasetUri ) );
     Db.clearGraph( catalogService.generateDatasetUri( datasetId ) );

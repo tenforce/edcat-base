@@ -2,6 +2,7 @@ package eu.lod2.edcat.controller.dataset;
 
 import eu.lod2.edcat.format.DatasetFormatter;
 import eu.lod2.edcat.format.ResponseFormatter;
+import eu.lod2.edcat.model.Catalog;
 import eu.lod2.edcat.utils.CatalogService;
 import eu.lod2.edcat.utils.JsonLdContext;
 import eu.lod2.hooks.contexts.AtContext;
@@ -17,6 +18,7 @@ import org.openrdf.model.URI;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -26,21 +28,22 @@ import javax.servlet.http.HttpServletRequest;
 public class CreateController extends DatasetController {
 
   // POST /datasets
-  @RequestMapping(value = ROUTE, method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-  public ResponseEntity<Object> create(HttpServletRequest request) throws Throwable {
-    CatalogService catalogService = CatalogService.getDefaultCatalog( );
+  @RequestMapping(value = LIST_ROUTE, method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+  public ResponseEntity<Object> create( HttpServletRequest request, @PathVariable String catalogId  ) throws Throwable {
+    Catalog catalog = new Catalog( catalogId );
+    CatalogService service = new CatalogService( catalog.getUri().stringValue() );
     String datasetBaseId = getId();
-    URI datasetUri = catalogService.generateDatasetUri(datasetBaseId);
-    HookManager.callHook(PreCreateHandler.class, "handlePreCreate", new PreContext( catalogService, request, datasetUri));
-    Model record = catalogService.insertDataset(datasetBaseId);
-    Model statements = buildModel(request, datasetUri);
-    HookManager.callHook(AtCreateHandler.class, "handleAtCreate", new AtContext( catalogService, statements, datasetUri));
+    URI datasetUri = service.generateDatasetUri( datasetBaseId );
+    HookManager.callHook( PreCreateHandler.class, "handlePreCreate", new PreContext( service, request, datasetUri ) );
+    Model record = service.insertDataset( datasetBaseId );
+    Model statements = buildModel( request, datasetUri );
+    HookManager.callHook( AtCreateHandler.class, "handleAtCreate", new AtContext( service, statements, datasetUri ) );
     Db.add( statements, datasetUri );
-    statements.addAll(record);
-    ResponseFormatter formatter = new DatasetFormatter( JsonLdContext.getContextLocation() );
+    statements.addAll( record );
+    ResponseFormatter formatter = new DatasetFormatter( new JsonLdContext( kind ) );
     Object compactedJsonLD = formatter.format( statements );
-    ResponseEntity<Object> response = new ResponseEntity<Object>(compactedJsonLD, getHeaders(), HttpStatus.OK);
-    HookManager.callHook(PostCreateHandler.class, "handlePostCreate", new PostContext( catalogService, response, datasetUri, statements));
+    ResponseEntity<Object> response = new ResponseEntity<Object>( compactedJsonLD, getHeaders(), HttpStatus.OK );
+    HookManager.callHook( PostCreateHandler.class, "handlePostCreate", new PostContext( service, response, datasetUri, statements ) );
     return response;
   }
 }

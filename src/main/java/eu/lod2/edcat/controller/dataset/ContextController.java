@@ -14,10 +14,10 @@ import java.io.InputStream;
 public class ContextController {
 
   // GET /context.jsonld
-  @RequestMapping(value = "context.jsonld", method = RequestMethod.GET)
+  @RequestMapping(value = "contexts/{kind}.jsonld", method = RequestMethod.GET)
   @ResponseBody
-  public void getContext(HttpServletResponse response) throws Throwable {
-    InputStream contextIn = JsonLdContext.getContextLocation().openStream();
+  public void getContext( HttpServletResponse response , String kind ) throws Throwable {
+    InputStream contextIn = JsonLdContext.getContextLocation( kind ).openStream();
     String contextString = IOUtils.toString( contextIn, "UTF-8" );
     contextIn.close();
     response.setStatus( 200 );

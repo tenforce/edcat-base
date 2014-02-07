@@ -1,11 +1,7 @@
 package eu.lod2.edcat.controller.dataset;
 
-import eu.lod2.edcat.format.DcatJsonFormatter;
-import eu.lod2.edcat.format.JsonLDFormatter;
-import eu.lod2.edcat.format.ResponseFormatter;
-import eu.lod2.edcat.format.TurtleFormatter;
-import eu.lod2.edcat.format.XMLRDFFormatter;
-import eu.lod2.edcat.utils.CatalogService;
+import eu.lod2.edcat.format.*;
+import eu.lod2.edcat.model.Catalog;
 import eu.lod2.edcat.utils.JsonLdContext;
 import eu.lod2.edcat.utils.QueryResult;
 import eu.lod2.hooks.contexts.PostListContext;
@@ -23,6 +19,7 @@ import org.openrdf.model.impl.URIImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -35,24 +32,24 @@ import java.util.Map;
 @Controller
 public class ListController extends DatasetController {
 
-  @RequestMapping( value = ROUTE, method = RequestMethod.GET, produces = "application/json;charset=UTF-8" )
-  public ResponseEntity<Object> listJSON( HttpServletRequest request ) throws Throwable {
-    return list(request, new DcatJsonFormatter(JsonLdContext.getContextLocation()));
+  @RequestMapping(value = LIST_ROUTE, method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+  public ResponseEntity<Object> listJSON( HttpServletRequest request, @PathVariable String catalogId ) throws Throwable {
+    return list( request, new DcatJsonFormatter( new JsonLdContext( kind ) ), catalogId );
   }
 
-  @RequestMapping( value = ROUTE, method = RequestMethod.GET, produces = "application/rdf+xml;charset=UTF-8" )
-  public ResponseEntity<Object> listXML( HttpServletRequest request ) throws Throwable {
-    return list(request, new XMLRDFFormatter());
+  @RequestMapping(value = LIST_ROUTE, method = RequestMethod.GET, produces = "application/rdf+xml;charset=UTF-8")
+  public ResponseEntity<Object> listXML( HttpServletRequest request, @PathVariable String catalogId ) throws Throwable {
+    return list( request, new XMLRDFFormatter(), catalogId );
   }
 
-  @RequestMapping( value = ROUTE, method = RequestMethod.GET, produces = "text/turtle;charset=UTF-8" )
-  public ResponseEntity<Object> listTurtle( HttpServletRequest request ) throws Throwable {
-    return list(request, new TurtleFormatter());
+  @RequestMapping(value = LIST_ROUTE, method = RequestMethod.GET, produces = "text/turtle;charset=UTF-8")
+  public ResponseEntity<Object> listTurtle( HttpServletRequest request, @PathVariable String catalogId ) throws Throwable {
+    return list( request, new TurtleFormatter(), catalogId );
   }
 
-  @RequestMapping( value = ROUTE, method = RequestMethod.GET, produces = "application/ld+json;charset=UTF-8" )
-  public ResponseEntity<Object> listJSONLD( HttpServletRequest request ) throws Throwable {
-    return list(request, new JsonLDFormatter(JsonLdContext.getContextLocation()));
+  @RequestMapping(value = LIST_ROUTE, method = RequestMethod.GET, produces = "application/ld+json;charset=UTF-8")
+  public ResponseEntity<Object> listJSONLD( HttpServletRequest request, @PathVariable String catalogId ) throws Throwable {
+    return list( request, new JsonLDFormatter(), catalogId );
   }
 
   /**
@@ -63,9 +60,10 @@ public class ListController extends DatasetController {
    * @return Response which can be sent to the user.
    * @throws Throwable Throws an exception if one of the hooks throws one.
    */
-  public ResponseEntity<Object> list( HttpServletRequest request, ResponseFormatter formatter ) throws Throwable {
+  public ResponseEntity<Object> list( HttpServletRequest request, ResponseFormatter formatter, String catalogId ) throws Throwable {
     HookManager.callHook( PreListHandler.class, "handlePreList", new PreListContext( request ) );
-    Model m = modelFromQueryResult( fetchDatasets( CatalogService.getDefaultCatalog().getURI(), request ) );
+    Catalog catalog = new Catalog( catalogId );
+    Model m = modelFromQueryResult( fetchDatasets( catalog.getUri(), request ) );
     Object body = formatter.format( m );
     ResponseEntity<Object> response = new ResponseEntity<Object>( body, getHeaders(), HttpStatus.OK );
     HookManager.callHook( PostListHandler.class, "handlePostList", new PostListContext( response ) );
@@ -78,7 +76,7 @@ public class ListController extends DatasetController {
    *
    * @return Supplied or default int for the pageNumber parameter.
    */
-  private int getPageNumberParameter( HttpServletRequest request ){
+  private int getPageNumberParameter( HttpServletRequest request ) {
     return getIntParameter( request, "page", 0 );
   }
 
@@ -88,23 +86,23 @@ public class ListController extends DatasetController {
    *
    * @return Supplied or default int for the pageSize parameter.
    */
-  private int getPageSizeParameter( HttpServletRequest request ){
+  private int getPageSizeParameter( HttpServletRequest request ) {
     return getIntParameter( request, "pageSize", 100 );
   }
 
   /**
    * Retrieves the value of an integer parameter in the request.
    *
-   * @param request Request which contains the parameter.
-   * @param name Name of the supplied parameter.
+   * @param request      Request which contains the parameter.
+   * @param name         Name of the supplied parameter.
    * @param defaultValue Value which is to be returned if the value couldn't be converted to an
    *                     integer or if no value was supplied.
    * @return integer containing the value for the get parameter with name {@code name}.
    */
-  private int getIntParameter( HttpServletRequest request, String name, int defaultValue ){
+  private int getIntParameter( HttpServletRequest request, String name, int defaultValue ) {
     try {
       return Integer.parseInt( request.getParameter( name ) );
-    } catch( Exception e ) {
+    } catch ( Exception e ) {
       return defaultValue;
     }
   }
@@ -162,26 +160,26 @@ public class ListController extends DatasetController {
       URI dataset = new URIImpl( result.get( "dataset" ) );
       if ( result.containsKey( "description" ) )
         statements.add(
-          dataset,
-          Sparql.namespaced( "dct", "description" ),
-          new LiteralImpl( result.get( "description" ) ),
+            dataset,
+            Sparql.namespaced( "dct", "description" ),
+            new LiteralImpl( result.get( "description" ) ),
           /* unused uri */ dataset );
       if ( result.containsKey( "title" ) )
         statements.add(
-          dataset,
-          Sparql.namespaced( "dct", "title" ),
-          new LiteralImpl( result.get( "title" ) ),
+            dataset,
+            Sparql.namespaced( "dct", "title" ),
+            new LiteralImpl( result.get( "title" ) ),
           /* unused uri */ dataset );
       if ( result.containsKey( "theme" ) ) {
         statements.add(
-          dataset,
-          Sparql.namespaced( "dcat", "theme" ),
-          new URIImpl( result.get( "theme" ) ),
+            dataset,
+            Sparql.namespaced( "dcat", "theme" ),
+            new URIImpl( result.get( "theme" ) ),
           /* unused uri */ dataset );
         statements.add(
-          dataset,
-          Sparql.namespaced( "skos", "prefLabel" ),
-          new LiteralImpl( result.get( "themeLabel" ) ),
+            dataset,
+            Sparql.namespaced( "skos", "prefLabel" ),
+            new LiteralImpl( result.get( "themeLabel" ) ),
           /* unused uri */ dataset );
       }
     }

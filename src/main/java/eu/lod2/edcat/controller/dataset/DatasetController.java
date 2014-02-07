@@ -18,10 +18,27 @@ import java.io.InputStream;
 import java.util.UUID;
 
 public abstract class DatasetController {
-  protected static final String ROUTE = "/catalogs/{catalogId}/datasets";
-  protected static final String OBJECT_ROUTE = ROUTE + "/{datasetId}";
+  /** Logging aid */
   Logger logger = LoggerFactory.getLogger( this.getClass() );
+
+  /** Id of the current dataset, retrieve through {@link #getId()}. */
   protected String datasetId;
+
+  /** Kind of object used by the JsonLdContext */
+  static JsonLdContext.Kind kind = JsonLdContext.Kind.Dataset;
+
+
+  // --- ROUTING
+
+  /** list datasets route */
+  protected static final String LIST_ROUTE = "/catalogs/{catalogId}/datasets";
+
+  /** show dataset route */
+  protected static final String OBJECT_ROUTE = LIST_ROUTE + "/{datasetId}";
+
+
+  // --- HELPERS
+
 
   //* Returns default headers for the application. These headers should always be present
   protected HttpHeaders getHeaders() throws Exception {
@@ -31,9 +48,9 @@ public abstract class DatasetController {
   protected Model buildModel( HttpServletRequest request, URI dataset ) throws Exception {
     InputStream in = request.getInputStream();
     Model statements = DcatJsonParser.jsonLDToStatements(
-        in, JsonLdContext.getContextLocation().toString(),
+        in, new JsonLdContext( kind ),
         dataset, Sparql.namespaced( "dcat", "Dataset" ) );
-    BlankNodeNuker.nuke( statements );
+    BlankNodeNuker.nuke( statements, kind );
     in.close();
     return statements;
   }

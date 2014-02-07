@@ -2,6 +2,7 @@ package eu.lod2.edcat.controller.dataset;
 
 import eu.lod2.edcat.format.DatasetFormatter;
 import eu.lod2.edcat.format.ResponseFormatter;
+import eu.lod2.edcat.model.Catalog;
 import eu.lod2.edcat.utils.CatalogService;
 import eu.lod2.edcat.utils.JsonLdContext;
 import eu.lod2.hooks.contexts.AtContext;
@@ -26,10 +27,11 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class UpdateController extends DatasetController {
   // PUT /datasets/{id}
-  @RequestMapping(value = OBJECT_ROUTE, method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
-  public ResponseEntity<Object> update( HttpServletRequest request, @PathVariable String datasetId ) throws Throwable {
+  @RequestMapping( value = OBJECT_ROUTE, method = RequestMethod.PUT, produces = "application/json;charset=UTF-8" )
+  public ResponseEntity<Object> update( HttpServletRequest request, @PathVariable String catalogId, @PathVariable String datasetId ) throws Throwable {
     this.datasetId = datasetId;
-    CatalogService catalogService = CatalogService.getDefaultCatalog( );
+    Catalog catalog = new Catalog( catalogId );
+    CatalogService catalogService = new CatalogService( catalog.getUri().stringValue() );
     String datasetIdString = getId();
     URI datasetUri = catalogService.generateDatasetUri( datasetIdString );
     HookManager.callHook( PreUpdateHandler.class, "handlePreUpdate", new PreContext( catalogService, request, datasetUri ) );
@@ -39,7 +41,7 @@ public class UpdateController extends DatasetController {
     HookManager.callHook( AtUpdateHandler.class, "handleAtUpdate", new AtContext( catalogService, statements, datasetUri ) );
     Db.clearGraph( datasetUri );
     Db.add( statements, datasetUri );
-    ResponseFormatter formatter = new DatasetFormatter( JsonLdContext.getContextLocation() );
+    ResponseFormatter formatter = new DatasetFormatter( new JsonLdContext( kind ) );
     Object compactedJsonLD = formatter.format( statements );
     ResponseEntity<Object> response = new ResponseEntity<Object>( compactedJsonLD, getHeaders(), HttpStatus.OK );
     HookManager.callHook( PostUpdateHandler.class, "handlePostUpdate", new PostContext( catalogService, response, datasetUri, statements ) );
