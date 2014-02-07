@@ -2,7 +2,7 @@ package eu.lod2.edcat.utils;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,8 +24,16 @@ public class DcatJsonCompacter {
     this.context = new JsonLdContext( context );
   }
 
+  public List<Map<String, Object>> compact (List<Map<String,Object>> list) {
+    List<Map<String,Object>> compactedList = new ArrayList<Map<String,Object>>(list.size());
+    for(Map<String,Object> map : list) {
+      compactedList.add(compact(map));
+    }
+    return compactedList;
+  }
+
   public Map<String, Object> compact( Map<String, Object> map ) {
-    Map<String, Object> reversedMap = new LinkedHashMap<String, Object>( map.size() );
+    Map<String, Object> reversedMap = new HashMap<String, Object>( map.size() );
     Map<String, String> reverseContext = context.getReverseKeywordMap();
     for ( String key : map.keySet() ) {
       Object o = map.get( key );

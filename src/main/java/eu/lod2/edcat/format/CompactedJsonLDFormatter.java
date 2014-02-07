@@ -9,31 +9,36 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DcatJsonFormatter implements ResponseFormatter {
+public abstract class CompactedJsonLDFormatter implements ResponseFormatter {
 
   /** Context by the triples will be encoded */
   protected JsonLdContext context;
+  public static final String URI_KEY = "uri";
 
   /**
    * Simple constructor
    *
    * @param context Context with respect to which the triples should be encoded.
    */
-  public DcatJsonFormatter(JsonLdContext context){
+  public CompactedJsonLDFormatter(JsonLdContext context){
     this.context = context;
   }
 
+  public CompactedJsonLDFormatter(){
+  }
+
   @Override
-  public Map<String,Object> format(Model statements) throws FormatException {
-    Map<String, Object> graph = new HashMap<String, Object>();
+  public Object format(Model statements) throws FormatException {
+    List<Map<String,Object>> graph = new ArrayList<Map<String,Object>>();
     for (Resource topNode : getTopNodes(statements)) {
-      graph.put(topNode.stringValue(), buildGraph(topNode, "", statements));
+      Map<String,Object> resource = buildGraph(topNode, "", statements);
+      resource.put(URI_KEY,topNode);
+      graph.add(resource);
     }
     if( context != null ) {
       DcatJsonCompacter compacter = new DcatJsonCompacter( context );
       graph = compacter.compact( graph );
     }
-
     return graph;
   }
 
@@ -44,7 +49,7 @@ public class DcatJsonFormatter implements ResponseFormatter {
       Value val = s.getObject();
       if (resourceIsDefinedInStatements(statements, val)) {
         Map<String, Object> subNode = buildGraph((Resource) val, shortNameFor(s.getPredicate(), parentShortName), statements);
-        subNode.put("uri",val.stringValue()) ; // TODO: hardcoded value
+        subNode.put(URI_KEY,val.stringValue()) ;
         graph.put(shortNameFor(s.getPredicate()), subNode);
       } else
         graph.put(shortNameFor(s.getPredicate()), val);

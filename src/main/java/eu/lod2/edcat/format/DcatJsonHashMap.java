@@ -4,10 +4,10 @@ import org.openrdf.model.Literal;
 import org.openrdf.model.Value;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 
-public class DcatJsonHashMap extends LinkedHashMap<String, Object> {
+public class DcatJsonHashMap extends HashMap<String, Object> {
   /**
    * Associates the specified newValue with the specified key in this map.
    * If the map previously contained a mapping for the key,
