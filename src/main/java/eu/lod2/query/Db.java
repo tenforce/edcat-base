@@ -6,7 +6,9 @@ import org.openrdf.model.Model;
 import org.openrdf.model.Resource;
 import org.openrdf.model.URI;
 import org.openrdf.model.Value;
+import org.openrdf.query.BindingSet;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -58,6 +60,45 @@ public class Db {
   }
 
   /**
+   * Performs a SPARQL query on the engine and returns the raw BindingSets.
+   * <p/>
+   * The query is built using {@link Sparql#query(String, Object...)}.
+   * The built query is executed using {@link SparqlEngine#sparqlRawSelect(String)}.
+   *
+   * @param query SPARQL query template.
+   * @param args  SPARQL query template parameters.
+   * @return List containing one BindingSet per match.
+   * @see eu.lod2.edcat.utils.SparqlEngine#sparqlRawSelect(String)
+   */
+  public static List<BindingSet> rawQuery( String query, Object... args ) {
+    SparqlEngine engine = singleton.retrieve();
+    try {
+      return engine.sparqlRawSelect( Sparql.query( query, args ) );
+    } finally {
+      singleton.release( engine );
+    }
+  }
+
+  /**
+   * Performs a SPARQL construct on the engine and returns a Model containing the statements.
+   * <p/>
+   * The query is built using {@link Sparql#query(String, Object...)}.
+   * The built query is executed using {@link SparqlEngine#sparqlModelConstruct(String)}.
+   *
+   * @param query SPARQL query template.
+   * @param args  SPARQL query template parameters.
+   * @return Model containing the resulting triples.
+   */
+  public static Model construct( String query, Object... args ) {
+    SparqlEngine engine = singleton.retrieve();
+    try {
+      return engine.sparqlModelConstruct( Sparql.query( query, args ) );
+    } finally {
+      singleton.release( engine );
+    }
+  }
+
+  /**
    * Executes a Sparql update query.
    * <p/>
    * The query is built using {@link Sparql#query(String, Object...)}.
@@ -81,7 +122,7 @@ public class Db {
    * Dispatches to {@link SparqlEngine#addStatements(org.openrdf.model.Model,
    * org.openrdf.model.Resource...)}
    */
-  public static void add( Model statements, Resource contexts ) {
+  public static void add( Model statements, Resource... contexts ) {
     SparqlEngine engine = singleton.retrieve();
     try {
       engine.addStatements( statements, contexts );
@@ -92,12 +133,12 @@ public class Db {
 
   /**
    * Clears a graph in the store.
-   *
+   * <p/>
    * Dispatches to {@link SparqlEngine#clearGraph(org.openrdf.model.URI)}.
    *
    * @param graph
    */
-  public static void clearGraph( URI graph ){
+  public static void clearGraph( URI graph ) {
     SparqlEngine engine = singleton.retrieve();
     try {
       engine.clearGraph( graph );

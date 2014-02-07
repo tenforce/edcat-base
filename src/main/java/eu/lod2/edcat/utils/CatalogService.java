@@ -76,7 +76,7 @@ public class CatalogService {
    * @return URI which may be used by the new Dataset.
    */
   public URI generateDatasetUri( String datasetId ) {
-    return buildURI( catalogUri.stringValue(), "dataset", datasetId );
+    return buildURI( catalogUri.stringValue(), "datasets", datasetId );
   }
 
   /**
@@ -86,7 +86,7 @@ public class CatalogService {
    * @return URI for the Record connecting to this Catalog.
    */
   public URI generateRecordUri( String datasetId ) {
-    return buildURI( catalogUri.stringValue(), "record", datasetId );
+    return buildURI( catalogUri.stringValue(), "records", datasetId );
   }
 
 
@@ -131,9 +131,14 @@ public class CatalogService {
     URI record = generateRecordUri( datasetId );
     Db.update( Sparql.query( "" +
         " @PREFIX" +
-        " DELETE WHERE" +
-        " GRAPH $catalog {" +
-        "   $record dct:modified ?modified" +
+        " DELETE {" +
+        "   GRAPH $catalog {" +
+        "     $record dct:modified ?modified" +
+        "   }" +
+        " } WHERE {" +
+        "   GRAPH $catalog {" +
+        "     $record dct:modified ?modified" +
+        "   }" +
         " }",
         "catalog", catalogUri,
         "record", record ) );

@@ -1,5 +1,6 @@
 package eu.lod2.edcat.utils;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -10,8 +11,17 @@ public class DcatJsonCompacter {
   /** JsonLdContext used for compacting */
   private JsonLdContext context;
 
-  public DcatJsonCompacter() {
-    this.context = new JsonLdContext();
+  public DcatJsonCompacter( JsonLdContext.Kind kind ) {
+    this.context = new JsonLdContext( kind );
+  }
+
+  public DcatJsonCompacter( JsonLdContext context ) {
+    this.context = context;
+  }
+
+  @SuppressWarnings( "UnusedDeclaration" )
+  public DcatJsonCompacter( URL context ){
+    this.context = new JsonLdContext( context );
   }
 
   public Map<String, Object> compact( Map<String, Object> map ) {

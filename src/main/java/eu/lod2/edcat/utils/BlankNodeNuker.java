@@ -22,10 +22,12 @@ public class BlankNodeNuker {
    * Constructs a new BlankNodeNuker
    *
    * @param model Contains all statements in which we will try to nuke the blank nodes.
+   * @param kind  Contextual kind based on which the nodes will be nuked.  This calculates the
+   *              paths.
    */
-  private BlankNodeNuker( Model model ) {
+  private BlankNodeNuker( Model model, JsonLdContext.Kind kind ) {
     this.model = model;
-    this.ldContext = new JsonLdContext();
+    this.ldContext = new JsonLdContext( kind );
   }
 
   /**
@@ -33,8 +35,8 @@ public class BlankNodeNuker {
    *
    * @param model Model of which we will nuke the blank nodes.
    */
-  public static void nuke( Model model ) {
-    (new BlankNodeNuker( model )).nukeBlankNodes();
+  public static void nuke( Model model , JsonLdContext.Kind kind ) {
+    (new BlankNodeNuker( model , kind )).nukeBlankNodes();
   }
 
   /**
@@ -52,7 +54,7 @@ public class BlankNodeNuker {
         Resource target = s.getSubject();
         // if the triple is a blank node
         if ( target instanceof BNode
-            && model.contains( s.getSubject() , s.getPredicate() , s.getObject() ) ) {
+            && model.contains( s.getSubject(), s.getPredicate(), s.getObject() ) ) {
           // find a connection which refers to our blank node through a predicate known by the jsonLdContext
           for ( Statement nameConnection : walkingModel.filter( null, null, s.getSubject() ) ) {
             Resource connectingSubject = nameConnection.getSubject();

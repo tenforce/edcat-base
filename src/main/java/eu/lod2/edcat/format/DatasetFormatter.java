@@ -1,15 +1,15 @@
 package eu.lod2.edcat.format;
 
 import eu.lod2.edcat.utils.DatasetResponseBuilder;
+import eu.lod2.edcat.utils.JsonLdContext;
 import org.openrdf.model.Model;
 
-import java.net.URL;
 import java.util.Map;
 
 public class DatasetFormatter extends DcatJsonFormatter {
 
-  public DatasetFormatter( URL url ){
-    super( url );
+  public DatasetFormatter( JsonLdContext context ){
+    super( context );
   }
 
   @Override

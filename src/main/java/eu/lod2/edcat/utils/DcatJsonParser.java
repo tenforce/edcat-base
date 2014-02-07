@@ -3,7 +3,6 @@ package eu.lod2.edcat.utils;
 import com.github.jsonldjava.core.JsonLdError;
 import com.github.jsonldjava.core.JsonLdOptions;
 import com.github.jsonldjava.core.JsonLdProcessor;
-import com.github.jsonldjava.sesame.SesameRDFParser;
 import com.github.jsonldjava.sesame.SesameTripleCallback;
 import com.github.jsonldjava.utils.JSONUtils;
 import org.openrdf.model.Model;
@@ -11,20 +10,22 @@ import org.openrdf.model.URI;
 import org.openrdf.model.impl.LinkedHashModel;
 import org.openrdf.model.impl.ValueFactoryImpl;
 import org.openrdf.rio.ParserConfig;
-import org.openrdf.rio.RDFHandlerException;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.Map;
 
 public class DcatJsonParser {
-  public static Model jsonLDToStatements( InputStream inputStream, String contextUri, URI id, URI type ) throws IOException, JsonLdError {
-    Map json = convertToJsonMap( inputStream );
+
+  public static Model jsonLDToStatements( InputStream inputStream, JsonLdContext context, URI id, URI type ) throws IOException, JsonLdError {
+    return jsonLDToStatements( convertToJsonMap( inputStream ), context, id, type );
+  }
+
+  public static Model jsonLDToStatements( Map json , JsonLdContext context, URI id, URI type ) throws IOException, JsonLdError {
     // TODO: detect existing value and merge (for type) or keep it
-    json.put( "@context", contextUri );
+    json.put( "@context", context.getMarshaledJsonLdContext() );
     json.put( "@id", id.stringValue() );
-    json.put( "@type", type.stringValue() );
+    json.put( "@type", type.stringValue() ); // todo: remove this once Dataset doesn't use it anymore
 
     JsonDatePreProcessor.preProcess( json );
     DcatRDFHandler rdfHandler = new DcatRDFHandler();
@@ -40,9 +41,5 @@ public class DcatJsonParser {
       throw new IllegalArgumentException( "could not convert json to object" );
 
     return ( Map ) json;
-  }
-
-  public static Object statementsToJsonLD( Model statements, URL context ) throws RDFHandlerException, IOException, JsonLdError {
-    return JsonLdProcessor.fromRDF( statements, new SesameRDFParser() );
   }
 }

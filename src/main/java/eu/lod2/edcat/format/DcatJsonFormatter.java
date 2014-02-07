@@ -1,9 +1,9 @@
 package eu.lod2.edcat.format;
 
 import eu.lod2.edcat.utils.DcatJsonCompacter;
+import eu.lod2.edcat.utils.JsonLdContext;
 import org.openrdf.model.*;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,13 +11,16 @@ import java.util.Map;
 
 public class DcatJsonFormatter implements ResponseFormatter {
 
-  protected URL context;
+  /** Context by the triples will be encoded */
+  protected JsonLdContext context;
 
-  public DcatJsonFormatter(URL context){
+  /**
+   * Simple constructor
+   *
+   * @param context Context with respect to which the triples should be encoded.
+   */
+  public DcatJsonFormatter(JsonLdContext context){
     this.context = context;
-  }
-
-  public DcatJsonFormatter(){
   }
 
   @Override
@@ -27,9 +30,10 @@ public class DcatJsonFormatter implements ResponseFormatter {
       graph.put(topNode.stringValue(), buildGraph(topNode, "", statements));
     }
     if( context != null ) {
-      DcatJsonCompacter compacter = new DcatJsonCompacter( );
+      DcatJsonCompacter compacter = new DcatJsonCompacter( context );
       graph = compacter.compact( graph );
     }
+
     return graph;
   }
 

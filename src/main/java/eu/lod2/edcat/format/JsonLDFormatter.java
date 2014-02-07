@@ -1,20 +1,19 @@
 package eu.lod2.edcat.format;
 
 import com.github.jsonldjava.core.JsonLdError;
-import eu.lod2.edcat.utils.DcatJsonParser;
+import com.github.jsonldjava.core.JsonLdProcessor;
+import com.github.jsonldjava.sesame.SesameRDFParser;
 import org.openrdf.model.Model;
 import org.openrdf.rio.RDFHandlerException;
 
 import java.io.IOException;
-import java.net.URL;
 
 public class JsonLDFormatter implements ResponseFormatter {
 
-  private URL context;
-
-  public JsonLDFormatter(URL context) {
-    this.context = context;
-  }
+  /**
+   * Simple constructor.
+   */
+  public JsonLDFormatter( ){ }
 
   @Override
   public Object format(Model statements) throws FormatException {
@@ -25,11 +24,7 @@ public class JsonLDFormatter implements ResponseFormatter {
     }
   }
 
-  public URL getContext() {
-    return context;
-  }
-
   protected Object buildJsonFromStatements(Model statements) throws IOException, RDFHandlerException, JsonLdError {
-    return DcatJsonParser.statementsToJsonLD(statements, getContext());
+    return JsonLdProcessor.fromRDF( statements, new SesameRDFParser() );
   }
 }

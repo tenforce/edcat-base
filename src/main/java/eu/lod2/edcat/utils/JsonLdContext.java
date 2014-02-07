@@ -16,16 +16,16 @@ import java.util.Map;
  * <p/>
  * We intend this to be used in:
  * <ul>
- *   <li>{@link eu.lod2.edcat.utils.DcatJsonCompacter}</li>
- *   <li>{@link eu.lod2.edcat.utils.DcatJsonParser}</li>
- *   <li>{@link eu.lod2.edcat.utils.BlankNodeNuker}</li>
+ * <li>{@link eu.lod2.edcat.utils.DcatJsonCompacter}</li>
+ * <li>{@link eu.lod2.edcat.utils.DcatJsonParser}</li>
+ * <li>{@link eu.lod2.edcat.utils.BlankNodeNuker}</li>
  * </ul>
  * <p/>
  * The following responsibilities have been assigned to this class:
  * <ul>
- *   <li>Context configuration</li>
- *   <li>Retrieving the context</li>
- *   <li>Parsing of the context</li>
+ * <li>Context configuration</li>
+ * <li>Retrieving the context</li>
+ * <li>Parsing of the context</li>
  * </ul>
  */
 public class JsonLdContext {
@@ -33,18 +33,59 @@ public class JsonLdContext {
   /** Contains mapping from the JSON keyword to a string representation of the predicate. */
   private Map<String, String> keywordMap;
 
-  /** Contains mapping from a string representation of the predicate, to the JSON keyword */
+  /** Contains mapping from a string representation of the predicate, to the JSON keyword. */
   private Map<String, String> reverseKeywordMap;
+
+  /** Location where the context can be found */
+  private URL contextLocation;
 
   /**
    * Retrieves the URL at which the JSON-LD context can be fetched.
    * <p/>
    * todo: this should be retrieved from a configurable location
    *
+   * @param kind Kind for which the JsonLdContext should be retrieved.  The following kinds are
+   *             supported: [ "dataset" , "catalog" ]
    * @return location of the JSON-LD context.
    */
-  public static URL getContextLocation() {
-    return JsonLdContext.class.getResource( "/eu/lod2/edcat/jsonld/dataset.jsonld" );
+  private static URL getContextLocation( Kind kind ) {
+    return JsonLdContext.class.getResource( "/eu/lod2/edcat/jsonld/" + kind.kindName + ".jsonld" );
+  }
+
+  /**
+   * Dispatches to {@link #getContextLocation(Kind)} by finding the kind by the supplied string
+   * {@code kind}.
+   *
+   * @see #getContextLocation(eu.lod2.edcat.utils.JsonLdContext.Kind)
+   * @see Kind#find(String)
+   */
+  public static URL getContextLocation( String kind ) {
+    return getContextLocation( Kind.find( kind ) );
+  }
+
+  /** Enum containing the kinds which this JsonLdContext class can interpret. */
+  public enum Kind {
+    Dataset( "dataset" ), Catalog( "catalog" );
+
+    /** Textual representation of the kind */
+    public String kindName;
+
+    Kind( String kind ) {
+      this.kindName = kind;
+    }
+
+    /**
+     * Retrieves the Kind with name {@code name}
+     *
+     * @param name kindName for which to retrieve the kind.
+     * @return Kind with kindName {@code name} or null if said kind did not exist.
+     */
+    public static Kind find( String name ) {
+      for ( Kind k : Kind.values() )
+        if ( k.kindName.equals( name ) )
+          return k;
+      return null;
+    }
   }
 
   /**
@@ -52,8 +93,33 @@ public class JsonLdContext {
    * <p/>
    * Many operations on the JsonLdContext are instance methods for performance and threading
    * reasons.
+   *
+   * @param kind The kind for which we want to manage the JsonLdContext.
    */
-  public JsonLdContext() { }
+  public JsonLdContext( Kind kind ) {
+    this.contextLocation = getContextLocation( kind );
+  }
+
+  /**
+   * Simple constructor for a JsonLdContext.
+   * <p/>
+   * Operates by {@link Kind#find(String)}ing the correct Kind and using the simple
+   * constructor with that kind.
+   *
+   * @param kind String representation of the kind for which we want to construct a JsonLdConstext.
+   */
+  public JsonLdContext( String kind ) {
+    this( Kind.find( kind ) );
+  }
+
+  /**
+   * Simple constructor for the JsonLdContext.
+   *
+   * @param contextLocation Location where the context handled by this JsonLdContext can be found.
+   */
+  public JsonLdContext( URL contextLocation ) {
+    this.contextLocation = contextLocation;
+  }
 
   /**
    * Retrieves a reverse keyword map. Contains mapping from a string representation of the
@@ -72,12 +138,11 @@ public class JsonLdContext {
 
   /**
    * Retrieves the keyword map. Contains mapping from the JSON keyword to a string representation
-   * of
-   * the predicate.
+   * of the predicate.
    * <p/>
    * The retrieved map must not be altered.
    *
-   * @return
+   * @return Mapping from JSON keywords to the URI of the predicate matching it.
    */
   public Map<String, String> getKeywordMap() {
     if ( keywordMap == null )
@@ -96,9 +161,9 @@ public class JsonLdContext {
    *
    * @return Marshaled context.
    */
-  private static Map<String, Object> loadMarshaledJsonLdContext() {
+  public Map<String, Object> getMarshaledJsonLdContext() {
     try {
-      Map<String, Object> json = ( Map<String, Object> ) JSONUtils.fromURL( getContextLocation() );
+      Map<String, Object> json = ( Map<String, Object> ) JSONUtils.fromURL( contextLocation );
       return ( Map<String, Object> ) json.get( "@context" );
     } catch ( Exception e ) {
       throw new IllegalStateException( "illegal context" );
@@ -125,7 +190,7 @@ public class JsonLdContext {
    */
   private Map<String, String> loadMapping() {
     Map<String, String> mapping = new LinkedHashMap<String, String>();
-    Map<String, Object> marshaledJsonLdContext = loadMarshaledJsonLdContext();
+    Map<String, Object> marshaledJsonLdContext = getMarshaledJsonLdContext();
 
     for ( String key : marshaledJsonLdContext.keySet() ) {
       Object o = marshaledJsonLdContext.get( key );
