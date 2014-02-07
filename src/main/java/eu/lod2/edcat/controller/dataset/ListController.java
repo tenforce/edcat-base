@@ -1,6 +1,6 @@
 package eu.lod2.edcat.controller.dataset;
 
-import eu.lod2.edcat.format.DcatJsonFormatter;
+import eu.lod2.edcat.format.CompactedListFormatter;
 import eu.lod2.edcat.format.JsonLDFormatter;
 import eu.lod2.edcat.format.ResponseFormatter;
 import eu.lod2.edcat.format.TurtleFormatter;
@@ -37,7 +37,7 @@ public class ListController extends DatasetController {
 
   @RequestMapping( value = ROUTE, method = RequestMethod.GET, produces = "application/json;charset=UTF-8" )
   public ResponseEntity<Object> listJSON( HttpServletRequest request ) throws Throwable {
-    return list(request, new DcatJsonFormatter(JsonLdContext.getContextLocation()));
+    return list(request, new CompactedListFormatter(JsonLdContext.getContextLocation()));
   }
 
   @RequestMapping( value = ROUTE, method = RequestMethod.GET, produces = "application/rdf+xml;charset=UTF-8" )
