@@ -400,20 +400,6 @@ public class SparqlEngine {
     }
   }
 
-  public static Date dateValue(Map<String, Map<String, Set<Value>>> statements, String subject, String predicate) {
-    Iterator<Value> iterator = statements.get(subject).get(predicate).iterator();
-    if (!iterator.hasNext()) {
-      return null;
-    }
-    String dateString = iterator.next().stringValue();
-    try {
-
-      return Constants.parseDate(dateString);
-    } catch (Exception e) {
-//      log.error("Could not parse date {} from sparql result s: {} p: {} . Error: {}", dateString, subject, predicate, e);
-      return null;
-    }
-  }
 
   public static Integer intValue(Map<String, Map<String, Set<Value>>> statements, String subject, String predicate) {
     Iterator<Value> iterator = statements.get(subject).get(predicate).iterator();
