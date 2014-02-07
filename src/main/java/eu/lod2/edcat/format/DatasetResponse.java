@@ -1,9 +1,9 @@
 package eu.lod2.edcat.format;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 
 @SuppressWarnings( "UnusedDeclaration" )
-public class DatasetResponse extends LinkedHashMap<String, Object> {
+public class DatasetResponse extends HashMap<String, Object> {
 
   public String getSelf() {
     return (String) get( "self" );

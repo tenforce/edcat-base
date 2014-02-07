@@ -15,7 +15,7 @@ public class DcatJsonCompacter {
   }
 
   public List<Map<String, Object>> compact (List<Map<String,Object>> list) {
-    List compactedList = new ArrayList(list.size());
+    List<Map<String,Object>> compactedList = new ArrayList<Map<String,Object>>(list.size());
     for(Map<String,Object> map : list) {
       compactedList.add(compact(map));
     }

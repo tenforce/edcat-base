@@ -4,4 +4,8 @@ public class FormatException extends Exception {
   public FormatException(Exception e) {
     super(e);
   }
+
+  public FormatException(String message) {
+    super(message);
+  }
 }
