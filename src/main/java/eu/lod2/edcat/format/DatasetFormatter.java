@@ -13,7 +13,7 @@ public class DatasetFormatter extends DcatJsonFormatter {
   }
 
   @Override
-  public Map<String,Object> format(Model statements) throws FormatException {
+  public DatasetResponse format(Model statements) throws FormatException {
     Map<String,Object> compactedJson = super.format( statements );
 
     return DatasetResponseBuilder.build( compactedJson );
