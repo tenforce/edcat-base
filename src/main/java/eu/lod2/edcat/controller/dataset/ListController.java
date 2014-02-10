@@ -3,6 +3,7 @@ package eu.lod2.edcat.controller.dataset;
 import eu.lod2.edcat.format.*;
 import eu.lod2.edcat.model.Catalog;
 import eu.lod2.edcat.utils.JsonLdContext;
+import eu.lod2.edcat.utils.NotFoundException;
 import eu.lod2.edcat.utils.QueryResult;
 import eu.lod2.hooks.contexts.PostListContext;
 import eu.lod2.hooks.contexts.PreListContext;
@@ -64,7 +65,9 @@ public class ListController extends DatasetController {
   public ResponseEntity<Object> list( HttpServletRequest request, ResponseFormatter formatter, String catalogId ) throws Throwable {
     HookManager.callHook( PreListHandler.class, "handlePreList", new PreListContext( request ) );
     Catalog catalog = new Catalog( catalogId );
-    Model m = modelFromQueryResult( fetchDatasets( catalog.getUri(), request ) );
+    Model m = modelFromQueryResult(fetchDatasets(catalog.getUri(), request));
+    if (m.size() == 0)
+      throw new NotFoundException();
     Object body = formatter.format( m );
     ResponseEntity<Object> response = new ResponseEntity<Object>( body, getHeaders(), HttpStatus.OK );
     HookManager.callHook( PostListHandler.class, "handlePostList", new PostListContext( response ) );
@@ -123,28 +126,28 @@ public class ListController extends DatasetController {
     int offset = pageSize * pageNumber;
 
     // todo: this query selects the english title.  if neither the english title, an english description or an english themeLabel exists, this will only return the title.  That behaviour makes the subjected dataset hidden in the json output.  hence a 'best' title should be returned.  It is not possible to return all titles as that would break the semantics of the optional/limit (as it's implemented right at this time).
-    return Db.query( "" +
-        " @PREFIX " +
-        " SELECT DISTINCT ?dataset ?description ?title ?themeLabel " +
-        " WHERE {" +
-        "   GRAPH $catalog {" +
-        "     ?catalog dcat:dataset ?dataset." +
-        "   } OPTIONAL { " +
-        "     GRAPH ?dataset {" +
-        "       OPTIONAL { ?dataset dct:description ?description FILTER( lang( ?description ) = \"en\") }" +
-        "       OPTIONAL { ?dataset dct:title ?title FILTER( lang( ?title ) = \"en\" ) }" +
-        "       OPTIONAL { " +
-        "           ?dataset dcat:theme ?theme." +
-        "           ?theme skos:preflabel ?themeLabel FILTER( lang( ?themeLabel ) = \"en\" )" +
-        "       }" +
-        "     }" +
-        "   }" +
-        " }" +
-        (limit == 0 ? "" : " LIMIT $limit") +
-        (offset == 0 ? "" : " OFFSET $offset"),
-        "catalog", catalog,
-        "limit", limit,
-        "offset", offset );
+    return Db.query("" +
+            " @PREFIX " +
+            " SELECT DISTINCT ?dataset ?description ?title ?themeLabel " +
+            " WHERE {" +
+            "   GRAPH $catalog {" +
+            "     ?catalog dcat:dataset ?dataset." +
+            "   } OPTIONAL { " +
+            "     GRAPH ?dataset {" +
+            "       OPTIONAL { ?dataset dct:description ?description FILTER( lang( ?description ) = \"en\") }" +
+            "       OPTIONAL { ?dataset dct:title ?title FILTER( lang( ?title ) = \"en\" ) }" +
+            "       OPTIONAL { " +
+            "           ?dataset dcat:theme ?theme." +
+            "           ?theme skos:preflabel ?themeLabel FILTER( lang( ?themeLabel ) = \"en\" )" +
+            "       }" +
+            "     }" +
+            "   }" +
+            " }" +
+            (limit == 0 ? "" : " LIMIT $limit") +
+            (offset == 0 ? "" : " OFFSET $offset"),
+            "catalog", catalog,
+            "limit", limit,
+            "offset", offset);
   }
 
   /**

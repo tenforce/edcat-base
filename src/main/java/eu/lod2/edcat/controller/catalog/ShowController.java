@@ -4,6 +4,7 @@ import eu.lod2.edcat.format.CompactedObjectFormatter;
 import eu.lod2.edcat.format.ResponseFormatter;
 import eu.lod2.edcat.model.Catalog;
 import eu.lod2.edcat.utils.JsonLdContext;
+import eu.lod2.edcat.utils.NotFoundException;
 import eu.lod2.hooks.contexts.catalog.PostContext;
 import eu.lod2.hooks.contexts.catalog.PreContext;
 import eu.lod2.hooks.handlers.dcat.catalog.PostReadHandler;
@@ -37,6 +38,8 @@ public class ShowController extends CatalogController {
     Catalog catalog = new Catalog( catalogId );
     HookManager.callHook( PreReadHandler.class, "handlePreRead", new PreContext( request, catalog.getUri() ) );
     Model statements = loadStatements( catalog );
+    if (statements.size() == 0 )
+      throw new NotFoundException();
     ResponseFormatter formatter = new CompactedObjectFormatter( new JsonLdContext( JsonLdContext.Kind.Catalog ) );
     Object body = formatter.format( statements );
     ResponseEntity<Object> response = new ResponseEntity<Object>( body, getHeaders(), HttpStatus.OK );
