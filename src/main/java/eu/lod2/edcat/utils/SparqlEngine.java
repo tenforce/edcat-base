@@ -126,6 +126,36 @@ public class SparqlEngine {
     }
   }
 
+  /**
+   * Performs a SPARQL query on the engine and returns the raw BindingSets.
+   *
+   * @param query SPARQL construct query
+   * @return Model statements coming from the Sparql query.
+   * @throws IllegalArgumentException Thrown if the supplied query couldn't be evaluated.
+   * @throws IllegalStateException    Thrown if the query wasn't ready for accepting data.
+   */
+  public Model sparqlGraphQuery( String query ) throws IllegalArgumentException, IllegalStateException {
+    try {
+      GraphQueryResult queryResult =
+              this.connection.prepareGraphQuery( QueryLanguage.SPARQL, query ).evaluate();
+      Model statements = new LinkedHashModel();
+      while ( queryResult.hasNext() ) {
+        statements.add(queryResult.next());
+      }
+      queryResult.close();
+      return statements;
+
+    } catch ( RepositoryException e ) {
+      throw new IllegalStateException( e );
+    } catch ( MalformedQueryException e ) {
+      throw new IllegalArgumentException( e );
+    } catch ( QueryEvaluationException e ) {
+      throw new IllegalArgumentException( e );
+    }
+  }
+
+
+
   public void sparqlUpdate( String query ) throws IllegalArgumentException, IllegalStateException {
     try {
       this.connection.prepareUpdate( QueryLanguage.SPARQL, query ).execute();

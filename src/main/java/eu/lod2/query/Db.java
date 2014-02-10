@@ -1,5 +1,6 @@
 package eu.lod2.query;
 
+import eu.lod2.edcat.utils.NotFoundException;
 import eu.lod2.edcat.utils.QueryResult;
 import eu.lod2.edcat.utils.SparqlEngine;
 import org.openrdf.model.Model;
@@ -80,6 +81,21 @@ public class Db {
   }
 
   /**
+   * Performs a SPARQL construct query on the engine and returns the resulting statements.
+   * @param query SPARQL query template.
+   * @param args  SPARQL query template parameters.
+   * @return Model statements
+   */
+  public static Model graphQuery(String query,Object... args) {
+    SparqlEngine engine = singleton.retrieve();
+    try {
+      return engine.sparqlGraphQuery( Sparql.query( query, args ) );
+    } finally {
+      singleton.release( engine );
+    }
+  }
+
+  /**
    * Performs a SPARQL construct on the engine and returns a Model containing the statements.
    * <p/>
    * The query is built using {@link Sparql#query(String, Object...)}.
@@ -92,7 +108,7 @@ public class Db {
   public static Model construct( String query, Object... args ) {
     SparqlEngine engine = singleton.retrieve();
     try {
-      return engine.sparqlModelConstruct( Sparql.query( query, args ) );
+      return engine.sparqlModelConstruct(Sparql.query(query, args));
     } finally {
       singleton.release( engine );
     }
@@ -180,11 +196,15 @@ public class Db {
    * Retrieves statements from the database.
    * <p/>
    * Dispatches to {@link eu.lod2.edcat.utils.SparqlEngine#getStatements(org.openrdf.model.Resource...)}.
+   * @throws NotFoundException if not statements are found in specified contexts
    */
-  public static Model getStatements( Resource resource ) {
+  public static Model getStatements( Resource resource ) throws NotFoundException {
     SparqlEngine engine = singleton.retrieve();
     try {
-      return engine.getStatements( resource );
+      Model statements = engine.getStatements( resource );
+      if (statements.size() == 0)
+        throw new NotFoundException();
+      return statements;
     } finally {
       singleton.release( engine );
     }
