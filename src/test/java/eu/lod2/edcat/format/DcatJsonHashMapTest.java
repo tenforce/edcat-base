@@ -22,9 +22,9 @@ public class DcatJsonHashMapTest {
 
   @Test
   public void itShouldMergeMultipleMapsIntoAList() {
-    Map map1 = new LinkedHashMap<String,Object>();
+    Map<String,Object> map1 = new LinkedHashMap<String,Object>();
     map1.put("test", "test");
-    Map map2 = new LinkedHashMap<String,Object>();
+    Map<String,Object> map2 = new LinkedHashMap<String,Object>();
     map2.put("test", "test");
     DcatJsonHashMap map = new DcatJsonHashMap();
     map.put("my_key",map1);
