@@ -4,6 +4,7 @@ import org.openrdf.model.URI;
 import org.openrdf.model.impl.URIImpl;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class DcatURI {
@@ -62,7 +63,9 @@ public class DcatURI {
     if (properties == null){
       properties = new Properties();
       try {
-        properties.load( SparqlEngine.class.getClassLoader().getResourceAsStream( "/eu/lod2/edcat/uriPattern.properties" ) );
+        InputStream file = DcatURI.class.getClassLoader().getResourceAsStream("uriPattern.properties");
+        properties.load( file  );
+        file.close();
       } catch (IOException e) {
         throw new IllegalStateException("uriPattern.properties could not be loaded");
       }
