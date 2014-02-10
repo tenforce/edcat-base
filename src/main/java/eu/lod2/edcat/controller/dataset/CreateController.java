@@ -32,7 +32,7 @@ public class CreateController extends DatasetController {
   public ResponseEntity<Object> create( HttpServletRequest request, @PathVariable String catalogId  ) throws Throwable {
     Catalog catalog = new Catalog( catalogId );
     String datasetBaseId = getId();
-    URI datasetUri = DcatURI.datasetURI(catalogId, datasetId);
+    URI datasetUri = DcatURI.datasetURI(catalogId, datasetBaseId);
     HookManager.callHook( PreCreateHandler.class, "handlePreCreate", new PreContext( catalog, request, datasetUri ) );
     Model record = catalog.insertDataset( datasetBaseId );
     Model statements = buildModel( request, datasetUri );
