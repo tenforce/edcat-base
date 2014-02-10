@@ -31,10 +31,9 @@ public class UpdateController extends DatasetController {
   public ResponseEntity<Object> update( HttpServletRequest request, @PathVariable String catalogId, @PathVariable String datasetId ) throws Throwable {
     this.datasetId = datasetId;
     Catalog catalog = new Catalog( catalogId );
-    String datasetIdString = getId();
-    URI datasetUri = DcatURI.datasetURI(catalogId, datasetId);
+    URI datasetUri = DcatURI.datasetURI(catalogId, getId());
     HookManager.callHook( PreUpdateHandler.class, "handlePreUpdate", new PreContext( catalog, request, datasetUri ) );
-    Model record = catalog.updateDataset( datasetIdString );
+    Model record = catalog.updateDataset( getId() );
     Model statements = buildModel( request, datasetUri );
     statements.addAll( record );
     HookManager.callHook( AtUpdateHandler.class, "handleAtUpdate", new AtContext( catalog, statements, datasetUri ) );
