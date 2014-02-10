@@ -1,0 +1,66 @@
+{  "@context":
+  {
+    "Catalog": "http://www.w3.org/ns/dcat#Catalog",
+    "dcterms"  : "http://purl.org/dc/terms/",
+    "xsd"  : "http://www.w3.org/2001/XMLSchema#",
+    "dcat" : "http://www.w3.org/ns/dcat#",
+    "tf" : "http://tenforce.com/onto#",
+    "rdfs" : "http://www.w3.org/2000/01/rdf-schema#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "title" : {
+      "@id": "dcterms:title",
+      "@container" : "@language"
+    },
+    "description" : {
+      "@id" : "dcterms:description",
+      "@container" : "@language"
+    },
+    "modified" : "dcterms:modified",
+    "issued" : "dcterms:issued",
+    "language" : {
+      "@id" : "dcterms:language",
+      "@type" : "xsd:string"
+    },
+    "themeTaxononmy" :  {
+      "@id": "dcat:themeTaxonomy",
+      "@type": "@id"
+    },
+    "spatial" : {
+      "@id" : "dcterms:spatial"
+    },
+    "dataset" : {
+      "@id": "dcat:dataset",
+      "@type": "@id"
+    },
+    "record": {
+      "@id": "dcat:record",
+      "@type": "@id"
+    },
+    "homepage" : {
+      "@id" : "foaf:homepage",
+      "@type": "@id"
+    },
+    "publisher" : {
+      "@id" : "dcterms:publisher"
+    },
+    "publisherName": {
+      "@id": "foaf:name"
+    },
+    "license" : {
+      "@id" : "dcterms:license",
+      "@type" : "@id"
+    },
+    "rights" : {
+      "@id" : "dcterms:rights",
+      "@type" : "@id"
+    },
+    "icon" : {
+      "@id" : "tf:icon",
+      "@type" : "@id"
+    },
+    "type": "@type",
+    "self": "@id",
+    "uri": "@id"
+  },
+  "@type": "Catalog"
+}
