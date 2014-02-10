@@ -24,7 +24,7 @@ public class DatasetFormatter extends CompactedObjectFormatter {
     DatasetResponse response = new DatasetResponse();
     Map<String,Object> dataset = searchMapForUri(compactJson, Sparql.namespaced("dcat", "Dataset").stringValue());
     if (dataset != null && dataset.containsKey("uri")) {
-      response.setSelf(dataset.get("uri").toString());
+      response.setUri(dataset.get("uri").toString());
       dataset.remove("uri");
       dataset.remove(RDF.TYPE.stringValue());
     }

@@ -5,12 +5,12 @@ import java.util.HashMap;
 @SuppressWarnings( "UnusedDeclaration" )
 public class DatasetResponse extends HashMap<String, Object> {
 
-  public String getSelf() {
-    return (String) get( "self" );
+  public String getUri() {
+    return (String) get( "uri" );
   }
 
-  public void setSelf( String self ) {
-    put( "self", self );
+  public void setUri(String self) {
+    put( "uri", self );
   }
 
   public Object getDataset() {
