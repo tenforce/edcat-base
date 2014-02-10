@@ -1,6 +1,6 @@
 package eu.lod2.hooks.contexts;
 
-import eu.lod2.edcat.utils.CatalogService;
+import eu.lod2.edcat.model.Catalog;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +23,8 @@ public class PostContext {
   /**
    * Constructs a new PostContext with all variables set.
    */
-  public PostContext( CatalogService catalogService, ResponseEntity<Object> response, URI datasetUri, Model statements ){
-    this.catalogService = catalogService;
+  public PostContext( Catalog catalog, ResponseEntity<Object> response, URI datasetUri, Model statements ){
+    this.catalog = catalog;
     this.response = response;
     this.datasetUri = datasetUri;
     this.dataset = statements;
@@ -33,16 +33,16 @@ public class PostContext {
   //--- GETTERS AND SETTERS
 
   /**
-   * The {@link eu.lod2.edcat.utils.CatalogService} on which this request
+   * The {@link eu.lod2.edcat.model.Catalog} on which this request
    * operates.
    */
-  private CatalogService catalogService;
+  private Catalog catalog;
 
   /**
-   * Returns the CatalogService on which this request operates.
+   * Returns the Catalog on which this request operates.
    */
-  public CatalogService getCatalogService() {
-    return catalogService;
+  public Catalog getCatalog() {
+    return catalog;
   }
 
   /**

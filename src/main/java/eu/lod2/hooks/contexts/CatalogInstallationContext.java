@@ -22,7 +22,7 @@ public class CatalogInstallationContext extends Context {
 
   // --- ACCESSORS
 
-  /** Contains the URI of the newly created CatalogService */
+  /** Contains the URI of the newly created Catalog */
   private URI catalogURI;
 
   /**

@@ -1,6 +1,6 @@
 package eu.lod2.hooks.contexts;
 
-import eu.lod2.edcat.utils.CatalogService;
+import eu.lod2.edcat.model.Catalog;
 import org.openrdf.model.URI;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,8 +23,8 @@ public class PreContext extends Context {
   /**
    * Constructs a new PreContext with all fields set.
    */
-  public PreContext( CatalogService catalogService, HttpServletRequest request, URI datasetUri ) {
-    this.catalogService = catalogService;
+  public PreContext( Catalog catalog, HttpServletRequest request, URI datasetUri ) {
+    this.catalog = catalog;
     this.request = request;
     this.datasetUri = datasetUri;
   }
@@ -50,14 +50,14 @@ public class PreContext extends Context {
   }
 
 
-  /** The {@link eu.lod2.edcat.utils.CatalogService} for which the DataSet will be created. */
-  private CatalogService catalogService;
+  /** The {@link eu.lod2.edcat.utils.Catalog} for which the DataSet will be created. */
+  private Catalog catalog;
 
   /**
-   * The {@link eu.lod2.edcat.utils.CatalogService} for which the DataSet will be created.
+   * The {@link eu.lod2.edcat.utils.Catalog} for which the DataSet will be created.
    */
-  public CatalogService getCatalogService() {
-    return catalogService;
+  public Catalog getCatalog() {
+    return catalog;
   }
 
 

@@ -1,5 +1,6 @@
 package eu.lod2.query;
 
+import eu.lod2.edcat.utils.DcatURI;
 import org.openrdf.model.URI;
 import org.openrdf.model.impl.URIImpl;
 
@@ -62,7 +63,7 @@ public class Sparql {
     "cterms", "http://lod2.tenforce.com/edcat/terms/config/",
     "skos", "http://www.w3.org/2004/02/skos/core#",
     "foaf", "http://xmlns.com/foaf/0.1/",
-    "catalogs", "http://lod2.tenforce.com/edcat/catalogs/" ); // namespace for all the catalogs
+    "catalogs", DcatURI.CATALOG_NAMESPACE); // namespace for all the catalogs
 
   /**
    * Varmap containing the class variables and their corresponding values

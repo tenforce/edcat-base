@@ -1,6 +1,6 @@
 package eu.lod2.hooks.contexts;
 
-import eu.lod2.edcat.utils.CatalogService;
+import eu.lod2.edcat.model.Catalog;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
 
@@ -20,8 +20,8 @@ public class AtContext extends Context {
   /**
    * Constructs a new PreContext with all fields set.
    */
-  public AtContext( CatalogService catalogService, Model statements, URI datasetUri ){
-    this.catalogService = catalogService;
+  public AtContext( Catalog catalog, Model statements, URI datasetUri ){
+    this.catalog = this.catalog;
     this.statements = statements;
     this.datasetUri = datasetUri;
   }
@@ -29,15 +29,15 @@ public class AtContext extends Context {
   //--- GETTERS AND SETTERS
 
   /**
-   * The {@link eu.lod2.edcat.utils.CatalogService} on which this request operates.
+   * The {@link eu.lod2.edcat.model.Catalog} on which this request operates.
    */
-  private CatalogService catalogService;
+  private Catalog catalog;
 
   /**
-   * Returns the catalogService on which this request operates.
+   * Returns the catalog on which this request operates.
    */
-  public CatalogService getCatalogService() {
-    return catalogService;
+  public Catalog getCatalog() {
+    return catalog;
   }
 
   /**
