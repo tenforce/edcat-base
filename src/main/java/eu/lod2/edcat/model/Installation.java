@@ -54,7 +54,7 @@ public class Installation {
   /**
    * Constructs a new catalog and installs it in the database.
    *
-   * @param catalog CatalogDTO representing the catalog.
+   * @param catalog Catalog representing the catalog.
    */
   public static void setupCatalog( Catalog catalog ) throws Throwable {
     Model statements =  new LinkedHashModel();
