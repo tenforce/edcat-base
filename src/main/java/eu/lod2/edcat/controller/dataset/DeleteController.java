@@ -1,7 +1,7 @@
 package eu.lod2.edcat.controller.dataset;
 
 import eu.lod2.edcat.model.Catalog;
-import eu.lod2.edcat.utils.CatalogService;
+import eu.lod2.edcat.utils.DcatURI;
 import eu.lod2.hooks.contexts.PostContext;
 import eu.lod2.hooks.contexts.PreContext;
 import eu.lod2.hooks.handlers.dcat.PostDestroyHandler;
@@ -25,13 +25,12 @@ public class DeleteController extends DatasetController {
   @RequestMapping(value = OBJECT_ROUTE, method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
   public ResponseEntity<Object> destroy( HttpServletRequest request, @PathVariable String catalogId, @PathVariable String datasetId ) throws Throwable {
     Catalog catalog = new Catalog( catalogId );
-    CatalogService catalogService = new CatalogService( catalog.getUri().stringValue() );
-    URI datasetUri = catalogService.generateDatasetUri( datasetId );
-    HookManager.callHook( PreDestroyHandler.class, "handlePreDestroy", new PreContext( catalogService, request, datasetUri ) );
-    Db.clearGraph( catalogService.generateDatasetUri( datasetId ) );
-    catalogService.removeDataset( datasetId );
+    URI datasetUri = DcatURI.datasetURI(catalogId, datasetId);
+    HookManager.callHook( PreDestroyHandler.class, "handlePreDestroy", new PreContext( catalog, request, datasetUri ) );
+    Db.clearGraph( datasetUri );
+    catalog.removeDataset(datasetId);
     ResponseEntity<Object> response = new ResponseEntity<Object>( new HashMap(), getHeaders(), HttpStatus.OK );
-    HookManager.callHook( PostDestroyHandler.class, "handlePostDestroy", new PostContext( catalogService, response, datasetUri, null ) );
+    HookManager.callHook( PostDestroyHandler.class, "handlePostDestroy", new PostContext( catalog, response, datasetUri, null ) );
     return response;
   }
 }

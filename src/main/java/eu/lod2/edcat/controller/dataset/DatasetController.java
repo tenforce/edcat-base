@@ -2,6 +2,7 @@ package eu.lod2.edcat.controller.dataset;
 
 import eu.lod2.edcat.utils.BlankNodeNuker;
 import eu.lod2.edcat.utils.DcatJsonParser;
+import eu.lod2.edcat.utils.DcatURI;
 import eu.lod2.edcat.utils.JsonLdContext;
 import eu.lod2.hooks.handlers.dcat.ActionAbortException;
 import eu.lod2.query.Sparql;
@@ -31,10 +32,10 @@ public abstract class DatasetController {
   // --- ROUTING
 
   /** list datasets route */
-  protected static final String LIST_ROUTE = "/catalogs/{catalogId}/datasets";
+  protected static final String LIST_ROUTE = DcatURI.DATASET_LIST_PATH;
 
   /** show dataset route */
-  protected static final String OBJECT_ROUTE = LIST_ROUTE + "/{datasetId}";
+  protected static final String OBJECT_ROUTE = DcatURI.DATASET_OBJECT_PATH;
 
 
   // --- HELPERS

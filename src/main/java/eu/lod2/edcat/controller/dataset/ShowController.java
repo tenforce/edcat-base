@@ -1,8 +1,12 @@
 package eu.lod2.edcat.controller.dataset;
 
-import eu.lod2.edcat.format.*;
+import eu.lod2.edcat.format.DatasetFormatter;
+import eu.lod2.edcat.format.JsonLDFormatter;
+import eu.lod2.edcat.format.ResponseFormatter;
+import eu.lod2.edcat.format.TurtleFormatter;
+import eu.lod2.edcat.format.XMLRDFFormatter;
 import eu.lod2.edcat.model.Catalog;
-import eu.lod2.edcat.utils.CatalogService;
+import eu.lod2.edcat.utils.DcatURI;
 import eu.lod2.edcat.utils.JsonLdContext;
 import eu.lod2.hooks.contexts.PostContext;
 import eu.lod2.hooks.contexts.PreContext;
@@ -57,13 +61,12 @@ public class ShowController extends DatasetController {
 
   private ResponseEntity<Object> show( HttpServletRequest request, ResponseFormatter formatter, String catalogId ) throws Throwable {
     Catalog catalog = new Catalog( catalogId );
-    CatalogService catalogService = new CatalogService( catalog.getUri().stringValue() );
-    URI datasetUri = catalogService.generateDatasetUri( datasetId );
-    HookManager.callHook( PreReadHandler.class, "handlePreRead", new PreContext( catalogService, request, datasetUri ) );
+    URI datasetUri = DcatURI.datasetURI(catalogId, datasetId);
+    HookManager.callHook( PreReadHandler.class, "handlePreRead", new PreContext( catalog, request, datasetUri ) );
     Model statements = Db.getStatements( datasetUri );
     Object body = formatter.format( statements );
     ResponseEntity<Object> response = new ResponseEntity<Object>( body, getHeaders(), HttpStatus.OK );
-    HookManager.callHook( PostReadHandler.class, "handlePostRead", new PostContext( catalogService, response, datasetUri, statements ) );
+    HookManager.callHook( PostReadHandler.class, "handlePostRead", new PostContext( catalog, response, datasetUri, statements ) );
     return response;
   }
 }

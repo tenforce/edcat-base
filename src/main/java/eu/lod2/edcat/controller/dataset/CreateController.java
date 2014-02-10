@@ -3,7 +3,7 @@ package eu.lod2.edcat.controller.dataset;
 import eu.lod2.edcat.format.DatasetFormatter;
 import eu.lod2.edcat.format.ResponseFormatter;
 import eu.lod2.edcat.model.Catalog;
-import eu.lod2.edcat.utils.CatalogService;
+import eu.lod2.edcat.utils.DcatURI;
 import eu.lod2.edcat.utils.JsonLdContext;
 import eu.lod2.hooks.contexts.AtContext;
 import eu.lod2.hooks.contexts.PostContext;
@@ -31,19 +31,18 @@ public class CreateController extends DatasetController {
   @RequestMapping(value = LIST_ROUTE, method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
   public ResponseEntity<Object> create( HttpServletRequest request, @PathVariable String catalogId  ) throws Throwable {
     Catalog catalog = new Catalog( catalogId );
-    CatalogService service = new CatalogService( catalog.getUri().stringValue() );
     String datasetBaseId = getId();
-    URI datasetUri = service.generateDatasetUri( datasetBaseId );
-    HookManager.callHook( PreCreateHandler.class, "handlePreCreate", new PreContext( service, request, datasetUri ) );
-    Model record = service.insertDataset( datasetBaseId );
+    URI datasetUri = DcatURI.datasetURI(catalogId, datasetId);
+    HookManager.callHook( PreCreateHandler.class, "handlePreCreate", new PreContext( catalog, request, datasetUri ) );
+    Model record = catalog.insertDataset( datasetBaseId );
     Model statements = buildModel( request, datasetUri );
-    HookManager.callHook( AtCreateHandler.class, "handleAtCreate", new AtContext( service, statements, datasetUri ) );
+    HookManager.callHook( AtCreateHandler.class, "handleAtCreate", new AtContext( catalog, statements, datasetUri ) );
     Db.add( statements, datasetUri );
     statements.addAll( record );
     ResponseFormatter formatter = new DatasetFormatter( new JsonLdContext( kind ) );
     Object compactedJsonLD = formatter.format( statements );
     ResponseEntity<Object> response = new ResponseEntity<Object>( compactedJsonLD, getHeaders(), HttpStatus.OK );
-    HookManager.callHook( PostCreateHandler.class, "handlePostCreate", new PostContext( service, response, datasetUri, statements ) );
+    HookManager.callHook( PostCreateHandler.class, "handlePostCreate", new PostContext( catalog, response, datasetUri, statements ) );
     return response;
   }
 }

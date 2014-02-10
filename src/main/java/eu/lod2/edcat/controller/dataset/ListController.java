@@ -111,7 +111,7 @@ public class ListController extends DatasetController {
   /**
    * Fetches the information we want to list about the datasets.
    *
-   * @param catalog CatalogService for which we want to list the DataSets.
+   * @param catalog catalogURI for which we want to list the DataSets.
    * @param request Request for which the dataset should be fetched (used for parametrization)
    * @return QueryResult containing the information we want to render out.
    * @see #modelFromQueryResult(eu.lod2.edcat.utils.QueryResult)

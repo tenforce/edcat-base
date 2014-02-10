@@ -1,5 +1,6 @@
 package eu.lod2.edcat.controller.catalog;
 
+import eu.lod2.edcat.utils.DcatURI;
 import eu.lod2.edcat.utils.JsonLdContext;
 import eu.lod2.hooks.handlers.dcat.ActionAbortException;
 import org.slf4j.Logger;
@@ -27,10 +28,10 @@ public abstract class CatalogController {
   // --- routing
 
   /** catalogs route */
-  protected static final String LIST_ROUTE = "/catalogs";
+  protected static final String LIST_ROUTE = DcatURI.CATALOG_LIST_PATH;
 
   /** show catalog route */
-  protected static final String OBJECT_ROUTE = LIST_ROUTE + "/{catalogId}";
+  protected static final String OBJECT_ROUTE = DcatURI.CATALOG_OBJECT_PATH;
 
   //* Returns default headers for the application. These headers should always be present
   protected HttpHeaders getHeaders() throws Exception {

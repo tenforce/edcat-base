@@ -10,9 +10,11 @@ import eu.lod2.query.Db;
 import eu.lod2.query.Sparql;
 import org.apache.commons.logging.LogFactory;
 import org.openrdf.model.Model;
+import org.openrdf.model.Resource;
 import org.openrdf.model.URI;
 import org.openrdf.model.impl.LinkedHashModel;
-import org.openrdf.model.impl.LiteralImpl;
+import org.openrdf.model.impl.URIImpl;
+import org.openrdf.model.vocabulary.RDF;
 import org.openrdf.rio.RDFFormat;
 import org.openrdf.rio.RDFParseException;
 import org.openrdf.rio.Rio;
@@ -46,7 +48,7 @@ public class Installation {
    */
   public static void install() throws Throwable {
     setupDatabase();
-    setupCatalog( CatalogDTO.example() );
+    setupCatalog( new Catalog() );
   }
 
   /**
@@ -54,8 +56,11 @@ public class Installation {
    *
    * @param catalog CatalogDTO representing the catalog.
    */
-  public static void setupCatalog( CatalogDTO catalog ) throws Throwable {
-    storeCatalog( catalog );
+  public static void setupCatalog( Catalog catalog ) throws Throwable {
+    Model statements =  new LinkedHashModel();
+    Resource configGraph = new URIImpl(Sparql.getClassMapVariable("CONFIG_GRAPH").toString());
+    statements.add(catalog.getUri(), RDF.TYPE, Sparql.namespaced("dcat","Catalog") );
+    Db.add(statements,configGraph);
 
     try {
       HookManager.callHook( CatalogInstallationHandler.class,
@@ -115,18 +120,5 @@ public class Installation {
           .getLogger( "Installation" )
           .error( "Failed to parse " + DEFAULT_CONFIG_GRAPH_PATH );
     }
-  }
-
-  /**
-   * Sets up the config graph so it knows about the catalog.
-   *
-   * @param catalog CatalogDTO describing the new catalog
-   */
-  private static void storeCatalog( CatalogDTO catalog ) {
-    Model m = new LinkedHashModel();
-    m.add( catalog.getUri(), Sparql.namespaced( "rdf", "type" ), Sparql.namespaced( "dcat", "Catalog" ) );
-    m.add( catalog.getUri(), Sparql.namespaced( "dct", "identifier" ), new LiteralImpl( catalog.getIdentifier() ) );
-    m.add( catalog.getUri(), Sparql.namespaced( "foaf", "homepage" ), new LiteralImpl( catalog.getHomepage() ) );
-    Db.add( m, ( URI ) Sparql.getClassMapVariable( "CONFIG_GRAPH" ) );
   }
 }
