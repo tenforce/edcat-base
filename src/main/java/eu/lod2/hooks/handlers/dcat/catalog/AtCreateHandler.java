@@ -1,6 +1,7 @@
 package eu.lod2.hooks.handlers.dcat.catalog;
 
 import eu.lod2.hooks.contexts.catalog.AtContext;
+import eu.lod2.hooks.handlers.HookHandler;
 import eu.lod2.hooks.handlers.dcat.ActionAbortException;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("CatalogAtCreateHandler")
 @SuppressWarnings( "UnusedDeclaration" )
-public interface AtCreateHandler {
+public interface AtCreateHandler extends HookHandler {
 
   /**
    * Called just before a CREATE action on a Catalog is solidified in the database.

@@ -1,6 +1,7 @@
 package eu.lod2.hooks.handlers.dcat.catalog;
 
 import eu.lod2.hooks.contexts.catalog.PreListContext;
+import eu.lod2.hooks.handlers.HookHandler;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
  * The name for this hook is {@code "eu.lod2.hooks.handlers.dcat.catalog.PreListHandler"}.
  */
 @Service("CatalogPreListHandler")
-public interface PreListHandler {
+public interface PreListHandler extends HookHandler {
 
   /**
    * Called before a LIST action on catalogs is executed.

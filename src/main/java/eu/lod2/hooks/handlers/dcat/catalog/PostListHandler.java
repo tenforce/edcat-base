@@ -1,6 +1,7 @@
 package eu.lod2.hooks.handlers.dcat.catalog;
 
 import eu.lod2.hooks.contexts.catalog.PostListContext;
+import eu.lod2.hooks.handlers.HookHandler;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
  * The name for this hook is {@code "eu.lod2.hooks.handlers.dcat.catalog.PostListHandler"}.
  */
 @Service("CatalogPostListHandler")
-public interface PostListHandler {
+public interface PostListHandler extends HookHandler {
 
   /**
    * Called after a LIST action on a Catalog is finished, yet before the response is
