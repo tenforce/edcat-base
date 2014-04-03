@@ -11,6 +11,8 @@
     "vcard" : "http://www.w3.org/2006/vcard/ns#",
     "rdfs" : "http://www.w3.org/2000/01/rdf-schema#",
     "foaf": "http://xmlns.com/foaf/0.1/",
+    "adms": "http://www.w3.org/ns/adms",
+    "void": "http://rdfs.org/ns/void#",
     "title" : {
       "@id": "dcterms:title",
       "@container" : "@language"
@@ -136,13 +138,17 @@
       "@type" : "@id"
     },
     "version" : {
-    "@id" : "tf:version",
+    "@id" : "adms:version",
     "@type" : "xsd:string"
     },
     "versionNotes" : {
-      "@id" : "tf:versionNotes",
+      "@id" : "adms:versionNotes",
       "@container" : "@language"
     },
+    "vocabularies": {
+      "@type":"@id",
+      "@id": "void:vocabulary"
+    }
     "type": "@type",
     "self": "@id",
     "uri": "@id"
