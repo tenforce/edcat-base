@@ -148,7 +148,15 @@
     "vocabularies": {
       "@type":"@id",
       "@id": "void:vocabulary"
-    }
+    },
+    "identifier": {
+      "@id": "dcterms:identifier",
+      "@type": "@id"
+    },
+    "class": {
+      "@id" : "void:class",
+      "@type": "@id"
+    },
     "type": "@type",
     "self": "@id",
     "uri": "@id"
