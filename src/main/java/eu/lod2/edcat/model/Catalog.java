@@ -89,6 +89,13 @@ public class Catalog {
   }
 
   /**
+   * Verifies that a statement exists declaring our uri is a catalog
+   */
+  public boolean exists() {
+    return Db.hasStatement(getUri(),RDF.TYPE,Sparql.namespaced("dcat","Catalog"),getUri());
+  }
+
+  /**
    * Retrieves the model for this Catalog, containing all currently known statements.
    *
    * @return Model containing all currently known statements about this catalog.

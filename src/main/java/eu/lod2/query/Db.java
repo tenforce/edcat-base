@@ -54,7 +54,7 @@ public class Db {
   public static QueryResult query( String query, Object... args ) {
     SparqlEngine engine = singleton.retrieve();
     try {
-      return engine.sparqlSelect( Sparql.query( query, args ) );
+      return engine.sparqlSelect(Sparql.query(query, args));
     } finally {
       singleton.release( engine );
     }
@@ -74,7 +74,7 @@ public class Db {
   public static List<BindingSet> rawQuery( String query, Object... args ) {
     SparqlEngine engine = singleton.retrieve();
     try {
-      return engine.sparqlRawSelect( Sparql.query( query, args ) );
+      return engine.sparqlRawSelect(Sparql.query(query, args));
     } finally {
       singleton.release( engine );
     }
@@ -89,11 +89,21 @@ public class Db {
   public static Model graphQuery(String query,Object... args) {
     SparqlEngine engine = singleton.retrieve();
     try {
-      return engine.sparqlGraphQuery( Sparql.query( query, args ) );
+      return engine.sparqlGraphQuery(Sparql.query(query, args));
     } finally {
       singleton.release( engine );
     }
   }
+
+  public static boolean hasStatement(Resource subject,URI predicate,Value value,Resource...contexts) {
+    SparqlEngine engine = singleton.retrieve();
+    try{
+      return engine.hasStatement(subject,predicate,value,false,contexts);
+    } finally {
+      singleton.release(engine);
+    }
+  }
+
 
   /**
    * Performs a SPARQL construct on the engine and returns a Model containing the statements.
@@ -126,7 +136,7 @@ public class Db {
   public static void update( String query, Object... args ) {
     SparqlEngine engine = singleton.retrieve();
     try {
-      engine.sparqlUpdate( Sparql.query( query, args ) );
+      engine.sparqlUpdate(Sparql.query(query, args));
     } finally {
       singleton.release( engine );
     }
@@ -141,7 +151,7 @@ public class Db {
   public static void add( Model statements, Resource... contexts ) {
     SparqlEngine engine = singleton.retrieve();
     try {
-      engine.addStatements( statements, contexts );
+      engine.addStatements(statements, contexts);
     } finally {
       singleton.release( engine );
     }

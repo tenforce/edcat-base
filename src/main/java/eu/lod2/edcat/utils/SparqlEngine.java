@@ -479,4 +479,12 @@ public class SparqlEngine {
       return null;
     }
   }
+
+  public boolean hasStatement(Resource subject, URI predicate, Value value,boolean includeRef, Resource...contexts) {
+    try {
+      return this.connection.hasStatement(subject, predicate, value, includeRef, contexts);
+    } catch (RepositoryException e) {
+      throw new IllegalStateException(e);
+    }
+  }
 }

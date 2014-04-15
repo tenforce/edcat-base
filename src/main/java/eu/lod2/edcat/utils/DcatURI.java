@@ -17,6 +17,8 @@ public class DcatURI {
   public static final String CATALOG_OBJECT_PATH = "/catalogs/{catalogId}";
   public static final String DATASET_LIST_PATH = "/catalogs/{catalogId}/datasets";
   public static final String DATASET_OBJECT_PATH = "/catalogs/{catalogId}/datasets/{datasetId}";
+  public static final String DISTRIBUTION_LIST_PATH = "/catalogs/{catalogId}/datasets/{datesetId}/distributions";
+  public static final String DISTRIBUTION_OBJECT_PATH = "/catalogs/{catalogId}/datasets/{datesetId}/distributions/{distributionId}";
 
   /**
    * Constructs a catalog URI using the configured pattern
