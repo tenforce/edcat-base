@@ -66,8 +66,6 @@ public class ListController extends DatasetController {
     HookManager.callHook( PreListHandler.class, "handlePreList", new PreListContext( request ) );
     Catalog catalog = new Catalog( catalogId );
     Model m = modelFromQueryResult(fetchDatasets(catalog.getUri(), request));
-    if (m.size() == 0)
-      throw new NotFoundException();
     Object body = formatter.format( m );
     ResponseEntity<Object> response = new ResponseEntity<Object>( body, getHeaders(), HttpStatus.OK );
     HookManager.callHook( PostListHandler.class, "handlePostList", new PostListContext( response ) );
