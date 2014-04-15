@@ -64,7 +64,8 @@ public class ListController extends DatasetController {
    */
   public ResponseEntity<Object> list( HttpServletRequest request, ResponseFormatter formatter, String catalogId ) throws Throwable {
     HookManager.callHook( PreListHandler.class, "handlePreList", new PreListContext( request ) );
-    Catalog catalog = new Catalog( catalogId );
+    Catalog catalog = new Catalog(catalogId);
+    verifyCatalogExists(catalog);
     Model m = modelFromQueryResult(fetchDatasets(catalog.getUri(), request));
     Object body = formatter.format( m );
     ResponseEntity<Object> response = new ResponseEntity<Object>( body, getHeaders(), HttpStatus.OK );

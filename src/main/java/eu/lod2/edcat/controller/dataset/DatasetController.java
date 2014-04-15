@@ -1,10 +1,8 @@
 package eu.lod2.edcat.controller.dataset;
 
 import eu.lod2.edcat.controller.BaseController;
-import eu.lod2.edcat.utils.BlankNodeNuker;
-import eu.lod2.edcat.utils.DcatJsonParser;
-import eu.lod2.edcat.utils.DcatURI;
-import eu.lod2.edcat.utils.JsonLdContext;
+import eu.lod2.edcat.model.Catalog;
+import eu.lod2.edcat.utils.*;
 import eu.lod2.query.Sparql;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
@@ -56,6 +54,12 @@ public abstract class DatasetController extends BaseController {
   @SuppressWarnings({"UnusedDeclaration"})
   protected URI getDatasetIdFromRecord( Model record ) {
     return record.filter( null, Sparql.namespaced( "foaf", "primaryTopic" ), null ).objectURI();
+  }
+
+  protected void verifyCatalogExists(Catalog catalog) throws NotFoundException {
+    if (!catalog.exists()) {
+      throw new NotFoundException(catalog.getUri() + "does not exists");
+    }
   }
 
 }

@@ -31,6 +31,7 @@ public class CreateController extends DatasetController {
   @RequestMapping(value = LIST_ROUTE, method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
   public ResponseEntity<Object> create( HttpServletRequest request, @PathVariable String catalogId  ) throws Throwable {
     Catalog catalog = new Catalog( catalogId );
+    verifyCatalogExists(catalog);
     String datasetBaseId = getId();
     URI datasetUri = DcatURI.datasetURI(catalogId, datasetBaseId);
     HookManager.callHook( PreCreateHandler.class, "handlePreCreate", new PreContext( catalog, request, datasetUri ) );
