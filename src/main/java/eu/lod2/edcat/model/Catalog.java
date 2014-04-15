@@ -92,7 +92,8 @@ public class Catalog {
    * Verifies that a statement exists declaring our uri is a catalog
    */
   public boolean exists() {
-    return Db.hasStatement(getUri(),RDF.TYPE,Sparql.namespaced("dcat","Catalog"),getUri());
+    // does not use hasStatement because of https://github.com/openlink/virtuoso-opensource/issues/100
+    return Db.getStatements(getUri(),RDF.TYPE,Sparql.namespaced("dcat","Catalog"),false,getUri()).size() == 1;
   }
 
   /**

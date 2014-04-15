@@ -17,8 +17,8 @@ public class DcatURI {
   public static final String CATALOG_OBJECT_PATH = "/catalogs/{catalogId}";
   public static final String DATASET_LIST_PATH = "/catalogs/{catalogId}/datasets";
   public static final String DATASET_OBJECT_PATH = "/catalogs/{catalogId}/datasets/{datasetId}";
-  public static final String DISTRIBUTION_LIST_PATH = "/catalogs/{catalogId}/datasets/{datesetId}/distributions";
-  public static final String DISTRIBUTION_OBJECT_PATH = "/catalogs/{catalogId}/datasets/{datesetId}/distributions/{distributionId}";
+  public static final String DISTRIBUTION_LIST_PATH = "/catalogs/{catalogId}/datasets/{datasetId}/distributions";
+  public static final String DISTRIBUTION_OBJECT_PATH = "/catalogs/{catalogId}/datasets/{datasetId}/distributions/{distributionId}";
 
   /**
    * Constructs a catalog URI using the configured pattern
@@ -47,7 +47,7 @@ public class DcatURI {
   }
 
   /**
-   * Constructs a dataset URI using the configured pattern
+   * Constructs a record URI using the configured pattern
    * @param catalogId the unique identifier for the catalog to be used
    * @param id the unique identifier for the record to be used
    * @return the URI of the catalog record
@@ -57,6 +57,21 @@ public class DcatURI {
             catalogUri(catalogId).stringValue(),
             getProperties().get("recordPath").toString(),
             id
+    );
+    return new URIImpl(uri);
+  }
+
+  /**
+   * Constructs a distribution URI using the configured pattern
+   * @param datasetUri the uri of the dataset the distribution belongs to
+   * @param id the unique identifier for the distribution to be used
+   * @return the URI of the distribution
+   */
+  public static URI distributionURI(URI datasetUri, String id)  {
+    String uri = concatenateWithSlash(
+        datasetUri.stringValue(),
+        getProperties().get("distributionPath").toString(),
+        id
     );
     return new URIImpl(uri);
   }
