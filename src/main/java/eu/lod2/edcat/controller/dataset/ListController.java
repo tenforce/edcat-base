@@ -66,7 +66,7 @@ public class ListController extends DatasetController {
     HookManager.callHook( PreListHandler.class, "handlePreList", new PreListContext( request ) );
     Catalog catalog = new Catalog(catalogId);
     verifyCatalogExists(catalog);
-    Model m = modelFromQueryResult(fetchDatasets(catalog.getUri(), request));
+    Model m = fetchDatasets(catalog.getUri(), request);
     Object body = formatter.format( m );
     ResponseEntity<Object> response = new ResponseEntity<Object>( body, getHeaders(), HttpStatus.OK );
     HookManager.callHook( PostListHandler.class, "handlePostList", new PostListContext( response ) );
@@ -115,78 +115,72 @@ public class ListController extends DatasetController {
    *
    * @param catalog catalogURI for which we want to list the DataSets.
    * @param request Request for which the dataset should be fetched (used for parametrization)
-   * @return QueryResult containing the information we want to render out.
-   * @see #modelFromQueryResult(eu.lod2.edcat.utils.QueryResult)
+   * @return Model containing the information we want to render out.
    */
-  private QueryResult fetchDatasets( URI catalog, HttpServletRequest request ) {
+  private Model fetchDatasets( URI catalog, HttpServletRequest request ) {
     int pageSize = getPageSizeParameter( request );
     int pageNumber = getPageNumberParameter( request );
     int limit = pageSize;
     int offset = pageSize * pageNumber;
 
-    // todo: this query selects the english title.  if neither the english title, an english description or an english themeLabel exists, this will only return the title.  That behaviour makes the subjected dataset hidden in the json output.  hence a 'best' title should be returned.  It is not possible to return all titles as that would break the semantics of the optional/limit (as it's implemented right at this time).
-    return Db.query("" +
-            " @PREFIX " +
-            " SELECT DISTINCT ?dataset ?description ?title ?themeLabel " +
-            " WHERE {" +
-            "   GRAPH $catalog {" +
-            "     ?catalog dcat:dataset ?dataset." +
-            "   } OPTIONAL { " +
-            "     GRAPH ?dataset {" +
-            "       OPTIONAL { ?dataset dct:description ?description FILTER( lang( ?description ) = \"en\") }" +
-            "       OPTIONAL { ?dataset dct:title ?title FILTER( lang( ?title ) = \"en\" ) }" +
-            "       OPTIONAL { " +
-            "           ?dataset dcat:theme ?theme." +
-            "           ?theme skos:preflabel ?themeLabel FILTER( lang( ?themeLabel ) = \"en\" )" +
-            "       }" +
-            "     }" +
-            "   }" +
+    String datasetList = buildDatasetList(catalog, limit, offset);
+
+    if (datasetList.isEmpty())
+      return new LinkedHashModel();
+
+    return Db.construct(
+        " @PREFIX " +
+            "CONSTRUCT { " +
+            " ?dataset a dcat:Dataset. " +
+            " ?dataset dct:title ?title. " +
+            " ?dataset dct:description ?desc. " +
+            " ?dataset dcat:theme ?theme. " +
+            " ?theme skos:prefLabel ?themeLabel. " +
+            "}" +
+            "WHERE {" +
+            " VALUES ?dataset {$datasets}" +
+            " GRAPH ?dataset { " +
+            "   ?dataset dct:title ?title. " +
+            "   OPTIONAL {?dataset dct:description ?desc.} " +
+            "   OPTIONAL {" +
+            "     ?dataset dcat:theme ?theme. " +
+            "     ?theme skos:prefLabel ?themeLabel" +
+            "   } " +
             " }" +
-            (limit == 0 ? "" : " LIMIT $limit") +
-            (offset == 0 ? "" : " OFFSET $offset"),
-            "catalog", catalog,
-            "limit", limit,
-            "offset", offset);
+            "}",
+        "catalog", catalog,
+        "datasets", datasetList
+    );
   }
 
   /**
-   * Constructs a Model based on the results we want to display.
-   *
-   * @param queryResults The answers received from the RDF store.
-   * @return Model which can be converted to an output format for the end-user.
-   * @see #fetchDatasets(org.openrdf.model.URI, javax.servlet.http.HttpServletRequest)
+   * Builds a value list of datasets based on the page requested
+   * @param catalog
+   * @param limit
+   * @param offset
+   * @return
    */
-  private Model modelFromQueryResult( QueryResult queryResults ) {
-    Model statements = new LinkedHashModel();
+  private String buildDatasetList(URI catalog, int limit, int offset) {
+    QueryResult r = Db.query(
+        "@PREFIX " +
+            "SELECT DISTINCT ?dataset " +
+            "WHERE { " +
+            " GRAPH $catalog {" +
+            "   $catalog dcat:dataset ?dataset " +
+            " }" +
+            "}" +
+            (limit == 0 ? "" : " LIMIT $limit") +
+            (offset == 0 ? "" : " OFFSET $offset"),
+        "catalog", catalog,
+        "limit", limit,
+        "offset", offset
+    );
+    StringBuilder builder = new StringBuilder();
+    for (Map<String,String> map: r) {
+      if (map.containsKey("dataset"))
+        builder.append("<" + map.get("dataset") + ">");
 
-    for ( Map<String, String> result : queryResults ) {
-      URI dataset = new URIImpl( result.get( "dataset" ) );
-      if ( result.containsKey( "description" ) )
-        statements.add(
-            dataset,
-            Sparql.namespaced( "dct", "description" ),
-            new LiteralImpl( result.get( "description" ) ),
-          /* unused uri */ dataset );
-      if ( result.containsKey( "title" ) )
-        statements.add(
-            dataset,
-            Sparql.namespaced( "dct", "title" ),
-            new LiteralImpl( result.get( "title" ) ),
-          /* unused uri */ dataset );
-      if ( result.containsKey( "theme" ) ) {
-        statements.add(
-            dataset,
-            Sparql.namespaced( "dcat", "theme" ),
-            new URIImpl( result.get( "theme" ) ),
-          /* unused uri */ dataset );
-        statements.add(
-            dataset,
-            Sparql.namespaced( "skos", "prefLabel" ),
-            new LiteralImpl( result.get( "themeLabel" ) ),
-          /* unused uri */ dataset );
-      }
     }
-
-    return statements;
+    return builder.toString();
   }
 }
