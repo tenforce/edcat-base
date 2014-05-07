@@ -9,6 +9,8 @@ import org.openrdf.repository.Repository;
 import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryException;
 import org.openrdf.repository.RepositoryResult;
+import org.openrdf.repository.manager.RemoteRepositoryManager;
+import org.openrdf.repository.manager.RepositoryManager;
 import org.openrdf.repository.sail.SailRepository;
 import org.openrdf.sail.memory.MemoryStore;
 import org.slf4j.Logger;
@@ -53,24 +55,44 @@ public class SparqlEngine {
     Properties properties = new Properties();
     try {
       properties.load( SparqlEngine.class.getClassLoader().getResourceAsStream( "sparql.properties" ) );
-      String memoryStore = properties.getProperty( "memoryStore" );
-      if ( "1".equals( memoryStore ) ) {
-        this.repository = new SailRepository( new MemoryStore() );
-        this.repository.initialize();
-        this.connection = this.repository.getConnection();
-      } else {
-        String jDBCconnectionstring = properties.getProperty( "JDBCconnection" );
-        String jDBCuser = properties.getProperty( "JDBCuser" );
-        String jDBCpassword = properties.getProperty( "JDBCpassword" );
+      String storeType = properties.getProperty("storeType");
 
-        this.repository = new VirtuosoRepository( jDBCconnectionstring, jDBCuser, jDBCpassword );
-        this.repository.initialize();
-
-        this.connection = this.repository.getConnection();
+      switch (StoreType.valueOf(storeType)) {
+        case memory:
+          initMemoryStore();
+          break;
+        case virtuoso:
+          initVirtuosoStore(properties);
+          break;
+        case sesame_remote:
+          initRemoteSesameStore(properties);
+          break;
+        default:
+          throw new IllegalArgumentException("invalid store type specified in sparql.properties");
       }
+      this.repository.initialize();
+      this.connection = this.repository.getConnection();
     } catch ( Exception e ) {
       log.error( "Could not establish connection to repository, error message: {}", e );
+      throw new RuntimeException(e);
     }
+  }
+
+  private void initMemoryStore() throws Exception {
+    this.repository = new SailRepository( new MemoryStore() );
+  }
+
+  private void initRemoteSesameStore(Properties properties) throws Exception {
+    RepositoryManager repositoryManager =   new RemoteRepositoryManager(properties.getProperty("sesame_url"));
+    repositoryManager.initialize();
+    this.repository = repositoryManager.getRepository(properties.getProperty("sesame_repository"));
+  }
+
+  private void initVirtuosoStore(Properties properties) throws Exception {
+    String jDBCconnectionstring = properties.getProperty( "JDBCconnection" );
+    String jDBCuser = properties.getProperty( "JDBCuser" );
+    String jDBCpassword = properties.getProperty( "JDBCpassword" );
+    this.repository = new VirtuosoRepository( jDBCconnectionstring, jDBCuser, jDBCpassword );
   }
 
   public void addStatements( Model statements, Resource... contexts ) {
