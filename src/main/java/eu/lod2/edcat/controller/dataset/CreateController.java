@@ -35,7 +35,7 @@ public class CreateController extends DatasetController {
     String datasetBaseId = getId();
     URI datasetUri = DcatURI.datasetURI(catalogId, datasetBaseId);
     HookManager.callHook( PreCreateHandler.class, "handlePreCreate", new PreContext( catalog, request, datasetUri ) );
-    Model record = catalog.insertDataset( datasetBaseId );
+    Model record = catalog.createRecord(datasetBaseId);
     Model statements = buildModel( request, datasetUri );
     HookManager.callHook( AtCreateHandler.class, "handleAtCreate", new AtContext( catalog, statements, datasetUri ) );
     Db.add( statements, datasetUri );
