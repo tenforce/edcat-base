@@ -33,7 +33,7 @@ public class UpdateController extends DatasetController {
     Catalog catalog = new Catalog( catalogId );
     URI datasetUri = DcatURI.datasetURI(catalogId, getId());
     HookManager.callHook( PreUpdateHandler.class, "handlePreUpdate", new PreContext( catalog, request, datasetUri ) );
-    Model record = catalog.updateDataset( getId() );
+    Model record = catalog.updateRecord(getId());
     Model statements = buildModel( request, datasetUri );
     statements.addAll( record );
     HookManager.callHook( AtUpdateHandler.class, "handleAtUpdate", new AtContext( catalog, statements, datasetUri ) );
