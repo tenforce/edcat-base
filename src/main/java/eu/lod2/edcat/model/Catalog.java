@@ -177,7 +177,7 @@ public class Catalog {
    * @param datasetId UUID identifier of the Dataset.
    * @return Engine containing the statements which describe the Dataset.
    */
-  public Model updateDataset( String datasetId ) {
+  public Model updateRecord(String datasetId) {
     URI record = DcatURI.recordURI(getId(), datasetId);
     Db.update( Sparql.query( "" +
             " @PREFIX" +
@@ -200,12 +200,11 @@ public class Catalog {
   }
 
   /**
-   * Removes the Dataset with UUID {@code datasetId} from the Database.
+   * Removes the CatalogRecord for a Dataset with UUID {@code datasetId} from the Database.
    *
    * @param datasetId UUID identifier of the Dataset which we want to remove.
    */
-  // todo: shouldn't this remove the dataset and it's distributions as well?  the implementation does not fit the method name.
-  public void removeDataset( String datasetId ) {
+  public void deleteRecord(String datasetId) {
     Db.update( Sparql.query( "" +
             " @PREFIX" +
             " DELETE WHERE {" +
