@@ -143,12 +143,12 @@ public class Catalog {
   // --- PERSISTENCE
 
   /**
-   * Inserts the statements to identify a new Dataset for this Catalog into the graph.
+   * Inserts the statements to identify a new CatalogRecord for this Catalog into the graph.
    *
    * @param datasetId UUID identifier of the Dataset.
    * @return Model containing the statements which have been inserted into the Catalog graph.
    */
-  public Model insertDataset( String datasetId ) {
+  public Model createRecord(String datasetId) {
     Model statements = new LinkedHashModel();
     URI dataset = DcatURI.datasetURI(getId(), datasetId);
     URI record = DcatURI.recordURI(getId(), datasetId);
