@@ -20,7 +20,7 @@ public class DatasetFormatter extends CompactedObjectFormatter {
        return postProcess(super.format(statements));
   }
 
-  public static DatasetResponse postProcess(Map<String, Object> compactJson) {
+  public DatasetResponse postProcess(Map<String, Object> compactJson) {
     DatasetResponse response = new DatasetResponse();
     Map<String,Object> dataset = searchMapForUri(compactJson, Sparql.namespaced("dcat", "Dataset").stringValue());
     if (dataset != null && dataset.containsKey("uri")) {
@@ -39,8 +39,9 @@ public class DatasetFormatter extends CompactedObjectFormatter {
     return response;
   }
 
-  private static Map<String, Object> searchMapForUri(Map<String, Object> map, String uri) {
-    if (map.containsKey(RDF.TYPE.stringValue()) && map.get(RDF.TYPE.stringValue()).equals(uri))
+  private Map<String, Object> searchMapForUri(Map<String, Object> map, String uri) {
+    String typePred = context.getReverseKeywordMap().get(RDF.TYPE.stringValue());
+    if (map.containsKey(typePred) && map.get(typePred).equals(uri))
       return map;
     else  {
       for (Object o: map.values()) {
@@ -52,7 +53,7 @@ public class DatasetFormatter extends CompactedObjectFormatter {
     return null;
   }
 
-  private static Map<String, Object> deepSearch(Object o,String uri) {
+  private Map<String, Object> deepSearch(Object o,String uri) {
     if (o instanceof Map) {
       Map result = searchMapForUri((Map<String, Object>) o,uri);
       if (result!=null)
