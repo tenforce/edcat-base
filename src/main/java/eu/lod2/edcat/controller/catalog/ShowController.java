@@ -59,8 +59,9 @@ public class ShowController extends CatalogController {
         " SELECT ?s ?p ?o" +
         " FROM $catalog" +
         " WHERE {" +
-        "   $catalog !(dcat:dataset | dcat:record)* ?s." +
-        "   ?s ?p ?o." +
+        "   $catalog ?p ?o. " +
+        "   BIND($catalog as ?s)." +
+        "   FILTER ( ?p NOT IN (dcat:dataset, dcat:record)) " +
         " }",
         "catalog", catalog.getUri() );
 
