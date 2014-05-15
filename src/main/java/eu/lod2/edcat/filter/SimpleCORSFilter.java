@@ -24,7 +24,7 @@ public class SimpleCORSFilter implements Filter {
     response.setHeader("Access-Control-Allow-Origin", "*");
     response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
     response.setHeader("Access-Control-Max-Age", "86400");
-    response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
+    response.setHeader("Access-Control-Allow-Headers", "DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization");
     chain.doFilter(req, res);
   }
 
