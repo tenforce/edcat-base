@@ -105,26 +105,26 @@
       <artifactId>sesame-rio-turtle</artifactId>
       <version>${sesame.version}</version>
     </dependency>
-    <dependency>
-      <groupId>eu.lod2.edcat</groupId>
-      <artifactId>logging-plugin</artifactId>
-      <version>0.4.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>eu.lod2.edcat.plugins</groupId>
-      <artifactId>siren-search</artifactId>
-      <version>0.4.0-SNAPSHOT</version>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>eu.lod2.edcat</groupId>-->
+      <!--<artifactId>logging-plugin</artifactId>-->
+      <!--<version>0.4.0-SNAPSHOT</version>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+      <!--<groupId>eu.lod2.edcat.plugins</groupId>-->
+      <!--<artifactId>siren-search</artifactId>-->
+      <!--<version>0.4.0-SNAPSHOT</version>-->
+    <!--</dependency>-->
     <dependency>
       <groupId>eu.lod2.edcat</groupId>
       <artifactId>edcat-plugin-base</artifactId>
       <version>0.4.0-SNAPSHOT</version>
     </dependency>
-    <dependency>
-      <groupId>eu.lod2.edcat</groupId>
-      <artifactId>auth-plugin</artifactId>
-      <version>0.4.0-SNAPSHOT</version>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>eu.lod2.edcat</groupId>-->
+      <!--<artifactId>auth-plugin</artifactId>-->
+      <!--<version>0.4.0-SNAPSHOT</version>-->
+    <!--</dependency>-->
     <dependency>
       <groupId>eu.lod2.edcat</groupId>
       <artifactId>model-validation-plugin</artifactId>
