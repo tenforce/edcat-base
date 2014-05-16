@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import virtuoso.sesame2.driver.VirtuosoRepository;
 
+import java.io.FileInputStream;
 import java.util.*;
 
 /**
@@ -54,7 +55,7 @@ public class SparqlEngine {
   public void readConfiguration() {
     Properties properties = new Properties();
     try {
-      properties.load( SparqlEngine.class.getClassLoader().getResourceAsStream( "sparql.properties" ) );
+      properties.load( new FileInputStream(System.getProperty("ext.properties.dir") + "sparql.properties" ) );
       String storeType = properties.getProperty("storeType");
 
       switch (StoreType.valueOf(storeType)) {
