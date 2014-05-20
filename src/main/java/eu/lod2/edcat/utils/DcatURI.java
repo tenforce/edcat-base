@@ -81,6 +81,7 @@ public class DcatURI {
     if (properties == null){
       properties = new Properties();
       try {
+        if (System.getProperty("ext.properties.dir") == null) throw new IllegalStateException("System property 'ext.properties.dir' is not set.");
         InputStream file = new FileInputStream(System.getProperty("ext.properties.dir") + "uriPattern.properties");
         properties.load( file  );
         file.close();

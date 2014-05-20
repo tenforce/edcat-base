@@ -55,6 +55,7 @@ public class SparqlEngine {
   public void readConfiguration() {
     Properties properties = new Properties();
     try {
+      if (System.getProperty("ext.properties.dir") == null) throw new IllegalArgumentException("System property 'ext.properties.dir' is not set.");
       properties.load( new FileInputStream(System.getProperty("ext.properties.dir") + "sparql.properties" ) );
       String storeType = properties.getProperty("storeType");
 
