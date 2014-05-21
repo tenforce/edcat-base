@@ -4,7 +4,7 @@
 
   <groupId>eu.lod2.edcat</groupId>
   <version>0.4.0-SNAPSHOT</version>
-  <artifactId>e-dcat-api</artifactId>
+  <artifactId>edcat-api</artifactId>
   <packaging>war</packaging>
 
   <properties>
@@ -105,45 +105,10 @@
       <artifactId>sesame-rio-turtle</artifactId>
       <version>${sesame.version}</version>
     </dependency>
-    <!--<dependency>-->
-      <!--<groupId>eu.lod2.edcat</groupId>-->
-      <!--<artifactId>logging-plugin</artifactId>-->
-      <!--<version>0.4.0-SNAPSHOT</version>-->
-    <!--</dependency>-->
-    <!--<dependency>-->
-      <!--<groupId>eu.lod2.edcat.plugins</groupId>-->
-      <!--<artifactId>siren-search</artifactId>-->
-      <!--<version>0.4.0-SNAPSHOT</version>-->
-    <!--</dependency>-->
     <dependency>
       <groupId>eu.lod2.edcat</groupId>
       <artifactId>edcat-plugin-base</artifactId>
       <version>0.4.0-SNAPSHOT</version>
-    </dependency>
-    <!--<dependency>-->
-      <!--<groupId>eu.lod2.edcat</groupId>-->
-      <!--<artifactId>auth-plugin</artifactId>-->
-      <!--<version>0.4.0-SNAPSHOT</version>-->
-    <!--</dependency>-->
-    <dependency>
-      <groupId>eu.lod2.edcat</groupId>
-      <artifactId>model-validation-plugin</artifactId>
-      <version>0.4.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>eu.lod2.edcat</groupId>
-      <artifactId>distribution-accessibility-validation-plugin</artifactId>
-      <version>0.4.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>eu.lod2.edcat</groupId>
-      <artifactId>attached-triple-insertion-plugin</artifactId>
-      <version>0.1.0</version>
-    </dependency>
-    <dependency>
-      <groupId>eu.lod2.edcat</groupId>
-      <artifactId>data-storage-plugin</artifactId>
-      <version>0.1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.testng</groupId>
