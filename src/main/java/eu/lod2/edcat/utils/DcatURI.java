@@ -3,6 +3,7 @@ package eu.lod2.edcat.utils;
 import org.openrdf.model.URI;
 import org.openrdf.model.impl.URIImpl;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -82,7 +83,7 @@ public class DcatURI {
       properties = new Properties();
       try {
         if (System.getProperty("ext.properties.dir") == null) throw new IllegalStateException("System property 'ext.properties.dir' is not set.");
-        InputStream file = new FileInputStream(System.getProperty("ext.properties.dir") + "uriPattern.properties");
+        InputStream file = new FileInputStream(new File(System.getProperty("ext.properties.dir"), "uriPattern.properties"));
         properties.load( file  );
         file.close();
       } catch (IOException e) {
