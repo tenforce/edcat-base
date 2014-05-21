@@ -4,7 +4,7 @@ import com.github.jsonldjava.core.JsonLdError;
 import com.github.jsonldjava.core.JsonLdOptions;
 import com.github.jsonldjava.core.JsonLdProcessor;
 import com.github.jsonldjava.sesame.SesameTripleCallback;
-import com.github.jsonldjava.utils.JSONUtils;
+import com.github.jsonldjava.utils.JsonUtils;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
 import org.openrdf.model.impl.LinkedHashModel;
@@ -36,7 +36,7 @@ public class DcatJsonParser {
   }
 
   public static Map convertToJsonMap( InputStream inputStream ) throws IOException {
-    Object json = JSONUtils.fromInputStream( inputStream );
+    Object json = JsonUtils.fromInputStream(inputStream);
     if ( !(json instanceof Map) )
       throw new IllegalArgumentException( "could not convert json to object" );
 
