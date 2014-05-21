@@ -1,6 +1,6 @@
 package eu.lod2.edcat.utils;
 
-import com.github.jsonldjava.utils.JSONUtils;
+import com.github.jsonldjava.utils.JsonUtils;
 
 import java.net.URL;
 import java.util.LinkedHashMap;
@@ -163,7 +163,7 @@ public class JsonLdContext {
    */
   public Map<String, Object> getMarshaledJsonLdContext() {
     try {
-      Map<String, Object> json = ( Map<String, Object> ) JSONUtils.fromURL( contextLocation );
+      Map<String, Object> json = ( Map<String, Object> ) JsonUtils.fromURL( contextLocation );
       return ( Map<String, Object> ) json.get( "@context" );
     } catch ( Exception e ) {
       throw new IllegalStateException( "illegal context" );

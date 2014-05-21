@@ -4,7 +4,7 @@ import com.github.jsonldjava.core.JsonLdError;
 import com.github.jsonldjava.core.JsonLdOptions;
 import com.github.jsonldjava.core.JsonLdProcessor;
 import com.github.jsonldjava.sesame.SesameTripleCallback;
-import com.github.jsonldjava.utils.JSONUtils;
+import com.github.jsonldjava.utils.JsonUtils;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
 import org.openrdf.model.impl.LinkedHashModel;
@@ -45,10 +45,10 @@ public class JsonLD {
    *
    * @param content String-encoded json document.
    * @return JsonLD object containing the description in the parsed content.
-   * @throws IOException Thrown if the format couldn't be read by {@link com.github.jsonldjava.utils.JSONUtils#fromString(String)}
+   * @throws IOException Thrown if the format couldn't be read by {@link com.github.jsonldjava.utils.JsonUtils#fromString(String)}
    */
   public static JsonLD parse( String content ) throws IOException {
-    return new JsonLD( ( Map ) JSONUtils.fromString( content ) );
+    return new JsonLD( ( Map ) JsonUtils.fromString( content ) );
   }
 
   /**
@@ -56,10 +56,10 @@ public class JsonLD {
    *
    * @param in Stream containing the json document.
    * @return JsonLD object containing the description in the parsed content.
-   * @throws IOException Thrown if the format couldn't be read by {@link com.github.jsonldjava.utils.JSONUtils#fromInputStream(java.io.InputStream)}.
+   * @throws IOException Thrown if the format couldn't be read by {@link com.github.jsonldjava.utils.JsonUtils#fromInputStream(java.io.InputStream)}.
    */
   public static JsonLD parse( InputStream in ) throws IOException {
-    Object json = JSONUtils.fromInputStream( in );
+    Object json = JsonUtils.fromInputStream( in );
     if ( !(json instanceof Map) )
       throw new IllegalArgumentException( "could not convert json to object" );
 
