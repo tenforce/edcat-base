@@ -38,7 +38,7 @@ public class CreateController extends CatalogController {
     HookManager.callHook( AtCreateHandler.class, "handleAtCreate", new AtContext( catalog, statements ) );
     Db.add( statements );
     ResponseFormatter formatter = new CompactedObjectFormatter( jsonLdContext );
-    Object compactedJsonLD = formatter.format( statements );
+    Object compactedJsonLD = formatter.format( statements.filter(null,null,null,catalog.getUri()) );
     ResponseEntity<Object> response = new ResponseEntity<Object>( compactedJsonLD, getHeaders(), HttpStatus.OK );
     HookManager.callHook( PostCreateHandler.class, "handlePostCreate", new PostContext( catalog, response, statements ) );
     return response;
