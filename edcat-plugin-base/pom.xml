@@ -19,11 +19,11 @@
     <dependency>
       <groupId>virtuoso.sesame2</groupId>
       <artifactId>driver</artifactId>
-      <version>2.7.3-build1.12</version>
+      <version>2.6.10</version>
     </dependency>
     <dependency>
       <groupId>virtuoso</groupId>
-      <artifactId>jdbc-driver</artifactId>
+      <artifactId>jdbc</artifactId>
       <version>4.0</version>
     </dependency>
     <dependency>
@@ -113,9 +113,9 @@
       </snapshots>
     </repository>
     <repository>
-      <id>tenforce_archiva_external_free</id>
-      <name>tenforce_archiva_external_free</name>
-      <url>http://archiva.tenforce.com/archiva/repository/external_free/</url>
+      <id>linkeddata_stack</id>
+      <name>linkeddata_stack</name>
+      <url>http://mvn.linkeddata.org/content/groups/linkeddata.org/</url>
     </repository>
   </repositories>
   <build>
