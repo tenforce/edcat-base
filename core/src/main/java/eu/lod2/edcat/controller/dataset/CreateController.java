@@ -5,12 +5,12 @@ import eu.lod2.edcat.format.ResponseFormatter;
 import eu.lod2.edcat.model.Catalog;
 import eu.lod2.edcat.utils.DcatURI;
 import eu.lod2.edcat.utils.JsonLdContext;
-import eu.lod2.hooks.contexts.AtContext;
-import eu.lod2.hooks.contexts.PostContext;
-import eu.lod2.hooks.contexts.PreContext;
-import eu.lod2.hooks.handlers.dcat.AtCreateHandler;
-import eu.lod2.hooks.handlers.dcat.PostCreateHandler;
-import eu.lod2.hooks.handlers.dcat.PreCreateHandler;
+import eu.lod2.hooks.contexts.dataset.AtContext;
+import eu.lod2.hooks.contexts.dataset.PostContext;
+import eu.lod2.hooks.contexts.dataset.PreContext;
+import eu.lod2.hooks.handlers.dcat.dataset.AtCreateHandler;
+import eu.lod2.hooks.handlers.dcat.dataset.PostCreateHandler;
+import eu.lod2.hooks.handlers.dcat.dataset.PreCreateHandler;
 import eu.lod2.hooks.util.HookManager;
 import eu.lod2.query.Db;
 import org.openrdf.model.Model;
@@ -37,13 +37,13 @@ public class CreateController extends DatasetController {
     HookManager.callHook( PreCreateHandler.class, "handlePreCreate", new PreContext( catalog, request, datasetUri ) );
     Model record = catalog.createRecord(datasetBaseId);
     Model statements = buildModel( request, datasetUri );
-    HookManager.callHook( AtCreateHandler.class, "handleAtCreate", new AtContext( catalog, statements, datasetUri ) );
+    HookManager.callHook( AtCreateHandler.class, "handleAtCreate", new AtContext( catalog, request, statements, datasetUri ) );
     Db.add( statements, datasetUri );
     statements.addAll( record );
     ResponseFormatter formatter = new DatasetFormatter( new JsonLdContext( kind ) );
     Object compactedJsonLD = formatter.format( statements );
     ResponseEntity<Object> response = new ResponseEntity<Object>( compactedJsonLD, getHeaders(), HttpStatus.OK );
-    HookManager.callHook( PostCreateHandler.class, "handlePostCreate", new PostContext( catalog, response, datasetUri, statements ) );
+    HookManager.callHook( PostCreateHandler.class, "handlePostCreate", new PostContext( catalog, request, response, datasetUri, statements ) );
     return response;
   }
 }

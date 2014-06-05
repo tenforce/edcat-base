@@ -3,20 +3,16 @@ package eu.lod2.edcat.controller.dataset;
 import eu.lod2.edcat.format.*;
 import eu.lod2.edcat.model.Catalog;
 import eu.lod2.edcat.utils.JsonLdContext;
-import eu.lod2.edcat.utils.NotFoundException;
 import eu.lod2.edcat.utils.QueryResult;
-import eu.lod2.hooks.contexts.PostListContext;
-import eu.lod2.hooks.contexts.PreListContext;
-import eu.lod2.hooks.handlers.dcat.PostListHandler;
-import eu.lod2.hooks.handlers.dcat.PreListHandler;
+import eu.lod2.hooks.contexts.dataset.PostListContext;
+import eu.lod2.hooks.contexts.dataset.PreListContext;
+import eu.lod2.hooks.handlers.dcat.dataset.PostListHandler;
+import eu.lod2.hooks.handlers.dcat.dataset.PreListHandler;
 import eu.lod2.hooks.util.HookManager;
 import eu.lod2.query.Db;
-import eu.lod2.query.Sparql;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
 import org.openrdf.model.impl.LinkedHashModel;
-import org.openrdf.model.impl.LiteralImpl;
-import org.openrdf.model.impl.URIImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -69,7 +65,7 @@ public class ListController extends DatasetController {
     Model m = fetchDatasets(catalog.getUri(), request);
     Object body = formatter.format( m );
     ResponseEntity<Object> response = new ResponseEntity<Object>( body, getHeaders(), HttpStatus.OK );
-    HookManager.callHook( PostListHandler.class, "handlePostList", new PostListContext( response ) );
+    HookManager.callHook( PostListHandler.class, "handlePostList", new PostListContext( request, response ) );
     return response;
   }
 

@@ -1,14 +1,16 @@
-package eu.lod2.hooks.contexts;
+package eu.lod2.hooks.contexts.dataset;
 
 import eu.lod2.edcat.model.Catalog;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * The AtContext is used for:
  *
- * - {@link eu.lod2.hooks.handlers.dcat.AtCreateHandler}
- * - {@link eu.lod2.hooks.handlers.dcat.AtUpdateHandler}
+ * - {@link eu.lod2.hooks.handlers.dcat.dataset.AtCreateHandler}
+ * - {@link eu.lod2.hooks.handlers.dcat.dataset.AtUpdateHandler}
  *
  * and may be used by other hooks if they communicate similar information.
  */
@@ -18,10 +20,11 @@ public class AtContext extends Context {
   //--- CONSTRUCTORS
 
   /**
-   * Constructs a new PreContext with all fields set.
+   * Constructs a new AtContext with all variables set.
    */
-  public AtContext( Catalog catalog, Model statements, URI datasetUri ){
-    this.catalog = this.catalog;
+  public AtContext( Catalog catalog, HttpServletRequest request, Model statements, URI datasetUri ){
+    this.catalog = catalog;
+    this.request = request;
     this.statements = statements;
     this.datasetUri = datasetUri;
   }
@@ -38,6 +41,20 @@ public class AtContext extends Context {
    */
   public Catalog getCatalog() {
     return catalog;
+  }
+
+  /**
+   * Request as sent by the user.
+   * May be consulted to get request information.
+   */
+  private HttpServletRequest request;
+
+  /**
+   * Request as sent by the user.
+   * May be consulted to get request information.
+   */
+  public HttpServletRequest getRequest() {
+    return request;
   }
 
   /**

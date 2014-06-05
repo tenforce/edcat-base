@@ -1,4 +1,4 @@
-package eu.lod2.hooks.contexts;
+package eu.lod2.hooks.contexts.dataset;
 
 import eu.lod2.edcat.model.Catalog;
 import org.openrdf.model.URI;
@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * The PreContext is used for:
  * <p/>
- * - {@link eu.lod2.hooks.handlers.dcat.PreReadHandler} - {@link eu.lod2.hooks.handlers.dcat.PreCreateHandler}
- * - {@link eu.lod2.hooks.handlers.dcat.PreUpdateHandler} - {@link eu.lod2.hooks.handlers.dcat.PreDestroyHandler}
+ * - {@link eu.lod2.hooks.handlers.dcat.dataset.PreReadHandler} - {@link eu.lod2.hooks.handlers.dcat.dataset.PreCreateHandler}
+ * - {@link eu.lod2.hooks.handlers.dcat.dataset.PreUpdateHandler} - {@link eu.lod2.hooks.handlers.dcat.dataset.PreDestroyHandler}
  * <p/>
  * and may be used by other hooks if they communicate similar information.
  */

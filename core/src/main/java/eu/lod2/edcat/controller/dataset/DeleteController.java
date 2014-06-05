@@ -2,10 +2,10 @@ package eu.lod2.edcat.controller.dataset;
 
 import eu.lod2.edcat.model.Catalog;
 import eu.lod2.edcat.utils.DcatURI;
-import eu.lod2.hooks.contexts.PostContext;
-import eu.lod2.hooks.contexts.PreContext;
-import eu.lod2.hooks.handlers.dcat.PostDestroyHandler;
-import eu.lod2.hooks.handlers.dcat.PreDestroyHandler;
+import eu.lod2.hooks.contexts.dataset.PostContext;
+import eu.lod2.hooks.contexts.dataset.PreContext;
+import eu.lod2.hooks.handlers.dcat.dataset.PostDestroyHandler;
+import eu.lod2.hooks.handlers.dcat.dataset.PreDestroyHandler;
 import eu.lod2.hooks.util.HookManager;
 import eu.lod2.query.Db;
 import org.openrdf.model.URI;
@@ -30,7 +30,7 @@ public class DeleteController extends DatasetController {
     Db.clearGraph( datasetUri );
     catalog.deleteRecord(datasetId);
     ResponseEntity<Object> response = new ResponseEntity<Object>( new HashMap(), getHeaders(), HttpStatus.OK );
-    HookManager.callHook( PostDestroyHandler.class, "handlePostDestroy", new PostContext( catalog, response, datasetUri, null ) );
+    HookManager.callHook( PostDestroyHandler.class, "handlePostDestroy", new PostContext( catalog, request, response, datasetUri, null ) );
     return response;
   }
 }

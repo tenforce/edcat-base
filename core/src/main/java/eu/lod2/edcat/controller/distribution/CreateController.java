@@ -1,7 +1,6 @@
 package eu.lod2.edcat.controller.distribution;
 
 import eu.lod2.edcat.format.CompactedObjectFormatter;
-import eu.lod2.edcat.format.DatasetFormatter;
 import eu.lod2.edcat.format.ResponseFormatter;
 import eu.lod2.edcat.utils.DcatURI;
 import eu.lod2.edcat.utils.JsonLdContext;
@@ -16,7 +15,6 @@ import eu.lod2.query.Db;
 import eu.lod2.query.Sparql;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
-import org.openrdf.model.vocabulary.RDF;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,13 +38,13 @@ public class CreateController extends DistributionController {
     HookManager.callHook(PreCreateHandler.class, "handlePreCreate", new PreContext(request,datasetUri,distributionUri));
     Model statements = buildModel( request, distributionUri );
     statements.add(datasetUri, Sparql.namespaced("dcat","distribution"),distributionUri);
-    HookManager.callHook(AtCreateHandler.class, "handleAtCreate", new AtContext(datasetUri, distributionUri, statements));
+    HookManager.callHook(AtCreateHandler.class, "handleAtCreate", new AtContext(request, datasetUri, distributionUri, statements));
     Db.add(statements, datasetUri);
     ResponseFormatter formatter = new CompactedObjectFormatter( new JsonLdContext( kind ) );
     statements.remove(datasetUri,Sparql.namespaced("dcat","distribution"),distributionUri);
     Object compactedJsonLD = formatter.format( statements );
     ResponseEntity<Object> response = new ResponseEntity<Object>( compactedJsonLD, new HttpHeaders(), HttpStatus.OK );
-    HookManager.callHook( PostCreateHandler.class, "handlePostCreate", new PostContext( response, datasetUri, distributionUri, statements ) );
+    HookManager.callHook( PostCreateHandler.class, "handlePostCreate", new PostContext( request, response, datasetUri, distributionUri, statements ) );
     return response;
   }
 }

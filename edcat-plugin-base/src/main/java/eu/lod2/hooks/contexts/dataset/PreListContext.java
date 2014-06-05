@@ -1,17 +1,15 @@
-package eu.lod2.hooks.contexts;
+package eu.lod2.hooks.contexts.dataset;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * The PreListContext is used for {@link eu.lod2.hooks.handlers.dcat.PreListHandler} and may be
+ * The PreListContext is used for {@link eu.lod2.hooks.handlers.dcat.dataset.PreListHandler} and may be
  * used by other hooks which communicate similar information.
  */
 public class PreListContext extends Context {
 
   /**
    * Constructs a new PreListContext with all fields set.
-   *
-   * @param request contains all information about the user's request.
    */
   public PreListContext( HttpServletRequest request ) {
     this.request = request;

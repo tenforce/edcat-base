@@ -4,8 +4,10 @@ import eu.lod2.edcat.model.Catalog;
 import org.openrdf.model.Model;
 import org.springframework.http.ResponseEntity;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
- * The AtContext is used for:
+ * The PostContext is used for:
  *
  * - {@link eu.lod2.hooks.handlers.dcat.catalog.PostCreateHandler}
  * - {@link eu.lod2.hooks.handlers.dcat.catalog.PostReadHandler}
@@ -17,16 +19,12 @@ public class PostContext extends InstanceContext {
   /** Response which will be sent to the user. */
   private ResponseEntity<Object> response;
 
-  /** Statements which have been inserted in this request */
-  private Model statements;
-
   /**
-   * Simple constructor of the PostContext.
-   *
-   * @param catalog Catalog on which the request operates.
+   * Constructs a new PostContext with all variables set.
    */
-  public PostContext( Catalog catalog , ResponseEntity<Object> response , Model statements ){
+  public PostContext( Catalog catalog , HttpServletRequest request, ResponseEntity<Object> response , Model statements ){
     setCatalog( catalog );
+    setRequest( request );
     setResponse( response );
     setStatements( statements );
   }
@@ -41,30 +39,12 @@ public class PostContext extends InstanceContext {
   }
 
   /**
-   * Sets the statements which have been inserted in this request.
-   *
-   * @param statements Model containing the statements.
-   */
-  private void setStatements( Model statements ) {
-    this.statements = statements;
-  }
-
-  /**
    * Retrieves the response object which will be sent to the user.
    *
    * @return ResponseEntity which is to be sent to the user.
    */
   private ResponseEntity<Object> getResponse(){
     return response;
-  }
-
-  /**
-   * Retrieves the statements which have been inserted into the database for this request.
-   *
-   * @return Statements which have been inserted.
-   */
-  private Model getStatements(){
-    return statements;
   }
 
 }

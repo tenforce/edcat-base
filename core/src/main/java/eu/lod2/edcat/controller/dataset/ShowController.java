@@ -8,10 +8,10 @@ import eu.lod2.edcat.format.XMLRDFFormatter;
 import eu.lod2.edcat.model.Catalog;
 import eu.lod2.edcat.utils.DcatURI;
 import eu.lod2.edcat.utils.JsonLdContext;
-import eu.lod2.hooks.contexts.PostContext;
-import eu.lod2.hooks.contexts.PreContext;
-import eu.lod2.hooks.handlers.dcat.PostReadHandler;
-import eu.lod2.hooks.handlers.dcat.PreReadHandler;
+import eu.lod2.hooks.contexts.dataset.PostContext;
+import eu.lod2.hooks.contexts.dataset.PreContext;
+import eu.lod2.hooks.handlers.dcat.dataset.PostReadHandler;
+import eu.lod2.hooks.handlers.dcat.dataset.PreReadHandler;
 import eu.lod2.hooks.util.HookManager;
 import eu.lod2.query.Db;
 import org.openrdf.model.Model;
@@ -66,7 +66,7 @@ public class ShowController extends DatasetController {
     Model statements = Db.getStatements( datasetUri );
     Object body = formatter.format( statements );
     ResponseEntity<Object> response = new ResponseEntity<Object>( body, getHeaders(), HttpStatus.OK );
-    HookManager.callHook( PostReadHandler.class, "handlePostRead", new PostContext( catalog, response, datasetUri, statements ) );
+    HookManager.callHook( PostReadHandler.class, "handlePostRead", new PostContext( catalog, request, response, datasetUri, statements ) );
     return response;
   }
 }

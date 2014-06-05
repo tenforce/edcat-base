@@ -24,7 +24,7 @@ public interface PreReadHandler extends HookHandler {
    *
    * @param context Contains all information the consumer provides for this provider.
    * @throws ActionAbortException Throwing this exception will abort the READ action.
-   * @see eu.lod2.hooks.contexts.PreContext
+   * @see eu.lod2.hooks.contexts.catalog.PreContext
    */
   public void handlePreRead(PreContext context) throws ActionAbortException;
 }

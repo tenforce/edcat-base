@@ -1,11 +1,11 @@
-package eu.lod2.hooks.contexts.catalog;
+package eu.lod2.hooks.contexts.distribution;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
  * The PreListContext is used for:
  * <p/>
- * - {@link eu.lod2.hooks.handlers.dcat.catalog.PreListHandler}
+ * - {@link eu.lod2.hooks.handlers.dcat.distribution.PreListHandler}
  * <p/>
  * and may be used by other hooks if they communicate similar information.
  */
@@ -14,7 +14,7 @@ public class PreListContext extends Context {
   /**
    * Simple constructor for the PreListContext.
    */
-  public PreListContext( HttpServletRequest request ) {
+  public PreListContext(HttpServletRequest request) {
     setRequest( request );
   }
 

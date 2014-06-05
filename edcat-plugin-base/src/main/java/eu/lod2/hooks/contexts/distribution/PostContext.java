@@ -1,10 +1,10 @@
 package eu.lod2.hooks.contexts.distribution;
 
-import eu.lod2.edcat.model.Catalog;
-import eu.lod2.hooks.contexts.Context;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
 import org.springframework.http.ResponseEntity;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * The PostContext is used for:
@@ -17,6 +17,7 @@ public class PostContext extends Context {
   private URI distributionUri;
   private URI datasetUri;
   private Model dataset;
+  private HttpServletRequest request;
   private ResponseEntity<Object> response;
 
 
@@ -25,7 +26,8 @@ public class PostContext extends Context {
   /**
    * Constructs a new PostContext with all variables set.
    */
-  public PostContext(ResponseEntity<Object> response, URI datasetUri, URI distributionUri, Model statements){
+  public PostContext(HttpServletRequest request, ResponseEntity<Object> response, URI datasetUri, URI distributionUri, Model statements){
+    this.request = request;
     this.response = response;
     this.datasetUri = datasetUri;
     this.dataset = statements;
@@ -33,6 +35,14 @@ public class PostContext extends Context {
   }
 
   //--- GETTERS AND SETTERS
+
+  /**
+   * Request as sent by the user.
+   * May be consulted to get request information.
+   */
+  public HttpServletRequest getRequest() {
+    return request;
+  }
 
   /**
    * Response as sent to the User.

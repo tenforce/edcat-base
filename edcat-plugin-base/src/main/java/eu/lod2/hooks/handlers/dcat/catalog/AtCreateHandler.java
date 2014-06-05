@@ -6,7 +6,7 @@ import eu.lod2.hooks.handlers.dcat.ActionAbortException;
 import org.springframework.stereotype.Service;
 
 /**
- * Implement if you are a provider for the AfterCreateHook for Catalogs.
+ * Implement if you are a provider for the AtCreateHook for Catalogs.
  * <p/>
  * Implementing this interface requires the hook to exist.  If you don't want to depend
  * on the hook being loaded, check out {@link eu.lod2.hooks.handlers.OptionalHookHandler}.

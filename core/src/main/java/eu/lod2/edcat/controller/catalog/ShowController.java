@@ -43,7 +43,7 @@ public class ShowController extends CatalogController {
     ResponseFormatter formatter = new CompactedObjectFormatter( new JsonLdContext( JsonLdContext.Kind.Catalog ) );
     Object body = formatter.format( statements );
     ResponseEntity<Object> response = new ResponseEntity<Object>( body, getHeaders(), HttpStatus.OK );
-    HookManager.callHook( PostReadHandler.class, "handlePostRead", new PostContext( catalog, response, statements ) );
+    HookManager.callHook( PostReadHandler.class, "handlePostRead", new PostContext( catalog, request, response, statements ) );
     return response;
   }
 

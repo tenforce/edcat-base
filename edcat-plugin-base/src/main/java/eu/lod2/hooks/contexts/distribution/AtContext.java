@@ -1,10 +1,9 @@
 package eu.lod2.hooks.contexts.distribution;
 
-import eu.lod2.edcat.model.Catalog;
-import eu.lod2.hooks.contexts.Context;
-import eu.lod2.hooks.contexts.catalog.InstanceContext;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * The AtContext is used for:
@@ -19,17 +18,33 @@ public class AtContext extends Context {
   private Model statements;
   private URI datasetURI;
   private URI distributionUri;
+  private HttpServletRequest request;
 
   /**
    * Simple constructor of the AtContext.
-   *
-   * @param dataset dataset on which the request operates.
-   * @param statements statements about the distribution
    */
-  public AtContext(URI dataset, URI distributionUri, Model statements) {
+  public AtContext(HttpServletRequest request, URI dataset, URI distributionUri, Model statements) {
+    setRequest(request);
     setDatasetURI(dataset);
-    setStatements( statements );
+    setStatements(statements);
     setDistributionUri(distributionUri);
+  }
+
+  /**
+   * Request as sent by the user.
+   * May be consulted to get request information.
+   */
+  public HttpServletRequest getRequest() {
+    return request;
+  }
+
+  /**
+   * Sets the request as sent by the user in this context.
+   *
+   * @param request Request as sent by the user.
+   */
+  protected void setRequest( HttpServletRequest request){
+    this.request = request;
   }
 
   /**

@@ -1,6 +1,6 @@
-package eu.lod2.hooks.handlers.dcat;
+package eu.lod2.hooks.handlers.dcat.dataset;
 
-import eu.lod2.hooks.contexts.PostListContext;
+import eu.lod2.hooks.contexts.dataset.PostListContext;
 
 /**
  * Implement if you are a provider for the PostListHook for DataSets.
@@ -8,7 +8,7 @@ import eu.lod2.hooks.contexts.PostListContext;
  * Implementing this interface requires the hook to exist.  If you don't want to depend
  * on the hook being loaded, check out {@link eu.lod2.hooks.handlers.OptionalHookHandler}.
  * The supplied {@code args} are the same as the ones specified in this interface.
- * The name for this hook is {@code "eu.lod2.hooks.handlers.dcat.PostListHandler"}.
+ * The name for this hook is {@code "eu.lod2.hooks.handlers.dcat.dataset.PostListHandler"}.
  */
 public interface PostListHandler {
 
@@ -20,7 +20,7 @@ public interface PostListHandler {
    * you to alter the response. You are *not* allowed to abort the action at this stage.
    *
    * @param context Contains all information the consumer provides for this provider.
-   * @see eu.lod2.hooks.contexts.PostListContext
+   * @see eu.lod2.hooks.contexts.dataset.PostListContext
    */
   @SuppressWarnings( "UnusedDeclaration" )
   public void handlePostList( PostListContext context );

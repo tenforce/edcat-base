@@ -2,10 +2,10 @@ package eu.lod2.edcat.controller.distribution;
 
 import eu.lod2.edcat.format.*;
 import eu.lod2.edcat.utils.DcatURI;
-import eu.lod2.hooks.contexts.catalog.PostListContext;
-import eu.lod2.hooks.contexts.catalog.PreListContext;
-import eu.lod2.hooks.handlers.dcat.catalog.PostListHandler;
-import eu.lod2.hooks.handlers.dcat.catalog.PreListHandler;
+import eu.lod2.hooks.contexts.distribution.PostListContext;
+import eu.lod2.hooks.contexts.distribution.PreListContext;
+import eu.lod2.hooks.handlers.dcat.distribution.PostListHandler;
+import eu.lod2.hooks.handlers.dcat.distribution.PreListHandler;
 import eu.lod2.hooks.util.HookManager;
 import eu.lod2.query.Db;
 import org.openrdf.model.Model;
@@ -64,7 +64,7 @@ public class ListController extends DistributionController {
     Model model = getDistributions(catalogUri, datasetUri);
     Object body = formatter.format(model);
     ResponseEntity<Object> response = new ResponseEntity<Object>(body, new HttpHeaders(), HttpStatus.OK);
-    HookManager.callHook(PostListHandler.class, "handlePostList", new PostListContext(response, model));
+    HookManager.callHook(PostListHandler.class, "handlePostList", new PostListContext(request, response, model));
     return response;
   }
 

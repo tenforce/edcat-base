@@ -55,7 +55,7 @@ public class ListController extends CatalogController {
     Model model = fetchCatalogInfo( request );
     Object body = formatter.format( model );
     ResponseEntity<Object> response = new ResponseEntity<Object>( body, getHeaders(), HttpStatus.OK );
-    HookManager.callHook( PostListHandler.class, "handlePostList", new PostListContext( response , model ) );
+    HookManager.callHook( PostListHandler.class, "handlePostList", new PostListContext( request, response , model ) );
     return response;
   }
 

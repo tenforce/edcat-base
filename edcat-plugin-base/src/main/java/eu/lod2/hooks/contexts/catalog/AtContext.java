@@ -3,6 +3,8 @@ package eu.lod2.hooks.contexts.catalog;
 import eu.lod2.edcat.model.Catalog;
 import org.openrdf.model.Model;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * The AtContext is used for:
  * <p/>
@@ -12,35 +14,13 @@ import org.openrdf.model.Model;
  */
 public class AtContext extends InstanceContext {
 
-  /** Contains the model which defines the new triples created in this AtContext. */
-  private Model statements;
-
   /**
-   * Simple constructor of the AtContext.
-   *
-   * @param catalog Catalog on which the request operates.
+   * Constructs a new AtContext with all variables set.
    */
-  public AtContext( Catalog catalog, Model statements ) {
+  public AtContext( Catalog catalog, HttpServletRequest request, Model statements ) {
     setCatalog( catalog );
+    setRequest( request );
     setStatements( statements );
-  }
-
-  /**
-   * Sets the statements of the model.
-   *
-   * @param statements The statements available in this AtContext.
-   */
-  protected void setStatements( Model statements ) {
-    this.statements = statements;
-  }
-
-  /**
-   * Retrieves the statements which will be created in this action.
-   *
-   * @return Model of this AtContext.
-   */
-  public Model getStatements() {
-    return statements;
   }
 
 }

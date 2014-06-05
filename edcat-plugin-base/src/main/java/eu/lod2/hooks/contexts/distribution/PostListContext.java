@@ -1,5 +1,6 @@
-package eu.lod2.hooks.contexts.catalog;
+package eu.lod2.hooks.contexts.distribution;
 
+import eu.lod2.hooks.contexts.catalog.Context;
 import org.openrdf.model.Model;
 import org.springframework.http.ResponseEntity;
 
@@ -8,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * The PostListContext is used for:
  *
- * - {@link eu.lod2.hooks.handlers.dcat.catalog.PostListHandler}
+ * - {@link eu.lod2.hooks.handlers.dcat.distribution.PostListHandler}
  *
  * and may be used by other hooks if they communicate similar information.
  */

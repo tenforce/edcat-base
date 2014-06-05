@@ -1,7 +1,5 @@
 package eu.lod2.hooks.contexts.distribution;
 
-import eu.lod2.edcat.model.Catalog;
-import eu.lod2.hooks.contexts.Context;
 import org.openrdf.model.URI;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +21,7 @@ public class PreContext extends Context {
   //--- CONSTRUCTORS
 
   /**
-   * Constructs a new PreContext with all fields set.
+   * Constructs a new PreContext with all variables set.
    */
   public PreContext(HttpServletRequest request, URI datasetUri, URI distributionUri) {
     this.request = request;
