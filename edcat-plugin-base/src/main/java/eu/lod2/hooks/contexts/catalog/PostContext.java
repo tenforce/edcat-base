@@ -43,7 +43,7 @@ public class PostContext extends InstanceContext {
    *
    * @return ResponseEntity which is to be sent to the user.
    */
-  private ResponseEntity<Object> getResponse(){
+  public ResponseEntity<Object> getResponse(){
     return response;
   }
 
