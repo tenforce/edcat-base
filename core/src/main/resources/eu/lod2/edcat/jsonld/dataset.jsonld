@@ -158,7 +158,10 @@
       "@type": "@id"
     },
     "type": "@type",
-    "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+    "type": {
+        "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "@type": "@id"
+        },
     "self": "@id",
     "uri": "@id"
   },

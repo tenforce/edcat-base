@@ -41,7 +41,7 @@ public class DatasetFormatter extends CompactedObjectFormatter {
 
   private Map<String, Object> searchMapForUri(Map<String, Object> map, String uri) {
     String typePred = context.getReverseKeywordMap().get(RDF.TYPE.stringValue());
-    if (map.containsKey(typePred) && map.get(typePred).equals(uri))
+    if (map.containsKey(typePred) && (isOrIsInList(uri, map.get(typePred))))
       return map;
     else  {
       for (Object o: map.values()) {
@@ -65,5 +65,16 @@ public class DatasetFormatter extends CompactedObjectFormatter {
       }
     }
     return null;
+  }
+
+  private boolean isOrIsInList(String uri, Object container){
+    if( container instanceof List ) {
+      for (Object item : (List) container)
+        if (uri.equals(item)) return true;
+      return false;
+    }
+    else {
+      return uri.equals( container );
+    }
   }
 }
