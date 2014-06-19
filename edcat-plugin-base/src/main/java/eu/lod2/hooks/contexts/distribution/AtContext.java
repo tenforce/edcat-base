@@ -1,5 +1,6 @@
 package eu.lod2.hooks.contexts.distribution;
 
+import eu.lod2.hooks.contexts.base.AtContextBase;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
 
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
  * <p/>
  * and may be used by other hooks if they communicate similar information.
  */
-public class AtContext extends Context {
+public class AtContext implements AtContextBase {
 
   /** Contains the model which defines the new triples created in this AtContext. */
   private Model statements;

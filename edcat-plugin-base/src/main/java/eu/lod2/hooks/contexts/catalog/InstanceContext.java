@@ -1,6 +1,7 @@
 package eu.lod2.hooks.contexts.catalog;
 
 import eu.lod2.edcat.model.Catalog;
+import eu.lod2.hooks.contexts.base.ContextBase;
 import org.openrdf.model.Model;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Context which operates on a single Catalog instance.
  */
-public abstract class InstanceContext extends Context {
+public abstract class InstanceContext implements ContextBase {
 
   /** Catalog on which the request operated */
   private Catalog catalog;

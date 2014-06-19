@@ -1,12 +1,13 @@
 package eu.lod2.hooks.contexts;
 
+import eu.lod2.hooks.contexts.base.ContextBase;
 import org.openrdf.model.URI;
 
 /**
  * This context contains the information available to a plugin which hooks into the creation of an
  * individual catalog.
  */
-public class CatalogInstallationContext extends Context {
+public class CatalogInstallationContext implements ContextBase {
 
   // --- CONSTRUCTORS
 

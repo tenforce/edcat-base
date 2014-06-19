@@ -1,5 +1,6 @@
 package eu.lod2.hooks.contexts.distribution;
 
+import eu.lod2.hooks.contexts.base.PreContextBase;
 import org.openrdf.model.URI;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
  * and may be used by other hooks if they communicate similar information.
  */
 @SuppressWarnings("UnusedDeclaration")
-public class PreContext extends Context {
+public class PreContext implements PreContextBase {
   private URI datasetUri;
   private URI distributionUri;
   private HttpServletRequest request;

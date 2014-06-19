@@ -1,6 +1,7 @@
 package eu.lod2.hooks.contexts.catalog;
 
 import eu.lod2.edcat.model.Catalog;
+import eu.lod2.hooks.contexts.base.AtContextBase;
 import org.openrdf.model.Model;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
  * <p/>
  * and may be used by other hooks if they communicate similar information.
  */
-public class AtContext extends InstanceContext {
+public class AtContext extends InstanceContext implements AtContextBase {
 
   /**
    * Constructs a new AtContext with all variables set.

@@ -1,6 +1,7 @@
 package eu.lod2.hooks.contexts.catalog;
 
 import eu.lod2.edcat.model.Catalog;
+import eu.lod2.hooks.contexts.base.PostContextBase;
 import org.openrdf.model.Model;
 import org.springframework.http.ResponseEntity;
 
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  * and may be used by other hooks if they communicate similar information.
  */
-public class PostContext extends InstanceContext {
+public class PostContext extends InstanceContext implements PostContextBase {
 
   /** Response which will be sent to the user. */
   private ResponseEntity<Object> response;

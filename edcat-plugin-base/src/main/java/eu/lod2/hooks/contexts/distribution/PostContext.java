@@ -1,5 +1,6 @@
 package eu.lod2.hooks.contexts.distribution;
 
+import eu.lod2.hooks.contexts.base.PostContextBase;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +14,10 @@ import javax.servlet.http.HttpServletRequest;
  * and may be used by other hooks if they communicate similar information.
  */
 @SuppressWarnings( "UnusedDeclaration" )
-public class PostContext extends Context {
+public class PostContext implements PostContextBase {
   private URI distributionUri;
   private URI datasetUri;
-  private Model dataset;
+  private Model statements;
   private HttpServletRequest request;
   private ResponseEntity<Object> response;
 
@@ -30,7 +31,7 @@ public class PostContext extends Context {
     this.request = request;
     this.response = response;
     this.datasetUri = datasetUri;
-    this.dataset = statements;
+    this.statements = statements;
     this.distributionUri = distributionUri;
   }
 
@@ -59,11 +60,11 @@ public class PostContext extends Context {
     return datasetUri;
   }
 
-  /**
-   * Returns the dataset statements
+   /**
+   * Retrieves the statements which will be created in this action.
    */
-   public Model getDataset() {
-     return dataset;
+   public Model getStatements() {
+     return statements;
    }
 
   /**

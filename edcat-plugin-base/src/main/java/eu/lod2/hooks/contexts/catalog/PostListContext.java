@@ -1,5 +1,6 @@
 package eu.lod2.hooks.contexts.catalog;
 
+import eu.lod2.hooks.contexts.base.PostListContextBase;
 import org.openrdf.model.Model;
 import org.springframework.http.ResponseEntity;
 
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  * and may be used by other hooks if they communicate similar information.
  */
-public class PostListContext extends Context {
+public class PostListContext implements PostListContextBase {
 
   /**
    * Simple constructor for the PostListContext.

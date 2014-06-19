@@ -1,5 +1,7 @@
 package eu.lod2.hooks.contexts.distribution;
 
+import eu.lod2.hooks.contexts.base.PreListContextBase;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -9,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
  * <p/>
  * and may be used by other hooks if they communicate similar information.
  */
-public class PreListContext extends Context {
+public class PreListContext implements PreListContextBase {
 
   /**
    * Simple constructor for the PreListContext.

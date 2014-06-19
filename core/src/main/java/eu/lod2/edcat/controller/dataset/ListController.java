@@ -65,7 +65,7 @@ public class ListController extends DatasetController {
     Model m = fetchDatasets(catalog.getUri(), request);
     Object body = formatter.format( m );
     ResponseEntity<Object> response = new ResponseEntity<Object>( body, getHeaders(), HttpStatus.OK );
-    HookManager.callHook( PostListHandler.class, "handlePostList", new PostListContext( request, response ) );
+    HookManager.callHook( PostListHandler.class, "handlePostList", new PostListContext( request, response, m ) );
     return response;
   }
 

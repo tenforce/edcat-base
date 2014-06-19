@@ -1,6 +1,7 @@
 package eu.lod2.hooks.contexts.dataset;
 
 import eu.lod2.edcat.model.Catalog;
+import eu.lod2.hooks.contexts.base.AtContextBase;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
 
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
  * and may be used by other hooks if they communicate similar information.
  */
 @SuppressWarnings( "UnusedDeclaration" )
-public class AtContext extends Context {
+public class AtContext implements AtContextBase {
 
   //--- CONSTRUCTORS
 

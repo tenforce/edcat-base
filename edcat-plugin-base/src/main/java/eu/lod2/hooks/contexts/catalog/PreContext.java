@@ -1,6 +1,7 @@
 package eu.lod2.hooks.contexts.catalog;
 
 
+import eu.lod2.hooks.contexts.base.PreContextBase;
 import org.openrdf.model.URI;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  * and may be used by other hooks if they communicate similar information.
  */
-public class PreContext extends Context {
+public class PreContext implements PreContextBase {
 
   /**
    * Constructs a new PreContext with all variables set.

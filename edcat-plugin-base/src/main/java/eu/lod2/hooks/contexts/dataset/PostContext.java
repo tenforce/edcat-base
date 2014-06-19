@@ -1,6 +1,7 @@
 package eu.lod2.hooks.contexts.dataset;
 
 import eu.lod2.edcat.model.Catalog;
+import eu.lod2.hooks.contexts.base.PostContextBase;
 import org.openrdf.model.Model;
 import org.openrdf.model.URI;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  * and may be used by other hooks if they communicate similar information.
  */
 @SuppressWarnings( "UnusedDeclaration" )
-public class PostContext extends Context {
+public class PostContext implements PostContextBase {
 
   //--- CONSTRUCTORS
 
@@ -30,7 +31,7 @@ public class PostContext extends Context {
     this.request = request;
     this.response = response;
     this.datasetUri = datasetUri;
-    this.dataset = statements;
+    this.statements = statements;
   }
 
   //--- GETTERS AND SETTERS
@@ -91,12 +92,12 @@ public class PostContext extends Context {
   /**
    * dataset statements
    */
-  Model dataset;
+  Model statements;
 
   /**
-   * Returns the dataset statements
+   * Returns the statements which will be created in this action.
    */
-   public Model getDataset() {
-     return dataset;
+   public Model getStatements() {
+     return statements;
    }
 }
