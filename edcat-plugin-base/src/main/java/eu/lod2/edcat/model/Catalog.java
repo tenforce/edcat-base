@@ -205,16 +205,48 @@ public class Catalog {
    * @param datasetId UUID identifier of the Dataset which we want to remove.
    */
   public void deleteRecord(String datasetId) {
+//    Db.update( Sparql.query( "" +
+//            " @PREFIX" +
+//            " DELETE WHERE {" +
+//            "   GRAPH $catalog {" +
+//            "     $record ?p ?o." +
+//            "     OPTIONAL { ?o ?op ?oo. }" +
+//            "   }" +
+//            " }",
+//            "catalog", getUri(),
+//            "record", DcatURI.recordURI(getId(), datasetId)));
+
+    // Execute multiple SPARQL DELETES because OWLIM doesn't support OPTIONAL/UNION in DELETE WHERE clause
     Db.update( Sparql.query( "" +
-            " @PREFIX" +
-            " DELETE WHERE {" +
-            "   GRAPH $catalog {" +
-            "     $record ?p ?o." +
-            "     OPTIONAL { ?o ?op ?oo. }" +
-            "   }" +
-            " }",
-            "catalog", getUri(),
-            "record", DcatURI.recordURI(getId(), datasetId)));
+        " @PREFIX" +
+        " DELETE WHERE {" +
+        "   GRAPH $catalog {" +
+        "     $record ?p ?o." +
+        "     ?o ?op ?oo." +
+        "   }" +
+        " }",
+        "catalog", getUri(),
+        "record", DcatURI.recordURI(getId(), datasetId)));
+    Db.update( Sparql.query( "" +
+        " @PREFIX" +
+        " DELETE WHERE {" +
+        "   GRAPH $catalog {" +
+        "     $record ?p ?o." +
+        "   }" +
+        " }",
+        "catalog", getUri(),
+        "record", DcatURI.recordURI(getId(), datasetId)));
+    Db.update( Sparql.query( "" +
+        " @PREFIX" +
+        " DELETE WHERE {" +
+        "   GRAPH $catalog {" +
+        "     $catalog $p1 $record ." +
+        "     $catalog $p2 $dataset ." +
+        "   }" +
+        " }",
+        "catalog", getUri(),
+        "record", DcatURI.recordURI(getId(), datasetId),
+        "dataset", DcatURI.datasetURI(getId(), datasetId)));
   }
 
 
