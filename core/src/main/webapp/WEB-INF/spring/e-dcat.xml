@@ -8,6 +8,7 @@
   http://www.springframework.org/schema/context    http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
   <context:component-scan base-package="eu.lod2"/>
+  <context:component-scan base-package="eu.esco"/>
   <mvc:annotation-driven>
   </mvc:annotation-driven>
   <bean id="handlers" class="org.springframework.beans.factory.serviceloader.ServiceListFactoryBean">

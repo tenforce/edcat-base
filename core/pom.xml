@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>eu.lod2.edcat</groupId>
-  <version>0.4.0-SNAPSHOT</version>
+  <version>0.4.0</version>
   <artifactId>edcat-api</artifactId>
   <packaging>war</packaging>
 
@@ -108,7 +108,7 @@
     <dependency>
       <groupId>eu.lod2.edcat</groupId>
       <artifactId>edcat-plugin-base</artifactId>
-      <version>0.4.0-SNAPSHOT</version>
+      <version>0.4.0</version>
     </dependency>
     <dependency>
       <groupId>org.testng</groupId>
